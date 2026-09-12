@@ -3,7 +3,7 @@
 {% block content %}
 <section class="page-title"><p class="eyebrow">OFFICIAL SOURCES</p><h1>東北5県 公式ソース</h1><p>宮城県以外の5県について、県公式の住宅宿泊事業資料を管理します。誤登録を避けるため、資料構造を安全に判定できる県だけ自動取込します。</p></section>
 <section class="panel">
-  <div class="notice" style="margin-bottom:16px"><strong>現在の自動取込</strong>：山形県と福島県。青森県・岩手県・秋田県は公式資料への導線を先に整備し、専用解析を追加してから自動取込を有効化します。</div>
+  <div class="notice" style="margin-bottom:16px"><strong>現在の自動取込</strong>：青森県・秋田県・山形県・福島県。岩手県は公開資料が集計中心のため、候補の誤登録を避けて公式確認のみとしています。</div>
   <div class="table-wrap"><table>
     <thead><tr><th>県</th><th>公式資料</th><th>形式</th><th>方針</th><th>操作</th></tr></thead>
     <tbody>{% for key, source in sources.items() %}<tr>
