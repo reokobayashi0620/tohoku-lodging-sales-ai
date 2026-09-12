@@ -72,44 +72,72 @@ def test_healthcheck(client):
     assert response.json == {"status": "ok"}
 
 
-def test_basic_auth_protects_sales_data(tmp_path):
-    protected_app = create_app({
+def protected_app(tmp_path):
+    return create_app({
         "TESTING": True,
         "DATABASE": tmp_path / "protected.db",
-        "SECRET_KEY": "test",
-        "APP_USERNAME": "owner",
-        "APP_PASSWORD": "strong-password",
-    })
-    protected_client = protected_app.test_client()
-
-    denied = protected_client.get("/")
-    assert denied.status_code == 401
-    assert denied.headers["WWW-Authenticate"].startswith("Basic")
-
-    allowed = protected_client.get("/", auth=("owner", "strong-password"))
-    assert allowed.status_code == 200
-    assert allowed.headers["X-Frame-Options"] == "DENY"
-
-    # Render must be able to monitor the service without learning the password.
-    assert protected_client.get("/healthz").status_code == 200
-
-
-def test_basic_auth_accepts_unicode_credentials_and_rejects_wrong_password(tmp_path):
-    protected_app = create_app({
-        "TESTING": True,
-        "DATABASE": tmp_path / "unicode-auth.db",
         "SECRET_KEY": "test",
         "APP_USERNAME": "東北担当",
         "APP_PASSWORD": "安全なパスワード🔑",
     })
-    protected_client = protected_app.test_client()
 
-    allowed = protected_client.get("/", auth=("東北担当", "安全なパスワード🔑"))
-    assert allowed.status_code == 200
 
-    denied = protected_client.get("/", auth=("東北担当", "間違ったパスワード"))
-    assert denied.status_code == 401
-    assert denied.headers["WWW-Authenticate"].startswith("Basic")
+def test_logged_out_user_is_redirected_to_login(tmp_path):
+    client = protected_app(tmp_path).test_client()
+    response = client.get("/")
+    assert response.status_code == 302
+    assert response.headers["Location"].endswith("/login")
+    assert "WWW-Authenticate" not in response.headers
 
-    # Health checks stay public even when credentials are configured.
-    assert protected_client.get("/healthz").status_code == 200
+
+def test_login_success_stores_session_and_opens_sales_screen(tmp_path):
+    client = protected_app(tmp_path).test_client()
+    response = client.post("/login", data={
+        "username": "東北担当", "password": "安全なパスワード🔑",
+    })
+    assert response.status_code == 302
+    assert response.headers["Location"].endswith("/")
+    assert client.get("/").status_code == 200
+    with client.session_transaction() as login_session:
+        assert login_session["logged_in"] is True
+
+
+def test_login_failure_displays_generic_error_and_does_not_log_in(tmp_path):
+    client = protected_app(tmp_path).test_client()
+    response = client.post("/login", data={
+        "username": "東北担当", "password": "間違ったパスワード",
+    })
+    assert response.status_code == 200
+    assert "ユーザー名またはパスワードが違います" in response.get_data(as_text=True)
+    assert client.get("/").status_code == 302
+
+
+def test_logout_clears_session(tmp_path):
+    client = protected_app(tmp_path).test_client()
+    client.post("/login", data={
+        "username": "東北担当", "password": "安全なパスワード🔑",
+    })
+    response = client.post("/logout")
+    assert response.status_code == 302
+    assert response.headers["Location"].endswith("/login")
+    assert client.get("/").status_code == 302
+
+
+def test_healthcheck_stays_public_when_login_is_enabled(tmp_path):
+    client = protected_app(tmp_path).test_client()
+    response = client.get("/healthz")
+    assert response.status_code == 200
+    assert response.json == {"status": "ok"}
+
+
+def test_session_cookie_security_settings(tmp_path):
+    app = protected_app(tmp_path)
+    app.config["SESSION_COOKIE_SECURE"] = True
+    client = app.test_client()
+    response = client.post("/login", data={
+        "username": "東北担当", "password": "安全なパスワード🔑",
+    })
+    cookie = response.headers["Set-Cookie"]
+    assert "HttpOnly" in cookie
+    assert "SameSite=Lax" in cookie
+    assert "Secure" in cookie
