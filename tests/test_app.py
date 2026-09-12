@@ -139,12 +139,38 @@ def test_auth_diagnostics_stay_public_without_exposing_credentials(tmp_path):
         "authentication_enabled": True,
         "username_configured": True,
         "password_configured": True,
+        "username_length": 4,
+        "password_length": 9,
+        "username_has_outer_whitespace": False,
+        "password_has_outer_whitespace": False,
         "logged_in": False,
         "request_is_secure": False,
         "session_cookie_secure": False,
     }
     assert "東北担当" not in response.get_data(as_text=True)
     assert "安全なパスワード🔑" not in response.get_data(as_text=True)
+
+
+def test_auth_diagnostics_report_lengths_and_outer_whitespace_without_values(tmp_path):
+    username = "\n 東北担当\t"
+    password = " 安全なパスワード🔑\r\n"
+    app = create_app({
+        "TESTING": True,
+        "DATABASE": tmp_path / "whitespace.db",
+        "SECRET_KEY": "test",
+        "APP_USERNAME": username,
+        "APP_PASSWORD": password,
+    })
+    response = app.test_client().get("/debug-auth")
+
+    assert response.status_code == 200
+    assert response.json["username_length"] == len(username)
+    assert response.json["password_length"] == len(password)
+    assert response.json["username_has_outer_whitespace"] is True
+    assert response.json["password_has_outer_whitespace"] is True
+    response_text = response.get_data(as_text=True)
+    assert username not in response_text
+    assert password not in response_text
 
 
 def test_session_cookie_security_settings(tmp_path):
