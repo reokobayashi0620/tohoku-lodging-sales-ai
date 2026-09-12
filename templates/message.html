@@ -1,0 +1,18 @@
+{% extends 'base.html' %}{% block title %}営業文の作成 | 東北リペア営業ノート{% endblock %}{% block content %}<div class="page-title"><p class="eyebrow">MESSAGE DRAFT</p><h1>{{facility.name}}への営業文</h1><p>テンプレートから下書きを作成します。送信機能はありません。</p></div><div class="message-grid"><aside class="panel"><h3>テンプレート</h3><form method="post"><label><input type="radio" name="template" value="standard" {{'checked' if selected=='standard'}} onchange="this.form.submit()"> 標準のご提案</label><label><input type="radio" name="template" value="pet" {{'checked' if selected=='pet'}} onchange="this.form.submit()"> ペット可施設向け</label><label><input type="radio" name="template" value="operator" {{'checked' if selected=='operator'}} onchange="this.form.submit()"> 複数施設運営向け</label></form><hr><b>送信前チェック</b><ul><li>担当者名を確認</li><li>施設固有の内容を追記</li><li>宛先と誤字を確認</li></ul></aside><section class="panel"><div class="notice">この文章は下書きです。コピー後、必ず内容を人が確認してください。</div><textarea id="draft" class="draft" rows="22">件名：【{{facility.name}}様】交換前の補修で、修繕コストと休室時間を抑えるご提案
+
+{{facility.name}}
+ご担当者様
+
+突然のご連絡失礼いたします。東北地域で、宿泊施設の床・建具・家具・水回りのキズ補修およびコーティングを行っております。
+
+{% if selected=='pet' %}ペット同伴のお客様を受け入れていらっしゃる施設では、床や建具の引っかきキズなど、日々の細かな傷みにお困りではないでしょうか。
+{% elif selected=='operator' %}複数施設を運営される中で、修繕品質の均一化や、休室をできるだけ短くする方法をお探しではないでしょうか。
+{% else %}日々の運営の中で生じる床・建具・家具などのキズを、交換せず短時間で整える方法をご提案しております。
+{% endif %}
+私たちのコンセプトは「交換・リフォームする前に、補修という選択肢を。」です。部分補修により、修繕費と稼働停止時間を抑えられる可能性があります。
+
+まずは気になる箇所の写真をもとに、対応可否をご案内いたします。ご関心がございましたら、お気軽にご返信ください。
+
+何卒よろしくお願いいたします。
+
+【署名をここに入力】</textarea><button class="button primary" onclick="navigator.clipboard.writeText(document.getElementById('draft').value);this.textContent='コピーしました'">文章をコピー</button><a class="secondary" href="{{url_for('facility_form',facility_id=facility.id)}}">施設情報を編集</a></section></div>{% endblock %}
