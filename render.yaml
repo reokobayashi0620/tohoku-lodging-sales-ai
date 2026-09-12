@@ -2,12 +2,12 @@ services:
   - type: web
     name: tohoku-lodging-sales-ai
     runtime: docker
-    plan: starter
+    plan: free
     autoDeploy: true
     healthCheckPath: /healthz
     envVars:
       - key: DATABASE_PATH
-        value: /var/data/sales.db
+        value: /tmp/sales.db
       - key: SECRET_KEY
         generateValue: true
       - key: SESSION_COOKIE_SECURE
@@ -16,7 +16,3 @@ services:
         sync: false
       - key: APP_PASSWORD
         sync: false
-    disk:
-      name: sales-data
-      mountPath: /var/data
-      sizeGB: 1

@@ -92,3 +92,24 @@ def test_basic_auth_protects_sales_data(tmp_path):
 
     # Render must be able to monitor the service without learning the password.
     assert protected_client.get("/healthz").status_code == 200
+
+
+def test_basic_auth_accepts_unicode_credentials_and_rejects_wrong_password(tmp_path):
+    protected_app = create_app({
+        "TESTING": True,
+        "DATABASE": tmp_path / "unicode-auth.db",
+        "SECRET_KEY": "test",
+        "APP_USERNAME": "東北担当",
+        "APP_PASSWORD": "安全なパスワード🔑",
+    })
+    protected_client = protected_app.test_client()
+
+    allowed = protected_client.get("/", auth=("東北担当", "安全なパスワード🔑"))
+    assert allowed.status_code == 200
+
+    denied = protected_client.get("/", auth=("東北担当", "間違ったパスワード"))
+    assert denied.status_code == 401
+    assert denied.headers["WWW-Authenticate"].startswith("Basic")
+
+    # Health checks stay public even when credentials are configured.
+    assert protected_client.get("/healthz").status_code == 200
