@@ -1,31 +1,37 @@
 {% extends 'base.html' %}
 {% block title %}候補調査｜東北リペア営業ノート{% endblock %}
 {% block content %}
-<section class="page-title"><p class="eyebrow">PHASE 2-4</p><h1>候補を調査・補完</h1><p>{{ candidate.address }}</p></section>
+{% set ns = namespace(score=0) %}
+{% if candidate.name %}{% set ns.score = ns.score + 1 %}{% endif %}
+{% if candidate.company_name %}{% set ns.score = ns.score + 1 %}{% endif %}
+{% if candidate.official_url %}{% set ns.score = ns.score + 1 %}{% endif %}
+{% if candidate.phone or candidate.email or candidate.contact_url %}{% set ns.score = ns.score + 1 %}{% endif %}
+{% if candidate.pet_friendly or candidate.whole_house or candidate.wood_floor or candidate.multiple_facilities %}{% set ns.score = ns.score + 1 %}{% endif %}
+{% if candidate.research_notes %}{% set ns.score = ns.score + 1 %}{% endif %}
+{% set percent = (ns.score * 100 / 6) | round | int %}
+<section class="page-title"><p class="eyebrow">PHASE 2-5</p><h1>候補を調査・補完</h1><p>{{ candidate.address }}</p></section>
+<section class="panel" style="margin-bottom:20px">
+  <h2>調査進捗 {{ percent }}%</h2>
+  <p>営業リストへ入れる前に、最低限の公開情報を6項目で確認します。すべて埋まらなくても、確認できなかった項目は調査メモに残せます。</p>
+  <div class="checks">
+    <label>{% if candidate.name %}✓{% else %}□{% endif %} 施設名</label>
+    <label>{% if candidate.company_name %}✓{% else %}□{% endif %} 運営会社</label>
+    <label>{% if candidate.official_url %}✓{% else %}□{% endif %} 公式URL</label>
+    <label>{% if candidate.phone or candidate.email or candidate.contact_url %}✓{% else %}□{% endif %} 連絡先</label>
+    <label>{% if candidate.pet_friendly or candidate.whole_house or candidate.wood_floor or candidate.multiple_facilities %}✓{% else %}□{% endif %} 営業属性</label>
+    <label>{% if candidate.research_notes %}✓{% else %}□{% endif %} 調査メモ</label>
+  </div>
+  <p class="hint"><strong>次の確認：</strong>{% if not candidate.name %}住所から施設名を特定してください。{% elif not candidate.official_url %}公式サイトまたは予約ページの根拠URLを確認してください。{% elif not (candidate.phone or candidate.email or candidate.contact_url) %}営業に使える問い合わせ先を確認してください。{% elif not (candidate.pet_friendly or candidate.whole_house or candidate.wood_floor or candidate.multiple_facilities) %}ペット可・一棟貸し・木質床・複数施設運営の有無を確認してください。{% elif candidate.research_status != 'verified' %}根拠を調査メモに残し、調査状態を「確認済」にしてください。{% else %}調査完了です。営業リストへ登録できます。{% endif %}</p>
+</section>
 <section class="panel" style="margin-bottom:20px">
   <h2>調査スターター</h2>
   <p>住所を起点に公開情報をすばやく探します。検索結果は候補です。施設名・運営会社・属性は、確認できたページだけを根拠に保存してください。</p>
   <div class="candidate-actions">
-    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer">
-      <input type="hidden" name="q" value="{{ candidate.address }} 民泊 宿泊">
-      <button type="submit">住所＋民泊を検索</button>
-    </form>
-    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer">
-      <input type="hidden" name="q" value="{{ candidate.address }} 運営会社 問い合わせ">
-      <button type="submit">運営会社を検索</button>
-    </form>
-    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer">
-      <input type="hidden" name="q" value="{{ candidate.address }} ペット可 一棟貸し">
-      <button type="submit">ペット可・一棟貸しを検索</button>
-    </form>
-    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer">
-      <input type="hidden" name="q" value="site:airbnb.com {{ candidate.address }}">
-      <button class="secondary" type="submit">Airbnb候補を検索</button>
-    </form>
-    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer">
-      <input type="hidden" name="q" value="site:booking.com {{ candidate.address }}">
-      <button class="secondary" type="submit">Booking候補を検索</button>
-    </form>
+    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer"><input type="hidden" name="q" value="{{ candidate.address }} 民泊 宿泊"><button type="submit">住所＋民泊を検索</button></form>
+    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer"><input type="hidden" name="q" value="{{ candidate.address }} 運営会社 問い合わせ"><button type="submit">運営会社を検索</button></form>
+    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer"><input type="hidden" name="q" value="{{ candidate.address }} ペット可 一棟貸し"><button type="submit">ペット可・一棟貸しを検索</button></form>
+    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer"><input type="hidden" name="q" value="site:airbnb.com {{ candidate.address }}"><button class="secondary" type="submit">Airbnb候補を検索</button></form>
+    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer"><input type="hidden" name="q" value="site:booking.com {{ candidate.address }}"><button class="secondary" type="submit">Booking候補を検索</button></form>
   </div>
   <p class="hint">公開PDFに建物名や部屋番号が含まれる場合は、検索精度が上がります。検索結果だけで「ペット可」「一棟貸し」等を確定せず、公式サイトや予約ページ本文で確認してください。</p>
 </section>
@@ -41,7 +47,7 @@
   <fieldset><legend>営業判断</legend>
     <label>調査状態<select name="research_status">{% for key,label in research_statuses.items() %}<option value="{{ key }}" {{ 'selected' if candidate.research_status==key }}>{{ label }}</option>{% endfor %}</select></label>
     <div class="checks">{% for name,label in [('pet_friendly','ペット可'),('whole_house','一棟貸し'),('wood_floor','木質床の可能性'),('multiple_facilities','複数施設運営')] %}<label><input type="checkbox" name="{{ name }}" {{ 'checked' if candidate[name] }}> {{ label }}</label>{% endfor %}</div>
-    <label>調査メモ<textarea name="research_notes" rows="7" placeholder="確認したページ、特徴、営業で使えそうな情報など">{{ candidate.research_notes }}</textarea></label>
+    <label>調査メモ<textarea name="research_notes" rows="7" placeholder="確認したページ、特徴、営業で使えそうな情報、確認できなかった項目など">{{ candidate.research_notes }}</textarea></label>
     <div class="priority-preview"><small>現在の自動判定</small><span class="priority p{{ priority }}">{{ priority }}</span><strong>{{ priority_reason }}</strong></div>
   </fieldset>
   <div class="full notice">出典：<a href="{{ candidate.source_url }}" target="_blank" rel="noopener noreferrer">{{ candidate.source_type }}</a>。施設名や運営会社は、確認できた公開情報だけを入力してください。</div>
