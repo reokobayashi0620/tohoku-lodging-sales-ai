@@ -21,6 +21,7 @@ PREFECTURES = ["宮城県", "岩手県", "山形県", "福島県", "秋田県", 
 FACILITY_TYPES = ["民泊", "ホテル", "旅館", "ゲストハウス", "貸別荘", "運営会社", "その他"]
 STATUSES = ["未連絡", "営業文作成済", "連絡済", "返信あり", "商談", "見積", "成約", "見送り"]
 BOOL_FIELDS = ["pet_friendly", "whole_house", "multiple_facilities", "wood_floor"]
+RESEARCH_STATUSES = {"unresearched": "未調査", "researching": "調査中", "verified": "確認済"}
 MIYAGI_OFFICIAL_URL = "https://www.pref.miyagi.jp/documents/30180/kunigaidorain.pdf"
 MIYAGI_LEGACY_URL = "https://www.pref.miyagi.jp/documents/30180/20260319.pdf"
 MIYAGI_SOURCE_URL = os.environ.get("MIYAGI_SOURCE_URL", MIYAGI_OFFICIAL_URL)
@@ -235,6 +236,18 @@ def create_app(test_config=None):
             facility_columns = {row[1] for row in con.execute("PRAGMA table_info(facilities)").fetchall()}
             if "address" not in facility_columns:
                 con.execute("ALTER TABLE facilities ADD COLUMN address TEXT DEFAULT ''")
+            candidate_columns = {row[1] for row in con.execute("PRAGMA table_info(lead_candidates)").fetchall()}
+            candidate_migrations = {
+                "company_name": "TEXT DEFAULT ''", "phone": "TEXT DEFAULT ''", "email": "TEXT DEFAULT ''",
+                "contact_url": "TEXT DEFAULT ''", "pet_friendly": "INTEGER NOT NULL DEFAULT 0",
+                "whole_house": "INTEGER NOT NULL DEFAULT 0", "multiple_facilities": "INTEGER NOT NULL DEFAULT 0",
+                "wood_floor": "INTEGER NOT NULL DEFAULT 0", "research_status": "TEXT NOT NULL DEFAULT 'unresearched'",
+                "research_notes": "TEXT DEFAULT ''",
+            }
+            for column, definition in candidate_migrations.items():
+                if column not in candidate_columns:
+                    con.execute(f"ALTER TABLE lead_candidates ADD COLUMN {column} {definition}")
+            con.execute("CREATE INDEX IF NOT EXISTS idx_lead_candidates_research_status ON lead_candidates(research_status)")
             count = con.execute("SELECT COUNT(*) FROM facilities").fetchone()[0]
             if count == 0:
                 con.executescript((BASE_DIR / "sample_data.sql").read_text(encoding="utf-8"))
@@ -262,6 +275,12 @@ def create_app(test_config=None):
         ]}
         data.update({key: int(request.form.get(key) == "on") for key in BOOL_FIELDS})
         return data
+
+    def candidate_priority(candidate):
+        return calculate_priority({
+            "facility_type": "民泊",
+            **{key: int(bool(candidate[key])) for key in BOOL_FIELDS},
+        })
 
     @app.route("/")
     def index():
@@ -348,10 +367,44 @@ def create_app(test_config=None):
         if status != "all":
             sql += " WHERE status=?"
             params.append(status)
-        sql += " ORDER BY created_at DESC, id DESC"
+        sql += " ORDER BY CASE research_status WHEN 'verified' THEN 1 WHEN 'researching' THEN 2 ELSE 3 END, created_at DESC, id DESC"
         with db() as con:
             rows = con.execute(sql, params).fetchall()
-        return render_template("candidates.html", candidates=rows, selected_status=status)
+        priorities = {row["id"]: candidate_priority(row)[0] for row in rows}
+        return render_template("candidates.html", candidates=rows, selected_status=status, priorities=priorities,
+                               research_statuses=RESEARCH_STATUSES)
+
+    @app.route("/candidates/<int:candidate_id>/edit", methods=["GET", "POST"])
+    def edit_candidate(candidate_id):
+        with db() as con:
+            candidate = con.execute("SELECT * FROM lead_candidates WHERE id=?", (candidate_id,)).fetchone()
+        if not candidate:
+            return ("Not found", 404)
+        if request.method == "POST":
+            research_status = request.form.get("research_status", "unresearched")
+            if research_status not in RESEARCH_STATUSES:
+                research_status = "unresearched"
+            values = {
+                key: request.form.get(key, "").strip()
+                for key in ["name", "company_name", "official_url", "phone", "email", "contact_url", "research_notes"]
+            }
+            values.update({key: int(request.form.get(key) == "on") for key in BOOL_FIELDS})
+            values["research_status"] = research_status
+            with db() as con:
+                con.execute(
+                    """UPDATE lead_candidates SET
+                    name=?, company_name=?, official_url=?, phone=?, email=?, contact_url=?,
+                    pet_friendly=?, whole_house=?, multiple_facilities=?, wood_floor=?,
+                    research_status=?, research_notes=?, updated_at=CURRENT_TIMESTAMP WHERE id=?""",
+                    [values[k] for k in ["name", "company_name", "official_url", "phone", "email", "contact_url",
+                                          "pet_friendly", "whole_house", "multiple_facilities", "wood_floor",
+                                          "research_status", "research_notes"]] + [candidate_id],
+                )
+            flash("候補の調査情報を保存しました。", "success")
+            return redirect(url_for("edit_candidate", candidate_id=candidate_id))
+        priority, priority_reason = candidate_priority(candidate)
+        return render_template("candidate_edit.html", candidate=candidate, research_statuses=RESEARCH_STATUSES,
+                               priority=priority, priority_reason=priority_reason)
 
     @app.post("/candidates/<int:candidate_id>/promote")
     def promote_candidate(candidate_id):
@@ -374,16 +427,18 @@ def create_app(test_config=None):
             if existing_facility:
                 facility_id = existing_facility["id"]
             else:
-                data = {"facility_type": "民泊", "pet_friendly": 0, "whole_house": 0, "multiple_facilities": 0, "wood_floor": 0}
+                data = {"facility_type": "民泊", **{key: candidate[key] for key in BOOL_FIELDS}}
                 priority, reason = calculate_priority(data)
-                display_name = candidate["name"] or candidate["address"]
+                display_name = candidate["name"] or f"名称未確認（{candidate['address']}）"
                 cursor = con.execute(
                     """INSERT INTO facilities
                        (name,company_name,prefecture,city,address,facility_type,official_url,phone,email,contact_url,
                         pet_friendly,whole_house,multiple_facilities,wood_floor,source_url,notes,priority,priority_reason,status)
-                       VALUES (?,?,?,?,?,'民泊',?,'','','',0,0,0,0,?,'',?,?,'未連絡')""",
-                    (display_name, "", candidate["prefecture"], candidate["city"], candidate["address"],
-                     candidate["official_url"], candidate["source_url"], priority, reason),
+                       VALUES (?,?,?,?,?,'民泊',?,?,?,?,?,?,?,?,?,?,?,?,'未連絡')""",
+                    (display_name, candidate["company_name"], candidate["prefecture"], candidate["city"], candidate["address"],
+                     candidate["official_url"], candidate["phone"], candidate["email"], candidate["contact_url"],
+                     candidate["pet_friendly"], candidate["whole_house"], candidate["multiple_facilities"], candidate["wood_floor"],
+                     candidate["source_url"], candidate["research_notes"], priority, reason),
                 )
                 facility_id = cursor.lastrowid
             con.execute(
