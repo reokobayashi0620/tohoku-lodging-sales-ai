@@ -9,7 +9,7 @@
 {% if candidate.pet_friendly or candidate.whole_house or candidate.wood_floor or candidate.multiple_facilities %}{% set ns.score = ns.score + 1 %}{% endif %}
 {% if candidate.research_notes %}{% set ns.score = ns.score + 1 %}{% endif %}
 {% set percent = (ns.score * 100 / 6) | round | int %}
-<section class="page-title"><p class="eyebrow">PHASE 2-5</p><h1>候補を調査・補完</h1><p>{{ candidate.address }}</p></section>
+<section class="page-title"><p class="eyebrow">PHASE 2-6</p><h1>候補を調査・補完</h1><p>{{ candidate.address }}</p></section>
 <section class="panel" style="margin-bottom:20px">
   <h2>調査進捗 {{ percent }}%</h2>
   <p>営業リストへ入れる前に、最低限の公開情報を6項目で確認します。すべて埋まらなくても、確認できなかった項目は調査メモに残せます。</p>
@@ -24,6 +24,17 @@
   <p class="hint"><strong>次の確認：</strong>{% if not candidate.name %}住所から施設名を特定してください。{% elif not candidate.official_url %}公式サイトまたは予約ページの根拠URLを確認してください。{% elif not (candidate.phone or candidate.email or candidate.contact_url) %}営業に使える問い合わせ先を確認してください。{% elif not (candidate.pet_friendly or candidate.whole_house or candidate.wood_floor or candidate.multiple_facilities) %}ペット可・一棟貸し・木質床・複数施設運営の有無を確認してください。{% elif candidate.research_status != 'verified' %}根拠を調査メモに残し、調査状態を「確認済」にしてください。{% else %}調査完了です。営業リストへ登録できます。{% endif %}</p>
 </section>
 <section class="panel" style="margin-bottom:20px">
+  <h2>公開ページから半自動抽出</h2>
+  <p>公式サイトや公開予約ページで確認した本文を貼り付けると、施設名・運営会社・電話・メール・問い合わせURL・営業属性の候補をフォームへ反映します。</p>
+  <div class="edit-form">
+    <label>確認したページURL<input id="source-evidence-url" type="url" placeholder="https://example.jp/facility"></label>
+    <label>公開ページ本文<textarea id="public-source-text" rows="8" placeholder="公開ページの本文をここに貼り付け"></textarea></label>
+    <div class="actions"><button id="extract-source" class="button primary" type="button">本文から候補を抽出</button></div>
+    <div id="extract-result" class="notice" hidden></div>
+  </div>
+  <p class="hint">自動抽出は候補提示です。保存前に必ず元ページと照合してください。既に入力済みの文字項目は上書きしません。Airbnb・Booking等への自動アクセスやスクレイピングは行いません。</p>
+</section>
+<section class="panel" style="margin-bottom:20px">
   <h2>調査スターター</h2>
   <p>住所を起点に公開情報をすばやく探します。検索結果は候補です。施設名・運営会社・属性は、確認できたページだけを根拠に保存してください。</p>
   <div class="candidate-actions">
@@ -35,7 +46,7 @@
   </div>
   <p class="hint">公開PDFに建物名や部屋番号が含まれる場合は、検索精度が上がります。検索結果だけで「ペット可」「一棟貸し」等を確定せず、公式サイトや予約ページ本文で確認してください。</p>
 </section>
-<form method="post" class="panel edit-form">
+<form id="candidate-research-form" method="post" class="panel edit-form">
   <fieldset><legend>施設・運営情報</legend>
     <label>施設名<input name="name" value="{{ candidate.name }}" placeholder="未確認なら空欄のまま"></label>
     <label>運営会社<input name="company_name" value="{{ candidate.company_name }}"></label>
@@ -53,4 +64,84 @@
   <div class="full notice">出典：<a href="{{ candidate.source_url }}" target="_blank" rel="noopener noreferrer">{{ candidate.source_type }}</a>。施設名や運営会社は、確認できた公開情報だけを入力してください。</div>
   <div class="actions"><a href="{{ url_for('candidates') }}">候補一覧へ戻る</a><button class="button primary" type="submit">調査情報を保存</button></div>
 </form>
+<script>
+(() => {
+  const extractButton = document.getElementById('extract-source');
+  const sourceText = document.getElementById('public-source-text');
+  const sourceUrl = document.getElementById('source-evidence-url');
+  const result = document.getElementById('extract-result');
+  const form = document.getElementById('candidate-research-form');
+  if (!extractButton || !sourceText || !form) return;
+
+  const field = (name) => form.querySelector(`[name="${name}"]`);
+  const setIfEmpty = (name, value) => {
+    const el = field(name);
+    if (el && value && !el.value.trim()) el.value = value.trim();
+  };
+  const labelled = (text, labels) => {
+    for (const label of labels) {
+      const re = new RegExp(`(?:^|\\n)\\s*${label}\\s*[：:]\\s*([^\\n]{2,100})`, 'i');
+      const match = text.match(re);
+      if (match) return match[1].trim();
+    }
+    return '';
+  };
+
+  extractButton.addEventListener('click', () => {
+    const text = sourceText.value.trim();
+    if (!text) {
+      result.hidden = false;
+      result.textContent = '公開ページ本文を貼り付けてください。';
+      return;
+    }
+
+    const found = [];
+    const facilityName = labelled(text, ['施設名', '宿泊施設名', '宿名', '名称']);
+    const companyName = labelled(text, ['運営会社', '管理会社', '運営者', '事業者']);
+    const emailMatch = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
+    const phoneMatch = text.match(/0\d{1,4}[-‐‑–—ー−]\d{1,4}[-‐‑–—ー−]\d{3,4}/);
+    const contactMatch = text.match(/(?:お問い合わせ|問い合わせ|contact)[^\n]{0,80}(https?:\/\/[^\s<>"']+)/i);
+
+    if (facilityName) { setIfEmpty('name', facilityName); found.push('施設名'); }
+    if (companyName) { setIfEmpty('company_name', companyName); found.push('運営会社'); }
+    if (emailMatch) { setIfEmpty('email', emailMatch[0]); found.push('メール'); }
+    if (phoneMatch) { setIfEmpty('phone', phoneMatch[0]); found.push('電話'); }
+    if (contactMatch) { setIfEmpty('contact_url', contactMatch[1]); found.push('問い合わせURL'); }
+
+    const attributes = [
+      ['pet_friendly', /(ペット可|ペット同伴|愛犬と泊|犬と泊)/],
+      ['whole_house', /(一棟貸し|一棟まるごと|一棟貸切|一日一組)/],
+      ['wood_floor', /(フローリング|無垢床|木の床|ウッドフロア)/],
+      ['multiple_facilities', /(複数施設|系列施設|運営施設一覧|他の宿泊施設)/]
+    ];
+    const evidence = [];
+    attributes.forEach(([name, re]) => {
+      const match = text.match(re);
+      if (match) {
+        const checkbox = field(name);
+        if (checkbox) checkbox.checked = true;
+        evidence.push(match[1]);
+        found.push(match[1]);
+      }
+    });
+
+    const status = field('research_status');
+    if (status && status.value === 'unresearched') status.value = 'researching';
+    const notes = field('research_notes');
+    const url = sourceUrl.value.trim();
+    const noteLines = [];
+    if (url) noteLines.push(`[抽出元] ${url}`);
+    if (evidence.length) noteLines.push(`[自動抽出キーワード] ${evidence.join('、')}`);
+    if (noteLines.length && notes) {
+      const addition = noteLines.join('\n');
+      if (!notes.value.includes(addition)) notes.value = notes.value.trim() ? `${notes.value.trim()}\n${addition}` : addition;
+    }
+
+    result.hidden = false;
+    result.textContent = found.length
+      ? `候補を反映しました：${[...new Set(found)].join('、')}。元ページと照合してから「調査情報を保存」を押してください。`
+      : '明確な候補を抽出できませんでした。ラベル付きの施設名・運営会社・連絡先や営業属性を手動で確認してください。';
+  });
+})();
+</script>
 {% endblock %}
