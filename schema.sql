@@ -24,5 +24,17 @@ CREATE TABLE IF NOT EXISTS lead_candidates (
   FOREIGN KEY (matched_facility_id) REFERENCES facilities(id)
 );
 
+CREATE TABLE IF NOT EXISTS official_source_snapshots (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  source_key TEXT NOT NULL,
+  area_name TEXT NOT NULL,
+  reported_count INTEGER NOT NULL DEFAULT 0,
+  snapshot_label TEXT DEFAULT '',
+  source_url TEXT DEFAULT '',
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(source_key, area_name)
+);
+
 CREATE INDEX IF NOT EXISTS idx_lead_candidates_status ON lead_candidates(status);
 CREATE INDEX IF NOT EXISTS idx_lead_candidates_research_status ON lead_candidates(research_status);
+CREATE INDEX IF NOT EXISTS idx_official_source_snapshots_source ON official_source_snapshots(source_key);
