@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}ログイン | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="login-panel panel" aria-labelledby="login-title">
+  <p class="eyebrow">TOHOKU REPAIR</p>
+  <h1 id="login-title">ログイン</h1>
+  <p>営業管理画面を利用するには、ユーザー名とパスワードを入力してください。</p>
+  {% if error %}<div class="flash error" role="alert">{{ error }}</div>{% endif %}
+  <form method="post" action="{{ url_for('login') }}">
+    <label for="username">ユーザー名</label>
+    <input id="username" name="username" type="text" autocomplete="username" required autofocus>
+    <label for="password">パスワード</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required>
+    <button class="primary" type="submit">ログイン</button>
+  </form>
+</section>
+{% endblock %}

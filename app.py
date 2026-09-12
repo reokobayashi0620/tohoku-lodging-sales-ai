@@ -6,7 +6,7 @@ import secrets
 import sqlite3
 from pathlib import Path
 
-from flask import Flask, Response, flash, redirect, render_template, request, url_for
+from flask import Flask, Response, flash, redirect, render_template, request, session, url_for
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -49,22 +49,32 @@ def create_app(test_config=None):
         raise RuntimeError("APP_USERNAME and APP_PASSWORD must be set together")
 
     @app.before_request
-    def require_basic_auth():
-        if not username or request.endpoint == "healthz":
+    def require_login():
+        if not username or request.endpoint in {"healthz", "login", "static"}:
             return None
-        auth = request.authorization
-        valid = (
-            auth is not None
-            and auth.type == "basic"
-            and credentials_match(auth.username or "", username)
-            and credentials_match(auth.password or "", password)
-        )
-        if not valid:
-            return Response(
-                "Authentication required", 401,
-                {"WWW-Authenticate": 'Basic realm="Tohoku Sales", charset="UTF-8"'},
-            )
+        if not session.get("logged_in"):
+            return redirect(url_for("login"))
         return None
+
+    @app.route("/login", methods=["GET", "POST"])
+    def login():
+        if session.get("logged_in") or not username:
+            return redirect(url_for("index"))
+        error = None
+        if request.method == "POST":
+            supplied_username = request.form.get("username", "")
+            supplied_password = request.form.get("password", "")
+            if credentials_match(supplied_username, username) and credentials_match(supplied_password, password):
+                session.clear()
+                session["logged_in"] = True
+                return redirect(url_for("index"))
+            error = "ユーザー名またはパスワードが違います"
+        return render_template("login.html", error=error)
+
+    @app.post("/logout")
+    def logout():
+        session.clear()
+        return redirect(url_for("login"))
 
     @app.after_request
     def add_security_headers(response):
