@@ -1,7 +1,34 @@
 {% extends 'base.html' %}
 {% block title %}候補調査｜東北リペア営業ノート{% endblock %}
 {% block content %}
-<section class="page-title"><p class="eyebrow">PHASE 2-3</p><h1>候補を調査・補完</h1><p>{{ candidate.address }}</p></section>
+<section class="page-title"><p class="eyebrow">PHASE 2-4</p><h1>候補を調査・補完</h1><p>{{ candidate.address }}</p></section>
+<section class="panel" style="margin-bottom:20px">
+  <h2>調査スターター</h2>
+  <p>住所を起点に公開情報をすばやく探します。検索結果は候補です。施設名・運営会社・属性は、確認できたページだけを根拠に保存してください。</p>
+  <div class="candidate-actions">
+    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer">
+      <input type="hidden" name="q" value="{{ candidate.address }} 民泊 宿泊">
+      <button type="submit">住所＋民泊を検索</button>
+    </form>
+    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer">
+      <input type="hidden" name="q" value="{{ candidate.address }} 運営会社 問い合わせ">
+      <button type="submit">運営会社を検索</button>
+    </form>
+    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer">
+      <input type="hidden" name="q" value="{{ candidate.address }} ペット可 一棟貸し">
+      <button type="submit">ペット可・一棟貸しを検索</button>
+    </form>
+    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer">
+      <input type="hidden" name="q" value="site:airbnb.com {{ candidate.address }}">
+      <button class="secondary" type="submit">Airbnb候補を検索</button>
+    </form>
+    <form method="get" action="https://www.google.com/search" target="_blank" rel="noopener noreferrer">
+      <input type="hidden" name="q" value="site:booking.com {{ candidate.address }}">
+      <button class="secondary" type="submit">Booking候補を検索</button>
+    </form>
+  </div>
+  <p class="hint">公開PDFに建物名や部屋番号が含まれる場合は、検索精度が上がります。検索結果だけで「ペット可」「一棟貸し」等を確定せず、公式サイトや予約ページ本文で確認してください。</p>
+</section>
 <form method="post" class="panel edit-form">
   <fieldset><legend>施設・運営情報</legend>
     <label>施設名<input name="name" value="{{ candidate.name }}" placeholder="未確認なら空欄のまま"></label>
