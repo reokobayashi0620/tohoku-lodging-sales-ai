@@ -18,6 +18,16 @@ STATUSES = ["未連絡", "営業文作成済", "連絡済", "返信あり", "商
 BOOL_FIELDS = ["pet_friendly", "whole_house", "multiple_facilities", "wood_floor"]
 
 
+def credentials_match(value, expected):
+    """Compare credentials without leaking timing information.
+
+    ``hmac.compare_digest`` only accepts ASCII when its arguments are strings.
+    Environment variables and Basic Auth credentials are Unicode strings, so
+    compare their UTF-8 byte representations instead.
+    """
+    return hmac.compare_digest(value.encode("utf-8"), expected.encode("utf-8"))
+
+
 def create_app(test_config=None):
     app = Flask(__name__)
     app.config.update(
@@ -45,8 +55,9 @@ def create_app(test_config=None):
         auth = request.authorization
         valid = (
             auth is not None
-            and hmac.compare_digest(auth.username or "", username)
-            and hmac.compare_digest(auth.password or "", password)
+            and auth.type == "basic"
+            and credentials_match(auth.username or "", username)
+            and credentials_match(auth.password or "", password)
         )
         if not valid:
             return Response(
