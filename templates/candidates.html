@@ -10,10 +10,43 @@
     <a href="{{ url_for('candidates', status='all') }}">すべて</a>
   </div>
   {% if selected_status in ['pending','all'] %}
-  <div class="notice" style="margin-bottom:16px"><strong>調査キュー</strong>：未調査 → 調査中 → 確認済の順に、同じ状態では情報充足率が低い候補を先に表示します。S/A候補は属性が見つかると上位に残ります。</div>
+  <div class="notice" style="margin-bottom:16px"><strong>調査キュー</strong>：未調査 → 調査中 → 確認済の順に、同じ状態ではS/A/B/C優先度と情報充足率で並び替えます。</div>
+  <form id="bulk-candidates" method="post" action="{{ url_for('bulk_candidates') }}">
+    <input type="hidden" name="return_status" value="{{ selected_status }}">
+  </form>
+  <div class="panel" style="margin-bottom:16px;padding:14px">
+    <div class="candidate-actions" style="align-items:end">
+      <label>調査状態
+        <select id="research-filter">
+          <option value="all">すべて</option>
+          <option value="unresearched">未調査</option>
+          <option value="researching">調査中</option>
+          <option value="verified">確認済</option>
+        </select>
+      </label>
+      <label>優先度
+        <select id="priority-filter">
+          <option value="all">すべて</option>
+          <option value="S">S</option><option value="A">A</option><option value="B">B</option><option value="C">C</option>
+        </select>
+      </label>
+      <label>一括操作
+        <select name="action" form="bulk-candidates" required>
+          <option value="">選択してください</option>
+          <option value="start_research">調査中にする</option>
+          <option value="reset_research">未調査に戻す</option>
+          <option value="exclude">除外する</option>
+        </select>
+      </label>
+      <button type="submit" form="bulk-candidates">選択した候補に実行</button>
+      <button type="button" class="secondary" id="select-visible">表示中を全選択</button>
+      <button type="button" class="secondary" id="clear-selection">選択解除</button>
+    </div>
+    <p class="hint"><span id="visible-count">0</span>件表示 / <span id="selected-count">0</span>件選択。確認済への変更は一括操作に含めず、元ページを確認した候補だけ個別画面で確定します。</p>
+  </div>
   {% endif %}
   <div class="table-wrap"><table>
-    <thead><tr><th>候補</th><th>所在地</th><th>調査</th><th>情報充足</th><th>優先度</th><th>次の確認</th><th>操作</th></tr></thead>
+    <thead><tr>{% if selected_status in ['pending','all'] %}<th>選択</th>{% endif %}<th>候補</th><th>所在地</th><th>調査</th><th>情報充足</th><th>優先度</th><th>次の確認</th><th>操作</th></tr></thead>
     <tbody id="candidate-queue">{% for candidate in candidates %}
       {% set ns = namespace(score=0) %}
       {% if candidate.name %}{% set ns.score = ns.score + 1 %}{% endif %}
@@ -25,7 +58,8 @@
       {% set percent = (ns.score * 100 / 6) | round | int %}
       {% set research_rank = 0 if candidate.research_status == 'unresearched' else (1 if candidate.research_status == 'researching' else 2) %}
       {% set priority_rank = 0 if priorities[candidate.id] == 'S' else (1 if priorities[candidate.id] == 'A' else (2 if priorities[candidate.id] == 'B' else 3)) %}
-      <tr data-research-rank="{{ research_rank }}" data-completeness="{{ percent }}" data-priority-rank="{{ priority_rank }}">
+      <tr data-research-rank="{{ research_rank }}" data-research-status="{{ candidate.research_status }}" data-completeness="{{ percent }}" data-priority-rank="{{ priority_rank }}" data-priority="{{ priorities[candidate.id] }}">
+      {% if selected_status in ['pending','all'] %}<td>{% if candidate.status == 'pending' %}<input class="candidate-check" type="checkbox" name="candidate_ids" value="{{ candidate.id }}" form="bulk-candidates" aria-label="候補{{ candidate.id }}を選択">{% endif %}</td>{% endif %}
       <td><strong>{{ candidate.name or '名称未確認' }}</strong><small>{{ candidate.company_name or candidate.source_type }}</small></td>
       <td>{{ candidate.address }}<small>{{ candidate.city or '市区町村未判定' }}</small></td>
       <td><strong>{{ research_statuses.get(candidate.research_status, '未調査') }}</strong><small>{{ candidate.updated_at }}</small></td>
@@ -36,7 +70,7 @@
         <form method="post" action="{{ url_for('promote_candidate', candidate_id=candidate.id) }}"><button type="submit">営業リストへ登録</button></form>
         <form method="post" action="{{ url_for('exclude_candidate', candidate_id=candidate.id) }}"><button class="secondary" type="submit">除外</button></form>
       {% endif %}</div></td>
-    </tr>{% else %}<tr><td colspan="7">この状態の候補はありません。</td></tr>{% endfor %}</tbody>
+    </tr>{% else %}<tr><td colspan="8">この状態の候補はありません。</td></tr>{% endfor %}</tbody>
   </table></div>
 </section>
 <script>
@@ -52,6 +86,43 @@ document.addEventListener('DOMContentLoaded', function () {
     return Number(a.dataset.completeness) - Number(b.dataset.completeness);
   });
   rows.forEach(row => body.appendChild(row));
+
+  const researchFilter = document.getElementById('research-filter');
+  const priorityFilter = document.getElementById('priority-filter');
+  const visibleCount = document.getElementById('visible-count');
+  const selectedCount = document.getElementById('selected-count');
+  const checks = () => Array.from(document.querySelectorAll('.candidate-check'));
+  const refreshCounts = () => {
+    if (visibleCount) visibleCount.textContent = rows.filter(row => row.style.display !== 'none').length;
+    if (selectedCount) selectedCount.textContent = checks().filter(box => box.checked).length;
+  };
+  const applyFilters = () => {
+    const research = researchFilter ? researchFilter.value : 'all';
+    const priority = priorityFilter ? priorityFilter.value : 'all';
+    rows.forEach(row => {
+      const showResearch = research === 'all' || row.dataset.researchStatus === research;
+      const showPriority = priority === 'all' || row.dataset.priority === priority;
+      row.style.display = showResearch && showPriority ? '' : 'none';
+    });
+    refreshCounts();
+  };
+  if (researchFilter) researchFilter.addEventListener('change', applyFilters);
+  if (priorityFilter) priorityFilter.addEventListener('change', applyFilters);
+  checks().forEach(box => box.addEventListener('change', refreshCounts));
+  const selectVisible = document.getElementById('select-visible');
+  if (selectVisible) selectVisible.addEventListener('click', function () {
+    rows.filter(row => row.style.display !== 'none').forEach(row => {
+      const box = row.querySelector('.candidate-check');
+      if (box) box.checked = true;
+    });
+    refreshCounts();
+  });
+  const clearSelection = document.getElementById('clear-selection');
+  if (clearSelection) clearSelection.addEventListener('click', function () {
+    checks().forEach(box => { box.checked = false; });
+    refreshCounts();
+  });
+  applyFilters();
 });
 </script>
 {% endblock %}
