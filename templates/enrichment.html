@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}公式情報で自動照合｜東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="page-title">
+  <p class="eyebrow">PHASE 2-8</p>
+  <h1>宮城県公式情報で自動照合</h1>
+  <p>未確認候補の住所を、宮城県が公開している民泊施設紹介ページの住所と照合します。</p>
+</section>
+<section class="panel">
+  <h2>自動で補完する項目</h2>
+  <p>住所が一致した候補について、公開されている範囲だけを使い、施設名・法人の届出者・電話・メール・施設HPを空欄へ補完します。</p>
+  <div class="notice" style="margin:16px 0">
+    <strong>安全設計</strong><br>
+    既に入力されている情報は上書きしません。個人の届出者名は「運営会社」欄へ入れず調査メモに残します。また、自動照合だけで「確認済」にはせず「調査中」まで進めます。
+  </div>
+  <p>出典：<a href="{{ source_url }}" target="_blank" rel="noopener noreferrer">宮城県「民泊届出施設の紹介」</a></p>
+  <form method="post" action="/candidates/enrich-miyagi" style="margin-top:18px">
+    <button class="button primary" type="submit">宮城県公式ページと照合する</button>
+  </form>
+  <p class="hint">照合後は「収集候補」で内容を確認し、営業に使う前に元ページとの最終確認をしてください。</p>
+</section>
+{% endblock %}
