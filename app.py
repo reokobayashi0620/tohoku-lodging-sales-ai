@@ -50,7 +50,10 @@ def create_app(test_config=None):
 
     @app.before_request
     def require_login():
-        if not username or request.endpoint in {"healthz", "login", "static"}:
+        # ``debug_auth`` is intentionally public while login failures are being
+        # investigated.  Its response contains only boolean diagnostics and the
+        # route should be removed once the investigation is complete.
+        if not username or request.endpoint in {"healthz", "debug_auth", "login", "static"}:
             return None
         if not session.get("logged_in"):
             return redirect(url_for("login"))
@@ -141,6 +144,18 @@ def create_app(test_config=None):
     @app.get("/healthz")
     def healthz():
         return {"status": "ok"}
+
+    @app.get("/debug-auth")
+    def debug_auth():
+        """Report non-secret authentication state for temporary diagnosis."""
+        return {
+            "authentication_enabled": bool(username and password),
+            "username_configured": bool(username),
+            "password_configured": bool(password),
+            "logged_in": bool(session.get("logged_in")),
+            "request_is_secure": request.is_secure,
+            "session_cookie_secure": bool(app.config["SESSION_COOKIE_SECURE"]),
+        }
 
     @app.route("/facilities/new", methods=["GET", "POST"])
     @app.route("/facilities/<int:facility_id>/edit", methods=["GET", "POST"])
