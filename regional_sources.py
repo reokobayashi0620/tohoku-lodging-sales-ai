@@ -7,6 +7,7 @@ from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 from flask import flash, redirect, render_template, request, url_for
+from openpyxl import load_workbook
 from pypdf import PdfReader
 
 SOURCES = {
@@ -15,8 +16,8 @@ SOURCES = {
         "title": "住宅宿泊事業法届出住宅一覧",
         "url": "https://opendata.pref.aomori.lg.jp/dataset/2047.html",
         "format": "XLSX（オープンデータ）",
-        "mode": "source_only",
-        "note": "公式オープンデータ。XLSX列構成を固定せず安全に取り込む処理を次段で追加。",
+        "mode": "import",
+        "note": "県公式オープンデータのXLSXをヘッダー名で判定し、届出住宅所在地を候補へ取り込み。",
     },
     "iwate": {
         "prefecture": "岩手県",
@@ -31,8 +32,8 @@ SOURCES = {
         "title": "住宅宿泊事業者一覧",
         "url": "https://www.pref.akita.lg.jp/pages/archive/31592",
         "format": "PDF（届出者・住宅所在地・電話）",
-        "mode": "source_only",
-        "note": "届出者住所と届出住宅所在地が同じ表にあるため、誤登録防止の専用解析を次段で追加。",
+        "mode": "import",
+        "note": "県公式PDFの列位置を確認し、届出者住所と届出住宅所在地を区別して候補へ取り込み。",
     },
     "yamagata": {
         "prefecture": "山形県",
@@ -54,6 +55,10 @@ SOURCES = {
 
 CORPORATE_WORDS = ("株式会社", "有限会社", "合同会社", "一般社団法人", "一般財団法人", "（株）", "(株)", "（有）", "(有)")
 MAX_BYTES = 10 * 1024 * 1024
+
+
+def _clean(value):
+    return unicodedata.normalize("NFKC", str(value or "")).strip()
 
 
 def _normalize(value):
@@ -83,6 +88,186 @@ def _get(url, accept="text/html,*/*"):
     if len(response.content) > MAX_BYTES:
         raise ValueError("公式資料のサイズが想定上限を超えています。")
     return response
+
+
+def _discover_resource(page_html, base_url, suffix, label_keyword=""):
+    soup = BeautifulSoup(page_html, "html.parser")
+    candidates = []
+    for link in soup.find_all("a", href=True):
+        href = link.get("href", "").strip()
+        label = link.get_text(" ", strip=True)
+        if suffix.lower() not in href.lower():
+            continue
+        score = 1
+        if label_keyword and label_keyword in label:
+            score += 4
+        if label_keyword and label_keyword in href:
+            score += 2
+        candidates.append((score, urljoin(base_url, href)))
+    if not candidates:
+        raise ValueError(f"公式ページから{suffix.upper()}資料を見つけられませんでした。")
+    candidates.sort(key=lambda item: item[0], reverse=True)
+    return candidates[0][1]
+
+
+def discover_aomori_xlsx(page_html, base_url):
+    return _discover_resource(page_html, base_url, ".xlsx", "住宅宿泊")
+
+
+def _header_index(values, aliases):
+    normalized = [_normalize(_clean(value)).replace("・", "").replace("、", "") for value in values]
+    for index, value in enumerate(normalized):
+        if any(_normalize(alias).replace("・", "").replace("、", "") in value for alias in aliases):
+            return index
+    return None
+
+
+def parse_aomori_xlsx(xlsx_bytes):
+    workbook = load_workbook(BytesIO(xlsx_bytes), read_only=True, data_only=True)
+    records = []
+    seen = set()
+    for sheet in workbook.worksheets:
+        rows = list(sheet.iter_rows(values_only=True))
+        header_row = None
+        mapping = None
+        for row_index, row in enumerate(rows[:20]):
+            address_index = _header_index(row, ("届出住宅の所在地", "届出住宅所在地", "住宅の所在地", "所在地"))
+            if address_index is None:
+                continue
+            mapping = {
+                "address": address_index,
+                "name": _header_index(row, ("商号", "屋号", "名称")),
+                "operator": _header_index(row, ("届出者氏名又は名称", "届出者氏名", "届出者名称", "氏名又は名称")),
+                "phone": _header_index(row, ("電話番号", "連絡先")),
+            }
+            header_row = row_index
+            break
+        if mapping is None:
+            continue
+        for row in rows[header_row + 1:]:
+            address = _clean(row[mapping["address"]]) if mapping["address"] < len(row) else ""
+            if not address or not re.search(r"[市町村郡]", address):
+                continue
+            key = _normalize(address)
+            if key in seen:
+                continue
+            seen.add(key)
+            name = _clean(row[mapping["name"]]) if mapping["name"] is not None and mapping["name"] < len(row) else ""
+            operator = _clean(row[mapping["operator"]]) if mapping["operator"] is not None and mapping["operator"] < len(row) else ""
+            phone = _clean(row[mapping["phone"]]) if mapping["phone"] is not None and mapping["phone"] < len(row) else ""
+            records.append({
+                "address": address,
+                "name": name,
+                "company_name": operator if any(word in operator for word in CORPORATE_WORDS) else "",
+                "phone": phone,
+                "official_url": "",
+            })
+    if not records:
+        raise ValueError("青森県XLSXから届出住宅所在地を抽出できませんでした。")
+    return records
+
+
+def fetch_aomori_records():
+    page = _get(SOURCES["aomori"]["url"])
+    xlsx_url = discover_aomori_xlsx(page.text, SOURCES["aomori"]["url"])
+    data = _get(xlsx_url, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,*/*").content
+    if not data.startswith(b"PK"):
+        raise ValueError("青森県の取得資料がXLSX形式ではありません。")
+    return parse_aomori_xlsx(data), xlsx_url
+
+
+def discover_akita_pdf(page_html, base_url):
+    soup = BeautifulSoup(page_html, "html.parser")
+    candidates = []
+    for link in soup.find_all("a", href=True):
+        href = link.get("href", "").strip()
+        label = link.get_text(" ", strip=True)
+        if ".pdf" not in href.lower():
+            continue
+        if "住宅宿泊事業者一覧" not in label and "住宅宿泊事業者一覧" not in href:
+            continue
+        candidates.append(urljoin(base_url, href))
+    if not candidates:
+        raise ValueError("秋田県の住宅宿泊事業者一覧PDFを見つけられませんでした。")
+    return candidates[-1]
+
+
+def _layout_text(page):
+    try:
+        return page.extract_text(extraction_mode="layout") or ""
+    except TypeError:
+        return page.extract_text() or ""
+
+
+def parse_akita_pdf(pdf_bytes):
+    text = "\n".join(_layout_text(page) for page in PdfReader(BytesIO(pdf_bytes)).pages)
+    lines = [unicodedata.normalize("NFKC", line.rstrip()) for line in text.splitlines() if line.strip()]
+    header_line = next((line for line in lines if "届出番号" in line and "届出者住所" in line and "届出住宅の所在地" in line), "")
+    if not header_line:
+        raise ValueError("秋田県PDFの表ヘッダーを確認できませんでした。")
+
+    number_pos = header_line.find("届出番号")
+    owner_pos = header_line.find("届出者氏名")
+    owner_address_pos = header_line.find("届出者住所")
+    residence_pos = header_line.find("届出住宅の所在地")
+    phone_pos = header_line.find("電話番号")
+    if min(number_pos, owner_pos, owner_address_pos, residence_pos, phone_pos) < 0:
+        raise ValueError("秋田県PDFの列位置を確認できませんでした。")
+
+    starts = []
+    for index, line in enumerate(lines):
+        if re.match(r"^\s*\d+\s+M\d+", line):
+            starts.append(index)
+    records = []
+    seen = set()
+    for pos, start in enumerate(starts):
+        end = starts[pos + 1] if pos + 1 < len(starts) else len(lines)
+        block = lines[start:end]
+        owner_parts = []
+        owner_address_parts = []
+        residence_parts = []
+        phone_parts = []
+        for line in block:
+            padded = line + " " * max(0, phone_pos + 30 - len(line))
+            owner_parts.append(padded[owner_pos:owner_address_pos].strip())
+            owner_address_parts.append(padded[owner_address_pos:residence_pos].strip())
+            residence_parts.append(padded[residence_pos:phone_pos].strip())
+            phone_parts.append(padded[phone_pos:].strip())
+        owner = " ".join(part for part in owner_parts if part)
+        owner_address = " ".join(part for part in owner_address_parts if part)
+        residence = " ".join(part for part in residence_parts if part)
+        phone_text = " ".join(part for part in phone_parts if part)
+        residence = re.sub(r"\s+", " ", residence).strip()
+        owner_address = re.sub(r"\s+", " ", owner_address).strip()
+        if residence.startswith("同左"):
+            residence = owner_address + residence[2:]
+        phone_match = re.search(r"0\d{1,4}-\d{1,4}-\d{3,4}", phone_text)
+        phone = phone_match.group(0) if phone_match else ""
+        if not residence or not re.search(r"[市町村郡]", residence):
+            continue
+        key = _normalize(residence)
+        if key in seen:
+            continue
+        seen.add(key)
+        records.append({
+            "address": residence,
+            "name": "",
+            "company_name": owner if any(word in owner for word in CORPORATE_WORDS) else "",
+            "phone": phone,
+            "official_url": "",
+        })
+    if not records:
+        raise ValueError("秋田県PDFから届出住宅所在地を抽出できませんでした。")
+    return records
+
+
+def fetch_akita_records():
+    page = _get(SOURCES["akita"]["url"])
+    pdf_url = discover_akita_pdf(page.text, SOURCES["akita"]["url"])
+    data = _get(pdf_url, "application/pdf,*/*").content
+    if not data.startswith(b"%PDF"):
+        raise ValueError("秋田県の取得資料がPDFではありません。")
+    return parse_akita_pdf(data), pdf_url
 
 
 def discover_yamagata_pdf(page_html, base_url):
@@ -193,7 +378,11 @@ def register_regional_sources(app):
             flash("この公式資料は安全な自動取込の対象外です。公式ページから個別確認してください。", "error")
             return redirect(url_for("regional_sources"))
         try:
-            if source_key == "yamagata":
+            if source_key == "aomori":
+                records, source_url = fetch_aomori_records()
+            elif source_key == "akita":
+                records, source_url = fetch_akita_records()
+            elif source_key == "yamagata":
                 records, source_url = fetch_yamagata_records()
             elif source_key == "fukushima":
                 records, source_url = fetch_fukushima_records()
