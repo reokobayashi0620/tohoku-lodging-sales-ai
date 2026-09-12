@@ -11,7 +11,7 @@
   </div>
   {% if selected_status in ['pending','all'] %}
   <div class="notice" style="margin-bottom:16px"><strong>調査キュー</strong>：未調査 → 調査中 → 確認済の順に、同じ状態ではS/A/B/C優先度と情報充足率で並び替えます。</div>
-  <form id="bulk-candidates" method="post" action="{{ url_for('bulk_candidates') }}">
+  <form id="bulk-candidates" method="post" action="/candidates/bulk">
     <input type="hidden" name="return_status" value="{{ selected_status }}">
   </form>
   <div class="panel" style="margin-bottom:16px;padding:14px">
