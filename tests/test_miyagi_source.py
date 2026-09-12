@@ -25,10 +25,10 @@ def test_fetch_falls_back_when_official_url_fails(monkeypatch):
     monkeypatch.setattr(app_module, "download_pdf", fake_download)
     monkeypatch.setattr(app_module, "parse_miyagi_pdf", lambda data: ["石巻市泉町1-2-3"])
 
-    addresses, actual_url = app_module.fetch_miyagi_candidates(configured)
+    addresses = app_module.fetch_miyagi_candidates(configured)
 
     assert addresses == ["石巻市泉町1-2-3"]
-    assert actual_url == configured
+    assert addresses.source_url == configured
     assert calls[:2] == [app_module.MIYAGI_OFFICIAL_URL, configured]
 
 
@@ -60,7 +60,7 @@ def test_collect_stores_actual_source_url(monkeypatch, tmp_path):
     monkeypatch.setattr(
         app_module,
         "fetch_miyagi_candidates",
-        lambda configured: (["石巻市泉町1-2-3"], actual_url),
+        lambda configured: app_module.CandidateBatch(["石巻市泉町1-2-3"], source_url=actual_url),
     )
 
     response = client.post("/collect", follow_redirects=True)
