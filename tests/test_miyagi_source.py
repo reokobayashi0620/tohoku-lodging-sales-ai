@@ -42,7 +42,7 @@ def test_fetch_failure_message_does_not_expose_internal_urls(monkeypatch):
         app_module.fetch_miyagi_candidates("https://secret.example.test/source.pdf")
 
     message = str(exc_info.value)
-    assert "複数の公式URL" in message
+    assert "公開資料を取得できませんでした" in message
     assert "secret.example.test" not in message
 
 
