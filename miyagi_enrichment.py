@@ -4,7 +4,7 @@ import unicodedata
 
 import requests
 from bs4 import BeautifulSoup
-from flask import flash, redirect, url_for
+from flask import flash, redirect, render_template, url_for
 
 MIYAGI_DETAIL_URL = "https://www.pref.miyagi.jp/site/miyagiminpaku/list.html"
 MAX_HTML_BYTES = 3 * 1024 * 1024
@@ -98,8 +98,6 @@ def _find_record(address, index):
         return None
     if key in index:
         return index[key]
-    # Official PDF and HTML sometimes differ only by a building/room suffix.
-    # Require a long common address to avoid broad municipality-level matches.
     if len(key) >= 12:
         candidates = [record for record_key, record in index.items() if key in record_key or record_key in key]
         if len(candidates) == 1:
@@ -158,6 +156,10 @@ def enrich_pending_candidates(database, records, source_url=MIYAGI_DETAIL_URL):
 def register_miyagi_enrichment(app):
     if "enrich_miyagi_candidates" in app.view_functions:
         return app
+
+    @app.get("/enrichment", endpoint="enrichment_page")
+    def enrichment_page():
+        return render_template("enrichment.html", source_url=MIYAGI_DETAIL_URL)
 
     @app.post("/candidates/enrich-miyagi", endpoint="enrich_miyagi_candidates")
     def enrich_miyagi_candidates():
