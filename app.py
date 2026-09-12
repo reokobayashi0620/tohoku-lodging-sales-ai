@@ -25,6 +25,10 @@ MIYAGI_OFFICIAL_URL = "https://www.pref.miyagi.jp/documents/30180/kunigaidorain.
 MIYAGI_LEGACY_URL = "https://www.pref.miyagi.jp/documents/30180/20260319.pdf"
 MIYAGI_SOURCE_URL = os.environ.get("MIYAGI_SOURCE_URL", MIYAGI_OFFICIAL_URL)
 MIYAGI_SOURCE_TYPE = "宮城県 住宅宿泊事業届出施設一覧"
+SENDAI_OFFICIAL_URL = "https://www.city.sendai.jp/sekatsuese/jigyosha/kankyo/shokuhin/minpaku/documents/minpakur712.pdf"
+SENDAI_SOURCE_URL = os.environ.get("SENDAI_SOURCE_URL", SENDAI_OFFICIAL_URL)
+SENDAI_SOURCE_TYPE = "仙台市 住宅宿泊事業法に基づく届出住宅一覧"
+SENDAI_WARDS = ("青葉区", "宮城野区", "若林区", "太白区", "泉区")
 MAX_PDF_BYTES = 20 * 1024 * 1024
 
 
@@ -39,7 +43,6 @@ def credentials_match(value, expected):
 
 
 def normalize_address(value):
-    """Normalize Japanese address text enough for practical duplicate checks."""
     text = unicodedata.normalize("NFKC", value or "").strip().lower()
     text = re.sub(r"[\s\u3000]+", "", text)
     text = re.sub(r"[‐‑‒–—―ー−﹣－]+", "-", text)
@@ -56,10 +59,13 @@ def extract_city(address):
     return match.group(1) if match else ""
 
 
-def parse_miyagi_pdf(pdf_bytes):
-    """Extract only published lodging addresses from the Miyagi PDF."""
+def pdf_text(pdf_bytes):
     reader = PdfReader(BytesIO(pdf_bytes))
-    text = "\n".join(page.extract_text() or "" for page in reader.pages)
+    return "\n".join(page.extract_text() or "" for page in reader.pages)
+
+
+def parse_miyagi_pdf(pdf_bytes):
+    text = pdf_text(pdf_bytes)
     addresses = []
     seen = set()
     for raw_line in text.splitlines():
@@ -77,13 +83,39 @@ def parse_miyagi_pdf(pdf_bytes):
     return addresses
 
 
-def miyagi_source_urls(configured_url=None):
-    """Return source candidates with the stable official URL always first."""
-    urls = [MIYAGI_OFFICIAL_URL]
-    for value in (configured_url, MIYAGI_SOURCE_URL, MIYAGI_LEGACY_URL):
+def parse_sendai_pdf(pdf_bytes):
+    text = pdf_text(pdf_bytes)
+    addresses = []
+    seen = set()
+    ward_pattern = "|".join(map(re.escape, SENDAI_WARDS))
+    for raw_line in text.splitlines():
+        line = unicodedata.normalize("NFKC", raw_line).strip()
+        match = re.search(rf"({ward_pattern}).+", line)
+        if not match:
+            continue
+        address = "仙台市" + match.group(0).strip()
+        normalized = normalize_address(address)
+        if normalized in seen:
+            continue
+        seen.add(normalized)
+        addresses.append(address)
+    return addresses
+
+
+def unique_urls(*values):
+    urls = []
+    for value in values:
         if value and value not in urls:
             urls.append(value)
     return urls
+
+
+def miyagi_source_urls(configured_url=None):
+    return unique_urls(MIYAGI_OFFICIAL_URL, configured_url, MIYAGI_SOURCE_URL, MIYAGI_LEGACY_URL)
+
+
+def sendai_source_urls(configured_url=None):
+    return unique_urls(SENDAI_OFFICIAL_URL, configured_url, SENDAI_SOURCE_URL)
 
 
 def download_pdf(url):
@@ -110,20 +142,24 @@ def download_pdf(url):
     return pdf_bytes
 
 
-def fetch_miyagi_candidates(source_url=None):
-    """Fetch candidates with safe fallbacks while remaining list-compatible."""
-    for url in miyagi_source_urls(source_url):
+def fetch_candidates(urls, parser, error_label):
+    for url in urls:
         try:
-            addresses = parse_miyagi_pdf(download_pdf(url))
+            addresses = parser(download_pdf(url))
             if not addresses:
                 raise ValueError("所在地を抽出できませんでした。")
             return CandidateBatch(addresses, source_url=url)
         except (requests.RequestException, ValueError, OSError):
             continue
-    raise ValueError(
-        "宮城県の公開資料を取得できませんでした。現在、複数の公式URLを自動確認しました。"
-        "時間を置いて再度お試しください。"
-    )
+    raise ValueError(f"{error_label}の公開資料を取得できませんでした。時間を置いて再度お試しください。")
+
+
+def fetch_miyagi_candidates(source_url=None):
+    return fetch_candidates(miyagi_source_urls(source_url), parse_miyagi_pdf, "宮城県")
+
+
+def fetch_sendai_candidates(source_url=None):
+    return fetch_candidates(sendai_source_urls(source_url), parse_sendai_pdf, "仙台市")
 
 
 def create_app(test_config=None):
@@ -137,6 +173,7 @@ def create_app(test_config=None):
         SESSION_COOKIE_SAMESITE="Lax",
         SESSION_COOKIE_SECURE=os.environ.get("SESSION_COOKIE_SECURE", "").lower() in {"1", "true", "yes"},
         MIYAGI_SOURCE_URL=MIYAGI_SOURCE_URL,
+        SENDAI_SOURCE_URL=SENDAI_SOURCE_URL,
     )
     if test_config:
         app.config.update(test_config)
@@ -251,16 +288,27 @@ def create_app(test_config=None):
     @app.route("/collect", methods=["GET", "POST"])
     def collect_candidates():
         stats = None
-        source_url = MIYAGI_OFFICIAL_URL
         if request.method == "POST":
+            source = request.form.get("source", "miyagi")
             try:
-                addresses = fetch_miyagi_candidates(app.config["MIYAGI_SOURCE_URL"])
-                actual_source_url = getattr(addresses, "source_url", None) or app.config["MIYAGI_SOURCE_URL"] or MIYAGI_OFFICIAL_URL
+                if source == "sendai":
+                    addresses = fetch_sendai_candidates(app.config["SENDAI_SOURCE_URL"])
+                    source_type = SENDAI_SOURCE_TYPE
+                    default_source_url = SENDAI_OFFICIAL_URL
+                    city_override = "仙台市"
+                    source_label = "仙台市"
+                else:
+                    addresses = fetch_miyagi_candidates(app.config["MIYAGI_SOURCE_URL"])
+                    source_type = MIYAGI_SOURCE_TYPE
+                    default_source_url = MIYAGI_OFFICIAL_URL
+                    city_override = None
+                    source_label = "宮城県（仙台市除く）"
+                actual_source_url = getattr(addresses, "source_url", None) or default_source_url
                 new_count = 0
                 duplicate_count = 0
                 with db() as con:
                     for address in addresses:
-                        city = extract_city(address)
+                        city = city_override or extract_city(address)
                         key = candidate_key("宮城県", city, address)
                         existing = con.execute("SELECT id FROM lead_candidates WHERE normalized_key=?", (key,)).fetchone()
                         if existing:
@@ -270,18 +318,25 @@ def create_app(test_config=None):
                             """INSERT INTO lead_candidates
                                (name,prefecture,city,address,official_url,source_url,source_type,normalized_key,status)
                                VALUES ('','宮城県',?,?,?,?,?,?, 'pending')""",
-                            (city, address, "", actual_source_url, MIYAGI_SOURCE_TYPE, key),
+                            (city, address, "", actual_source_url, source_type, key),
                         )
                         new_count += 1
-                stats = {"total": len(addresses), "new": new_count, "duplicate": duplicate_count}
-                flash(f"{len(addresses)}件を確認し、新規{new_count}件を候補へ追加しました。", "success")
+                stats = {"total": len(addresses), "new": new_count, "duplicate": duplicate_count, "source": source_label}
+                flash(f"{source_label}: {len(addresses)}件を確認し、新規{new_count}件を候補へ追加しました。", "success")
             except ValueError as exc:
-                app.logger.warning("Miyagi source fetch failed: %s", exc)
+                app.logger.warning("Candidate source fetch failed: %s", exc)
                 flash(str(exc), "error")
         with db() as con:
             pending_count = con.execute("SELECT COUNT(*) FROM lead_candidates WHERE status='pending'").fetchone()[0]
-        return render_template("collect.html", source_url=source_url, source_type=MIYAGI_SOURCE_TYPE,
-                               stats=stats, pending_count=pending_count)
+        return render_template(
+            "collect.html",
+            miyagi_url=MIYAGI_OFFICIAL_URL,
+            miyagi_source_type=MIYAGI_SOURCE_TYPE,
+            sendai_url=SENDAI_OFFICIAL_URL,
+            sendai_source_type=SENDAI_SOURCE_TYPE,
+            stats=stats,
+            pending_count=pending_count,
+        )
 
     @app.get("/candidates")
     def candidates():
@@ -319,10 +374,7 @@ def create_app(test_config=None):
             if existing_facility:
                 facility_id = existing_facility["id"]
             else:
-                data = {
-                    "facility_type": "民泊", "pet_friendly": 0, "whole_house": 0,
-                    "multiple_facilities": 0, "wood_floor": 0,
-                }
+                data = {"facility_type": "民泊", "pet_friendly": 0, "whole_house": 0, "multiple_facilities": 0, "wood_floor": 0}
                 priority, reason = calculate_priority(data)
                 display_name = candidate["name"] or candidate["address"]
                 cursor = con.execute(
@@ -348,10 +400,7 @@ def create_app(test_config=None):
             if not candidate:
                 return ("Not found", 404)
             if candidate["status"] != "promoted":
-                con.execute(
-                    "UPDATE lead_candidates SET status='excluded', updated_at=CURRENT_TIMESTAMP WHERE id=?",
-                    (candidate_id,),
-                )
+                con.execute("UPDATE lead_candidates SET status='excluded', updated_at=CURRENT_TIMESTAMP WHERE id=?", (candidate_id,))
         flash("候補を除外しました。", "success")
         return redirect(url_for("candidates"))
 
@@ -366,22 +415,19 @@ def create_app(test_config=None):
             data = form_data()
             if not data["name"] or data["prefecture"] not in PREFECTURES:
                 flash("施設名と東北6県の都道府県は必須です。", "error")
-                return render_template("form.html", facility=data, prefectures=PREFECTURES,
-                                       facility_types=FACILITY_TYPES, statuses=STATUSES)
+                return render_template("form.html", facility=data, prefectures=PREFECTURES, facility_types=FACILITY_TYPES, statuses=STATUSES)
             data["priority"], data["priority_reason"] = calculate_priority(data)
             columns = list(data)
             with db() as con:
                 if facility_id:
                     assignments = ",".join(f"{column}=?" for column in columns)
-                    con.execute(f"UPDATE facilities SET {assignments}, updated_at=CURRENT_TIMESTAMP WHERE id=?",
-                                [data[c] for c in columns] + [facility_id])
+                    con.execute(f"UPDATE facilities SET {assignments}, updated_at=CURRENT_TIMESTAMP WHERE id=?", [data[c] for c in columns] + [facility_id])
                 else:
                     placeholders = ",".join("?" for _ in columns)
                     con.execute(f"INSERT INTO facilities ({','.join(columns)}) VALUES ({placeholders})", [data[c] for c in columns])
             flash("施設情報を保存し、優先度を自動判定しました。", "success")
             return redirect(url_for("index"))
-        return render_template("form.html", facility=facility, prefectures=PREFECTURES,
-                               facility_types=FACILITY_TYPES, statuses=STATUSES)
+        return render_template("form.html", facility=facility, prefectures=PREFECTURES, facility_types=FACILITY_TYPES, statuses=STATUSES)
 
     @app.post("/facilities/<int:facility_id>/status")
     def update_status(facility_id):
@@ -411,8 +457,7 @@ def create_app(test_config=None):
         writer.writerow(fields)
         for row in rows:
             writer.writerow([row[k] for k in ["name", "company_name", "prefecture", "city", "address", "facility_type", "priority", "priority_reason", "status", "official_url", "phone", "email", "contact_url", "notes"]])
-        return Response(output.getvalue(), mimetype="text/csv; charset=utf-8",
-                        headers={"Content-Disposition": "attachment; filename=facilities.csv"})
+        return Response(output.getvalue(), mimetype="text/csv; charset=utf-8", headers={"Content-Disposition": "attachment; filename=facilities.csv"})
 
     app.jinja_env.globals.update(statuses=STATUSES)
     app.init_db = init_db
@@ -421,7 +466,9 @@ def create_app(test_config=None):
     app.candidate_key = candidate_key
     app.extract_city = extract_city
     app.parse_miyagi_pdf = parse_miyagi_pdf
+    app.parse_sendai_pdf = parse_sendai_pdf
     app.fetch_miyagi_candidates = fetch_miyagi_candidates
+    app.fetch_sendai_candidates = fetch_sendai_candidates
     with app.app_context():
         init_db()
     return app
