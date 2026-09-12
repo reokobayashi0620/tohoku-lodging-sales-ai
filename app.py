@@ -21,12 +21,17 @@ PREFECTURES = ["宮城県", "岩手県", "山形県", "福島県", "秋田県", 
 FACILITY_TYPES = ["民泊", "ホテル", "旅館", "ゲストハウス", "貸別荘", "運営会社", "その他"]
 STATUSES = ["未連絡", "営業文作成済", "連絡済", "返信あり", "商談", "見積", "成約", "見送り"]
 BOOL_FIELDS = ["pet_friendly", "whole_house", "multiple_facilities", "wood_floor"]
-MIYAGI_SOURCE_URL = os.environ.get(
-    "MIYAGI_SOURCE_URL",
-    "https://www.pref.miyagi.jp/documents/30180/20260319.pdf",
-)
+MIYAGI_OFFICIAL_URL = "https://www.pref.miyagi.jp/documents/30180/kunigaidorain.pdf"
+MIYAGI_LEGACY_URL = "https://www.pref.miyagi.jp/documents/30180/20260319.pdf"
+MIYAGI_SOURCE_URL = os.environ.get("MIYAGI_SOURCE_URL", MIYAGI_OFFICIAL_URL)
 MIYAGI_SOURCE_TYPE = "宮城県 住宅宿泊事業届出施設一覧"
 MAX_PDF_BYTES = 20 * 1024 * 1024
+
+
+class CandidateBatch(list):
+    def __init__(self, values=(), source_url=""):
+        super().__init__(values)
+        self.source_url = source_url
 
 
 def credentials_match(value, expected):
@@ -72,26 +77,53 @@ def parse_miyagi_pdf(pdf_bytes):
     return addresses
 
 
-def fetch_miyagi_candidates(source_url=MIYAGI_SOURCE_URL):
-    try:
-        response = requests.get(source_url, timeout=15, stream=True, headers={"User-Agent": "TohokuLodgingSalesAI/1.0"})
-        response.raise_for_status()
-        data = bytearray()
-        for chunk in response.iter_content(chunk_size=64 * 1024):
-            if not chunk:
-                continue
-            data.extend(chunk)
-            if len(data) > MAX_PDF_BYTES:
-                raise ValueError("PDFのサイズが20MBを超えています。")
-        pdf_bytes = bytes(data)
-        if not pdf_bytes.startswith(b"%PDF"):
-            raise ValueError("取得したファイルがPDF形式ではありません。")
-        addresses = parse_miyagi_pdf(pdf_bytes)
-        if not addresses:
-            raise ValueError("公開PDFから所在地を抽出できませんでした。資料形式が変更された可能性があります。")
-        return addresses
-    except requests.RequestException as exc:
-        raise ValueError("宮城県の公開資料を取得できませんでした。時間を置いて再度お試しください。") from exc
+def miyagi_source_urls(configured_url=None):
+    """Return source candidates with the stable official URL always first."""
+    urls = [MIYAGI_OFFICIAL_URL]
+    for value in (configured_url, MIYAGI_SOURCE_URL, MIYAGI_LEGACY_URL):
+        if value and value not in urls:
+            urls.append(value)
+    return urls
+
+
+def download_pdf(url):
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0 Safari/537.36"
+        ),
+        "Accept": "application/pdf,application/octet-stream;q=0.9,*/*;q=0.8",
+        "Accept-Language": "ja,en-US;q=0.8,en;q=0.6",
+    }
+    response = requests.get(url, timeout=20, stream=True, headers=headers, allow_redirects=True)
+    response.raise_for_status()
+    data = bytearray()
+    for chunk in response.iter_content(chunk_size=64 * 1024):
+        if not chunk:
+            continue
+        data.extend(chunk)
+        if len(data) > MAX_PDF_BYTES:
+            raise ValueError("PDFのサイズが20MBを超えています。")
+    pdf_bytes = bytes(data)
+    if not pdf_bytes.startswith(b"%PDF"):
+        raise ValueError("取得したファイルがPDF形式ではありません。")
+    return pdf_bytes
+
+
+def fetch_miyagi_candidates(source_url=None):
+    """Fetch candidates with safe fallbacks while remaining list-compatible."""
+    for url in miyagi_source_urls(source_url):
+        try:
+            addresses = parse_miyagi_pdf(download_pdf(url))
+            if not addresses:
+                raise ValueError("所在地を抽出できませんでした。")
+            return CandidateBatch(addresses, source_url=url)
+        except (requests.RequestException, ValueError, OSError):
+            continue
+    raise ValueError(
+        "宮城県の公開資料を取得できませんでした。現在、複数の公式URLを自動確認しました。"
+        "時間を置いて再度お試しください。"
+    )
 
 
 def create_app(test_config=None):
@@ -219,10 +251,11 @@ def create_app(test_config=None):
     @app.route("/collect", methods=["GET", "POST"])
     def collect_candidates():
         stats = None
-        source_url = app.config["MIYAGI_SOURCE_URL"]
+        source_url = MIYAGI_OFFICIAL_URL
         if request.method == "POST":
             try:
-                addresses = fetch_miyagi_candidates(source_url)
+                addresses = fetch_miyagi_candidates(app.config["MIYAGI_SOURCE_URL"])
+                actual_source_url = getattr(addresses, "source_url", None) or app.config["MIYAGI_SOURCE_URL"] or MIYAGI_OFFICIAL_URL
                 new_count = 0
                 duplicate_count = 0
                 with db() as con:
@@ -237,12 +270,13 @@ def create_app(test_config=None):
                             """INSERT INTO lead_candidates
                                (name,prefecture,city,address,official_url,source_url,source_type,normalized_key,status)
                                VALUES ('','宮城県',?,?,?,?,?,?, 'pending')""",
-                            (city, address, "", source_url, MIYAGI_SOURCE_TYPE, key),
+                            (city, address, "", actual_source_url, MIYAGI_SOURCE_TYPE, key),
                         )
                         new_count += 1
                 stats = {"total": len(addresses), "new": new_count, "duplicate": duplicate_count}
                 flash(f"{len(addresses)}件を確認し、新規{new_count}件を候補へ追加しました。", "success")
             except ValueError as exc:
+                app.logger.warning("Miyagi source fetch failed: %s", exc)
                 flash(str(exc), "error")
         with db() as con:
             pending_count = con.execute("SELECT COUNT(*) FROM lead_candidates WHERE status='pending'").fetchone()[0]
@@ -387,6 +421,7 @@ def create_app(test_config=None):
     app.candidate_key = candidate_key
     app.extract_city = extract_city
     app.parse_miyagi_pdf = parse_miyagi_pdf
+    app.fetch_miyagi_candidates = fetch_miyagi_candidates
     with app.app_context():
         init_db()
     return app
