@@ -28,6 +28,12 @@ MIYAGI_SOURCE_TYPE = "宮城県 住宅宿泊事業届出施設一覧"
 MAX_PDF_BYTES = 20 * 1024 * 1024
 
 
+class CandidateBatch(list):
+    def __init__(self, values=(), source_url=""):
+        super().__init__(values)
+        self.source_url = source_url
+
+
 def credentials_match(value, expected):
     return hmac.compare_digest(value.encode("utf-8"), expected.encode("utf-8"))
 
@@ -105,16 +111,15 @@ def download_pdf(url):
 
 
 def fetch_miyagi_candidates(source_url=None):
-    """Fetch candidates with safe fallbacks and return (addresses, actual_source_url)."""
-    errors = []
+    """Fetch candidates with safe fallbacks while remaining list-compatible."""
     for url in miyagi_source_urls(source_url):
         try:
             addresses = parse_miyagi_pdf(download_pdf(url))
             if not addresses:
                 raise ValueError("所在地を抽出できませんでした。")
-            return addresses, url
-        except (requests.RequestException, ValueError, OSError) as exc:
-            errors.append(f"{type(exc).__name__}:{url}")
+            return CandidateBatch(addresses, source_url=url)
+        except (requests.RequestException, ValueError, OSError):
+            continue
     raise ValueError(
         "宮城県の公開資料を取得できませんでした。現在、複数の公式URLを自動確認しました。"
         "時間を置いて再度お試しください。"
@@ -249,7 +254,8 @@ def create_app(test_config=None):
         source_url = MIYAGI_OFFICIAL_URL
         if request.method == "POST":
             try:
-                addresses, actual_source_url = fetch_miyagi_candidates(app.config["MIYAGI_SOURCE_URL"])
+                addresses = fetch_miyagi_candidates(app.config["MIYAGI_SOURCE_URL"])
+                actual_source_url = getattr(addresses, "source_url", None) or app.config["MIYAGI_SOURCE_URL"] or MIYAGI_OFFICIAL_URL
                 new_count = 0
                 duplicate_count = 0
                 with db() as con:
