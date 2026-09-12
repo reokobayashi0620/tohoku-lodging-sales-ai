@@ -12,6 +12,8 @@ services:
         generateValue: true
       - key: SESSION_COOKIE_SECURE
         value: "true"
+      - key: MIYAGI_SOURCE_URL
+        value: https://www.pref.miyagi.jp/documents/30180/kunigaidorain.pdf
       - key: APP_USERNAME
         sync: false
       - key: APP_PASSWORD
