@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}候補調査｜東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="page-title"><p class="eyebrow">PHASE 2-3</p><h1>候補を調査・補完</h1><p>{{ candidate.address }}</p></section>
+<form method="post" class="panel edit-form">
+  <fieldset><legend>施設・運営情報</legend>
+    <label>施設名<input name="name" value="{{ candidate.name }}" placeholder="未確認なら空欄のまま"></label>
+    <label>運営会社<input name="company_name" value="{{ candidate.company_name }}"></label>
+    <label>公式URL<input type="url" name="official_url" value="{{ candidate.official_url }}"></label>
+    <label>電話<input name="phone" value="{{ candidate.phone }}"></label>
+    <label>メール<input type="email" name="email" value="{{ candidate.email }}"></label>
+    <label>問い合わせURL<input type="url" name="contact_url" value="{{ candidate.contact_url }}"></label>
+  </fieldset>
+  <fieldset><legend>営業判断</legend>
+    <label>調査状態<select name="research_status">{% for key,label in research_statuses.items() %}<option value="{{ key }}" {{ 'selected' if candidate.research_status==key }}>{{ label }}</option>{% endfor %}</select></label>
+    <div class="checks">{% for name,label in [('pet_friendly','ペット可'),('whole_house','一棟貸し'),('wood_floor','木質床の可能性'),('multiple_facilities','複数施設運営')] %}<label><input type="checkbox" name="{{ name }}" {{ 'checked' if candidate[name] }}> {{ label }}</label>{% endfor %}</div>
+    <label>調査メモ<textarea name="research_notes" rows="7" placeholder="確認したページ、特徴、営業で使えそうな情報など">{{ candidate.research_notes }}</textarea></label>
+    <div class="priority-preview"><small>現在の自動判定</small><span class="priority p{{ priority }}">{{ priority }}</span><strong>{{ priority_reason }}</strong></div>
+  </fieldset>
+  <div class="full notice">出典：<a href="{{ candidate.source_url }}" target="_blank" rel="noopener noreferrer">{{ candidate.source_type }}</a>。施設名や運営会社は、確認できた公開情報だけを入力してください。</div>
+  <div class="actions"><a href="{{ url_for('candidates') }}">候補一覧へ戻る</a><button class="button primary" type="submit">調査情報を保存</button></div>
+</form>
+{% endblock %}
