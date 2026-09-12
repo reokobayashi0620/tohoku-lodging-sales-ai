@@ -2,11 +2,16 @@ import csv
 import hmac
 import io
 import os
+import re
 import secrets
 import sqlite3
+import unicodedata
+from io import BytesIO
 from pathlib import Path
 
+import requests
 from flask import Flask, Response, flash, redirect, render_template, request, session, url_for
+from pypdf import PdfReader
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -16,16 +21,77 @@ PREFECTURES = ["宮城県", "岩手県", "山形県", "福島県", "秋田県", 
 FACILITY_TYPES = ["民泊", "ホテル", "旅館", "ゲストハウス", "貸別荘", "運営会社", "その他"]
 STATUSES = ["未連絡", "営業文作成済", "連絡済", "返信あり", "商談", "見積", "成約", "見送り"]
 BOOL_FIELDS = ["pet_friendly", "whole_house", "multiple_facilities", "wood_floor"]
+MIYAGI_SOURCE_URL = os.environ.get(
+    "MIYAGI_SOURCE_URL",
+    "https://www.pref.miyagi.jp/documents/30180/20260319.pdf",
+)
+MIYAGI_SOURCE_TYPE = "宮城県 住宅宿泊事業届出施設一覧"
+MAX_PDF_BYTES = 20 * 1024 * 1024
 
 
 def credentials_match(value, expected):
-    """Compare credentials without leaking timing information.
-
-    ``hmac.compare_digest`` only accepts ASCII when its arguments are strings.
-    Environment variables and Basic Auth credentials are Unicode strings, so
-    compare their UTF-8 byte representations instead.
-    """
     return hmac.compare_digest(value.encode("utf-8"), expected.encode("utf-8"))
+
+
+def normalize_address(value):
+    """Normalize Japanese address text enough for practical duplicate checks."""
+    text = unicodedata.normalize("NFKC", value or "").strip().lower()
+    text = re.sub(r"[\s\u3000]+", "", text)
+    text = re.sub(r"[‐‑‒–—―ー−﹣－]+", "-", text)
+    return text
+
+
+def candidate_key(prefecture, city, address):
+    return "|".join(normalize_address(part) for part in (prefecture, city, address))
+
+
+def extract_city(address):
+    text = (address or "").strip()
+    match = re.match(r"^(.+?郡.+?[町村]|.+?[市区町村])", text)
+    return match.group(1) if match else ""
+
+
+def parse_miyagi_pdf(pdf_bytes):
+    """Extract only published lodging addresses from the Miyagi PDF."""
+    reader = PdfReader(BytesIO(pdf_bytes))
+    text = "\n".join(page.extract_text() or "" for page in reader.pages)
+    addresses = []
+    seen = set()
+    for raw_line in text.splitlines():
+        line = unicodedata.normalize("NFKC", raw_line).strip()
+        line = re.sub(r"^\s*\d+[.)]?\s*", "", line)
+        if not line or "届出住宅所在地" in line or line.startswith("※"):
+            continue
+        if not re.match(r"^(.+?郡.+?[町村]|.+?[市区町村])", line):
+            continue
+        normalized = normalize_address(line)
+        if normalized in seen:
+            continue
+        seen.add(normalized)
+        addresses.append(line)
+    return addresses
+
+
+def fetch_miyagi_candidates(source_url=MIYAGI_SOURCE_URL):
+    try:
+        response = requests.get(source_url, timeout=15, stream=True, headers={"User-Agent": "TohokuLodgingSalesAI/1.0"})
+        response.raise_for_status()
+        data = bytearray()
+        for chunk in response.iter_content(chunk_size=64 * 1024):
+            if not chunk:
+                continue
+            data.extend(chunk)
+            if len(data) > MAX_PDF_BYTES:
+                raise ValueError("PDFのサイズが20MBを超えています。")
+        pdf_bytes = bytes(data)
+        if not pdf_bytes.startswith(b"%PDF"):
+            raise ValueError("取得したファイルがPDF形式ではありません。")
+        addresses = parse_miyagi_pdf(pdf_bytes)
+        if not addresses:
+            raise ValueError("公開PDFから所在地を抽出できませんでした。資料形式が変更された可能性があります。")
+        return addresses
+    except requests.RequestException as exc:
+        raise ValueError("宮城県の公開資料を取得できませんでした。時間を置いて再度お試しください。") from exc
 
 
 def create_app(test_config=None):
@@ -38,6 +104,7 @@ def create_app(test_config=None):
         SESSION_COOKIE_HTTPONLY=True,
         SESSION_COOKIE_SAMESITE="Lax",
         SESSION_COOKIE_SECURE=os.environ.get("SESSION_COOKIE_SECURE", "").lower() in {"1", "true", "yes"},
+        MIYAGI_SOURCE_URL=MIYAGI_SOURCE_URL,
     )
     if test_config:
         app.config.update(test_config)
@@ -96,6 +163,9 @@ def create_app(test_config=None):
         Path(app.config["DATABASE"]).parent.mkdir(parents=True, exist_ok=True)
         with db() as con:
             con.executescript((BASE_DIR / "schema.sql").read_text(encoding="utf-8"))
+            facility_columns = {row[1] for row in con.execute("PRAGMA table_info(facilities)").fetchall()}
+            if "address" not in facility_columns:
+                con.execute("ALTER TABLE facilities ADD COLUMN address TEXT DEFAULT ''")
             count = con.execute("SELECT COUNT(*) FROM facilities").fetchone()[0]
             if count == 0:
                 con.executescript((BASE_DIR / "sample_data.sql").read_text(encoding="utf-8"))
@@ -118,7 +188,7 @@ def create_app(test_config=None):
 
     def form_data():
         data = {key: request.form.get(key, "").strip() for key in [
-            "name", "company_name", "prefecture", "city", "facility_type", "official_url",
+            "name", "company_name", "prefecture", "city", "address", "facility_type", "official_url",
             "phone", "email", "contact_url", "source_url", "notes", "status"
         ]}
         data.update({key: int(request.form.get(key) == "on") for key in BOOL_FIELDS})
@@ -129,8 +199,8 @@ def create_app(test_config=None):
         filters = {key: request.args.get(key, "").strip() for key in ["q", "prefecture", "priority", "status"]}
         sql, params = "SELECT * FROM facilities WHERE 1=1", []
         if filters["q"]:
-            sql += " AND (name LIKE ? OR company_name LIKE ? OR city LIKE ? OR notes LIKE ?)"
-            params += [f"%{filters['q']}%"] * 4
+            sql += " AND (name LIKE ? OR company_name LIKE ? OR city LIKE ? OR address LIKE ? OR notes LIKE ?)"
+            params += [f"%{filters['q']}%"] * 5
         for key in ["prefecture", "priority", "status"]:
             if filters[key]:
                 sql += f" AND {key} = ?"
@@ -145,6 +215,111 @@ def create_app(test_config=None):
     @app.get("/healthz")
     def healthz():
         return {"status": "ok"}
+
+    @app.route("/collect", methods=["GET", "POST"])
+    def collect_candidates():
+        stats = None
+        source_url = app.config["MIYAGI_SOURCE_URL"]
+        if request.method == "POST":
+            try:
+                addresses = fetch_miyagi_candidates(source_url)
+                new_count = 0
+                duplicate_count = 0
+                with db() as con:
+                    for address in addresses:
+                        city = extract_city(address)
+                        key = candidate_key("宮城県", city, address)
+                        existing = con.execute("SELECT id FROM lead_candidates WHERE normalized_key=?", (key,)).fetchone()
+                        if existing:
+                            duplicate_count += 1
+                            continue
+                        con.execute(
+                            """INSERT INTO lead_candidates
+                               (name,prefecture,city,address,official_url,source_url,source_type,normalized_key,status)
+                               VALUES ('','宮城県',?,?,?,?,?,?, 'pending')""",
+                            (city, address, "", source_url, MIYAGI_SOURCE_TYPE, key),
+                        )
+                        new_count += 1
+                stats = {"total": len(addresses), "new": new_count, "duplicate": duplicate_count}
+                flash(f"{len(addresses)}件を確認し、新規{new_count}件を候補へ追加しました。", "success")
+            except ValueError as exc:
+                flash(str(exc), "error")
+        with db() as con:
+            pending_count = con.execute("SELECT COUNT(*) FROM lead_candidates WHERE status='pending'").fetchone()[0]
+        return render_template("collect.html", source_url=source_url, source_type=MIYAGI_SOURCE_TYPE,
+                               stats=stats, pending_count=pending_count)
+
+    @app.get("/candidates")
+    def candidates():
+        status = request.args.get("status", "pending")
+        if status not in {"pending", "promoted", "excluded", "all"}:
+            status = "pending"
+        sql = "SELECT * FROM lead_candidates"
+        params = []
+        if status != "all":
+            sql += " WHERE status=?"
+            params.append(status)
+        sql += " ORDER BY created_at DESC, id DESC"
+        with db() as con:
+            rows = con.execute(sql, params).fetchall()
+        return render_template("candidates.html", candidates=rows, selected_status=status)
+
+    @app.post("/candidates/<int:candidate_id>/promote")
+    def promote_candidate(candidate_id):
+        with db() as con:
+            candidate = con.execute("SELECT * FROM lead_candidates WHERE id=?", (candidate_id,)).fetchone()
+            if not candidate:
+                return ("Not found", 404)
+            if candidate["status"] == "excluded":
+                flash("除外済み候補は営業リストへ登録できません。", "error")
+                return redirect(url_for("candidates"))
+            target_key = candidate_key(candidate["prefecture"], candidate["city"], candidate["address"])
+            existing_facility = None
+            for facility in con.execute(
+                "SELECT id,prefecture,city,address FROM facilities WHERE prefecture=?",
+                (candidate["prefecture"],),
+            ).fetchall():
+                if candidate_key(facility["prefecture"], facility["city"], facility["address"]) == target_key:
+                    existing_facility = facility
+                    break
+            if existing_facility:
+                facility_id = existing_facility["id"]
+            else:
+                data = {
+                    "facility_type": "民泊", "pet_friendly": 0, "whole_house": 0,
+                    "multiple_facilities": 0, "wood_floor": 0,
+                }
+                priority, reason = calculate_priority(data)
+                display_name = candidate["name"] or candidate["address"]
+                cursor = con.execute(
+                    """INSERT INTO facilities
+                       (name,company_name,prefecture,city,address,facility_type,official_url,phone,email,contact_url,
+                        pet_friendly,whole_house,multiple_facilities,wood_floor,source_url,notes,priority,priority_reason,status)
+                       VALUES (?,?,?,?,?,'民泊',?,'','','',0,0,0,0,?,'',?,?,'未連絡')""",
+                    (display_name, "", candidate["prefecture"], candidate["city"], candidate["address"],
+                     candidate["official_url"], candidate["source_url"], priority, reason),
+                )
+                facility_id = cursor.lastrowid
+            con.execute(
+                "UPDATE lead_candidates SET status='promoted', matched_facility_id=?, updated_at=CURRENT_TIMESTAMP WHERE id=?",
+                (facility_id, candidate_id),
+            )
+        flash("候補を営業リストへ登録しました。", "success")
+        return redirect(url_for("candidates"))
+
+    @app.post("/candidates/<int:candidate_id>/exclude")
+    def exclude_candidate(candidate_id):
+        with db() as con:
+            candidate = con.execute("SELECT id,status FROM lead_candidates WHERE id=?", (candidate_id,)).fetchone()
+            if not candidate:
+                return ("Not found", 404)
+            if candidate["status"] != "promoted":
+                con.execute(
+                    "UPDATE lead_candidates SET status='excluded', updated_at=CURRENT_TIMESTAMP WHERE id=?",
+                    (candidate_id,),
+                )
+        flash("候補を除外しました。", "success")
+        return redirect(url_for("candidates"))
 
     @app.route("/facilities/new", methods=["GET", "POST"])
     @app.route("/facilities/<int:facility_id>/edit", methods=["GET", "POST"])
@@ -197,17 +372,21 @@ def create_app(test_config=None):
             rows = con.execute("SELECT * FROM facilities ORDER BY id").fetchall()
         output = io.StringIO()
         output.write("\ufeff")
-        fields = ["施設名", "運営会社", "都道府県", "市区町村", "施設種別", "優先度", "判定理由", "ステータス", "公式URL", "電話", "メール", "問い合わせURL", "メモ"]
+        fields = ["施設名", "運営会社", "都道府県", "市区町村", "住所", "施設種別", "優先度", "判定理由", "ステータス", "公式URL", "電話", "メール", "問い合わせURL", "メモ"]
         writer = csv.writer(output)
         writer.writerow(fields)
         for row in rows:
-            writer.writerow([row[k] for k in ["name", "company_name", "prefecture", "city", "facility_type", "priority", "priority_reason", "status", "official_url", "phone", "email", "contact_url", "notes"]])
+            writer.writerow([row[k] for k in ["name", "company_name", "prefecture", "city", "address", "facility_type", "priority", "priority_reason", "status", "official_url", "phone", "email", "contact_url", "notes"]])
         return Response(output.getvalue(), mimetype="text/csv; charset=utf-8",
                         headers={"Content-Disposition": "attachment; filename=facilities.csv"})
 
     app.jinja_env.globals.update(statuses=STATUSES)
     app.init_db = init_db
     app.calculate_priority = calculate_priority
+    app.normalize_address = normalize_address
+    app.candidate_key = candidate_key
+    app.extract_city = extract_city
+    app.parse_miyagi_pdf = parse_miyagi_pdf
     with app.app_context():
         init_db()
     return app
