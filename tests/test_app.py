@@ -1,8 +1,10 @@
 import csv
 import io
+import sqlite3
 
 import pytest
 
+import app as app_module
 from app import create_app
 
 
@@ -57,6 +59,7 @@ def test_csv_has_bom_and_rows(client):
     text = response.data.decode("utf-8-sig")
     rows = list(csv.reader(io.StringIO(text)))
     assert rows[0][0] == "施設名"
+    assert "住所" in rows[0]
     assert len(rows) == 6
 
 
@@ -149,3 +152,80 @@ def test_session_cookie_security_settings(tmp_path):
     assert "HttpOnly" in cookie
     assert "SameSite=Lax" in cookie
     assert "Secure" in cookie
+
+
+def test_address_normalization_handles_width_spaces_and_hyphens(app):
+    left = app.normalize_address(" 宮城郡 松島町 26－2 ")
+    right = app.normalize_address("宮城郡松島町26-2")
+    assert left == right
+
+
+def test_candidate_key_is_stable_for_equivalent_addresses(app):
+    key1 = app.candidate_key("宮城県", "石巻市", "泉町２－９－１０")
+    key2 = app.candidate_key("宮城県", "石巻市", "泉町2-9-10")
+    assert key1 == key2
+
+
+def test_collect_adds_candidates_and_second_run_is_duplicate(monkeypatch, app, client):
+    addresses = ["石巻市泉町２－９－１０", "宮城郡松島町松島字垣ノ内２６－２"]
+    monkeypatch.setattr(app_module, "fetch_miyagi_candidates", lambda _url: addresses)
+
+    first = client.post("/collect", follow_redirects=True)
+    assert first.status_code == 200
+    assert "新規2件" in first.get_data(as_text=True)
+
+    second = client.post("/collect", follow_redirects=True)
+    assert second.status_code == 200
+    assert "新規0件" in second.get_data(as_text=True)
+
+    with sqlite3.connect(app.config["DATABASE"]) as con:
+        assert con.execute("SELECT COUNT(*) FROM lead_candidates").fetchone()[0] == 2
+
+
+def test_promote_candidate_creates_one_facility_only(monkeypatch, app, client):
+    monkeypatch.setattr(app_module, "fetch_miyagi_candidates", lambda _url: ["石巻市泉町２－９－１０"])
+    client.post("/collect")
+
+    with sqlite3.connect(app.config["DATABASE"]) as con:
+        candidate_id = con.execute("SELECT id FROM lead_candidates").fetchone()[0]
+        before = con.execute("SELECT COUNT(*) FROM facilities").fetchone()[0]
+
+    response = client.post(f"/candidates/{candidate_id}/promote", follow_redirects=True)
+    assert response.status_code == 200
+    assert "営業リストへ登録しました" in response.get_data(as_text=True)
+
+    with sqlite3.connect(app.config["DATABASE"]) as con:
+        after_first = con.execute("SELECT COUNT(*) FROM facilities").fetchone()[0]
+        status, facility_id = con.execute(
+            "SELECT status, matched_facility_id FROM lead_candidates WHERE id=?", (candidate_id,)
+        ).fetchone()
+    assert after_first == before + 1
+    assert status == "promoted"
+    assert facility_id
+
+    client.post(f"/candidates/{candidate_id}/promote")
+    with sqlite3.connect(app.config["DATABASE"]) as con:
+        after_second = con.execute("SELECT COUNT(*) FROM facilities").fetchone()[0]
+    assert after_second == after_first
+
+
+def test_exclude_candidate_changes_state(monkeypatch, app, client):
+    monkeypatch.setattr(app_module, "fetch_miyagi_candidates", lambda _url: ["名取市高舘熊野堂大沢５７"])
+    client.post("/collect")
+    with sqlite3.connect(app.config["DATABASE"]) as con:
+        candidate_id = con.execute("SELECT id FROM lead_candidates").fetchone()[0]
+
+    response = client.post(f"/candidates/{candidate_id}/exclude", follow_redirects=True)
+    assert response.status_code == 200
+    with sqlite3.connect(app.config["DATABASE"]) as con:
+        assert con.execute("SELECT status FROM lead_candidates WHERE id=?", (candidate_id,)).fetchone()[0] == "excluded"
+
+
+def test_collect_failure_is_shown_without_crashing(monkeypatch, client):
+    def fail(_url):
+        raise ValueError("宮城県の公開資料を取得できませんでした。")
+
+    monkeypatch.setattr(app_module, "fetch_miyagi_candidates", fail)
+    response = client.post("/collect", follow_redirects=True)
+    assert response.status_code == 200
+    assert "公開資料を取得できませんでした" in response.get_data(as_text=True)
