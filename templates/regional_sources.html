@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}東北5県 公式ソース｜東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="page-title"><p class="eyebrow">OFFICIAL SOURCES</p><h1>東北5県 公式ソース</h1><p>宮城県以外の5県について、県公式の住宅宿泊事業資料を管理します。誤登録を避けるため、資料構造を安全に判定できる県だけ自動取込します。</p></section>
+<section class="panel">
+  <div class="notice" style="margin-bottom:16px"><strong>現在の自動取込</strong>：山形県と福島県。青森県・岩手県・秋田県は公式資料への導線を先に整備し、専用解析を追加してから自動取込を有効化します。</div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>県</th><th>公式資料</th><th>形式</th><th>方針</th><th>操作</th></tr></thead>
+    <tbody>{% for key, source in sources.items() %}<tr>
+      <td><strong>{{ source.prefecture }}</strong></td>
+      <td><strong>{{ source.title }}</strong><small>{{ source.note }}</small></td>
+      <td>{{ source.format }}</td>
+      <td>{% if source.mode == 'import' %}<span class="priority pA">自動取込可</span>{% else %}<span class="priority pB">公式確認</span>{% endif %}</td>
+      <td><div class="candidate-actions"><a class="secondary" href="{{ source.url }}" target="_blank" rel="noopener">公式ページ</a>{% if source.mode == 'import' %}<form method="post" action="{{ url_for('import_regional_source') }}"><input type="hidden" name="source" value="{{ key }}"><button type="submit">候補へ取り込む</button></form>{% endif %}</div></td>
+    </tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+{% endblock %}
