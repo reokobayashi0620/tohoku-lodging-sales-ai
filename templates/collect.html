@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}候補収集｜東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="page-title"><p class="eyebrow">PHASE 2-1</p><h1>宮城県の営業候補を収集</h1><p>宮城県が公開する住宅宿泊事業の届出施設一覧から、所在地だけを候補箱へ取り込みます。施設名や運営会社は推測しません。</p></section>
+<section class="panel collect-panel">
+  <div class="collect-grid">
+    <div><small>対象都道府県</small><strong>宮城県</strong></div>
+    <div><small>情報源</small><strong>{{ source_type }}</strong></div>
+    <div><small>現在の未確認候補</small><strong>{{ pending_count }}件</strong></div>
+  </div>
+  {% if stats %}
+  <div class="summary collect-summary">
+    <div>取得候補件数<strong>{{ stats.total }}</strong></div>
+    <div>新規候補件数<strong>{{ stats.new }}</strong></div>
+    <div>重複件数<strong>{{ stats.duplicate }}</strong></div>
+  </div>
+  {% endif %}
+  <p class="hint">出典：<a href="{{ source_url }}" target="_blank" rel="noopener noreferrer">宮城県 公開PDF</a></p>
+  <form method="post"><button class="primary" type="submit">公開資料から候補を取得</button></form>
+  <a class="secondary inline-action" href="{{ url_for('candidates') }}">候補を確認</a>
+</section>
+{% endblock %}
