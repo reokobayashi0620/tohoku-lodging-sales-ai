@@ -112,6 +112,67 @@ def test_login_failure_displays_generic_error_and_does_not_log_in(tmp_path):
     assert client.get("/").status_code == 302
 
 
+def test_login_failure_displays_non_secret_submitted_value_diagnostics(tmp_path):
+    client = protected_app(tmp_path).test_client()
+    supplied_username = " 東北担当"
+    supplied_password = "間違ったパスワード "
+
+    response = client.post("/login", data={
+        "username": supplied_username, "password": supplied_password,
+    })
+
+    response_text = response.get_data(as_text=True)
+    expected_diagnostics = {
+        "submitted_username_length": len(supplied_username),
+        "submitted_password_length": len(supplied_password),
+        "submitted_username_has_outer_whitespace": True,
+        "submitted_password_has_outer_whitespace": True,
+        "username_matches": False,
+        "password_matches": False,
+    }
+    for key, value in expected_diagnostics.items():
+        rendered_value = str(value).lower() if isinstance(value, bool) else str(value)
+        assert key in response_text
+        assert f"<dd>{rendered_value}</dd>" in response_text
+    assert supplied_username not in response_text
+    assert supplied_password not in response_text
+    assert "東北担当" not in response_text
+    assert "安全なパスワード🔑" not in response_text
+
+
+def test_submitted_value_diagnostics_only_appear_after_login_failure(tmp_path):
+    client = protected_app(tmp_path).test_client()
+
+    assert "submitted_username_length" not in client.get("/login").get_data(as_text=True)
+
+    successful_response = client.post("/login", data={
+        "username": "東北担当", "password": "安全なパスワード🔑",
+    })
+    assert successful_response.status_code == 302
+    assert "submitted_username_length" not in successful_response.get_data(as_text=True)
+
+
+@pytest.mark.parametrize(
+    "submitted_username,submitted_password,username_matches,password_matches",
+    [
+        ("東北担当", "不一致", True, False),
+        ("不一致", "安全なパスワード🔑", False, True),
+    ],
+)
+def test_login_failure_diagnoses_each_credential_independently(
+    tmp_path, submitted_username, submitted_password, username_matches, password_matches,
+):
+    client = protected_app(tmp_path).test_client()
+    response = client.post("/login", data={
+        "username": submitted_username,
+        "password": submitted_password,
+    })
+
+    response_text = response.get_data(as_text=True)
+    assert f"<dt>username_matches</dt>\n      <dd>{str(username_matches).lower()}</dd>" in response_text
+    assert f"<dt>password_matches</dt>\n      <dd>{str(password_matches).lower()}</dd>" in response_text
+
+
 def test_logout_clears_session(tmp_path):
     client = protected_app(tmp_path).test_client()
     client.post("/login", data={

@@ -64,15 +64,30 @@ def create_app(test_config=None):
         if session.get("logged_in") or not username:
             return redirect(url_for("index"))
         error = None
+        submitted_auth_diagnostics = None
         if request.method == "POST":
             supplied_username = request.form.get("username", "")
             supplied_password = request.form.get("password", "")
-            if credentials_match(supplied_username, username) and credentials_match(supplied_password, password):
+            username_matches = credentials_match(supplied_username, username)
+            password_matches = credentials_match(supplied_password, password)
+            if username_matches and password_matches:
                 session.clear()
                 session["logged_in"] = True
                 return redirect(url_for("index"))
             error = "ユーザー名またはパスワードが違います"
-        return render_template("login.html", error=error)
+            submitted_auth_diagnostics = {
+                "submitted_username_length": len(supplied_username),
+                "submitted_password_length": len(supplied_password),
+                "submitted_username_has_outer_whitespace": supplied_username != supplied_username.strip(),
+                "submitted_password_has_outer_whitespace": supplied_password != supplied_password.strip(),
+                "username_matches": username_matches,
+                "password_matches": password_matches,
+            }
+        return render_template(
+            "login.html",
+            error=error,
+            submitted_auth_diagnostics=submitted_auth_diagnostics,
+        )
 
     @app.post("/logout")
     def logout():
