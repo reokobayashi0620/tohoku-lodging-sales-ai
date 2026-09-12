@@ -1,4 +1,5 @@
 import csv
+import hmac
 import io
 import os
 import secrets
@@ -6,6 +7,7 @@ import sqlite3
 from pathlib import Path
 
 from flask import Flask, Response, flash, redirect, render_template, request, url_for
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 BASE_DIR = Path(__file__).resolve().parent
 DATABASE = Path(os.environ.get("DATABASE_PATH", BASE_DIR / "instance" / "sales.db"))
@@ -18,9 +20,47 @@ BOOL_FIELDS = ["pet_friendly", "whole_house", "multiple_facilities", "wood_floor
 
 def create_app(test_config=None):
     app = Flask(__name__)
-    app.config.update(SECRET_KEY=os.environ.get("SECRET_KEY", secrets.token_hex(32)), DATABASE=DATABASE)
+    app.config.update(
+        SECRET_KEY=os.environ.get("SECRET_KEY", secrets.token_hex(32)),
+        DATABASE=DATABASE,
+        APP_USERNAME=os.environ.get("APP_USERNAME", ""),
+        APP_PASSWORD=os.environ.get("APP_PASSWORD", ""),
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SAMESITE="Lax",
+        SESSION_COOKIE_SECURE=os.environ.get("SESSION_COOKIE_SECURE", "").lower() in {"1", "true", "yes"},
+    )
     if test_config:
         app.config.update(test_config)
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
+
+    username = app.config["APP_USERNAME"]
+    password = app.config["APP_PASSWORD"]
+    if bool(username) != bool(password):
+        raise RuntimeError("APP_USERNAME and APP_PASSWORD must be set together")
+
+    @app.before_request
+    def require_basic_auth():
+        if not username or request.endpoint == "healthz":
+            return None
+        auth = request.authorization
+        valid = (
+            auth is not None
+            and hmac.compare_digest(auth.username or "", username)
+            and hmac.compare_digest(auth.password or "", password)
+        )
+        if not valid:
+            return Response(
+                "Authentication required", 401,
+                {"WWW-Authenticate": 'Basic realm="Tohoku Sales", charset="UTF-8"'},
+            )
+        return None
+
+    @app.after_request
+    def add_security_headers(response):
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Referrer-Policy"] = "same-origin"
+        return response
 
     def db():
         connection = sqlite3.connect(app.config["DATABASE"])
@@ -76,6 +116,10 @@ def create_app(test_config=None):
             summary = dict(con.execute("SELECT priority, COUNT(*) count FROM facilities GROUP BY priority").fetchall())
         return render_template("index.html", facilities=facilities, filters=filters, summary=summary,
                                prefectures=PREFECTURES, statuses=STATUSES)
+
+    @app.get("/healthz")
+    def healthz():
+        return {"status": "ok"}
 
     @app.route("/facilities/new", methods=["GET", "POST"])
     @app.route("/facilities/<int:facility_id>/edit", methods=["GET", "POST"])

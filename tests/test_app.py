@@ -65,3 +65,30 @@ def test_rejects_invalid_prefecture(client):
     assert response.status_code == 200
     assert "東北6県" in response.get_data(as_text=True)
 
+
+def test_healthcheck(client):
+    response = client.get("/healthz")
+    assert response.status_code == 200
+    assert response.json == {"status": "ok"}
+
+
+def test_basic_auth_protects_sales_data(tmp_path):
+    protected_app = create_app({
+        "TESTING": True,
+        "DATABASE": tmp_path / "protected.db",
+        "SECRET_KEY": "test",
+        "APP_USERNAME": "owner",
+        "APP_PASSWORD": "strong-password",
+    })
+    protected_client = protected_app.test_client()
+
+    denied = protected_client.get("/")
+    assert denied.status_code == 401
+    assert denied.headers["WWW-Authenticate"].startswith("Basic")
+
+    allowed = protected_client.get("/", auth=("owner", "strong-password"))
+    assert allowed.status_code == 200
+    assert allowed.headers["X-Frame-Options"] == "DENY"
+
+    # Render must be able to monitor the service without learning the password.
+    assert protected_client.get("/healthz").status_code == 200
