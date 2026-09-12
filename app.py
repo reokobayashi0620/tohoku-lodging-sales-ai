@@ -50,10 +50,7 @@ def create_app(test_config=None):
 
     @app.before_request
     def require_login():
-        # ``debug_auth`` is intentionally public while login failures are being
-        # investigated.  Its response contains only boolean diagnostics and the
-        # route should be removed once the investigation is complete.
-        if not username or request.endpoint in {"healthz", "debug_auth", "login", "static"}:
+        if not username or request.endpoint in {"healthz", "login", "static"}:
             return None
         if not session.get("logged_in"):
             return redirect(url_for("login"))
@@ -64,30 +61,19 @@ def create_app(test_config=None):
         if session.get("logged_in") or not username:
             return redirect(url_for("index"))
         error = None
-        submitted_auth_diagnostics = None
         if request.method == "POST":
             supplied_username = request.form.get("username", "")
             supplied_password = request.form.get("password", "")
-            username_matches = credentials_match(supplied_username, username)
-            password_matches = credentials_match(supplied_password, password)
-            if username_matches and password_matches:
+            credentials_valid = all((
+                credentials_match(supplied_username, username),
+                credentials_match(supplied_password, password),
+            ))
+            if credentials_valid:
                 session.clear()
                 session["logged_in"] = True
                 return redirect(url_for("index"))
             error = "ユーザー名またはパスワードが違います"
-            submitted_auth_diagnostics = {
-                "submitted_username_length": len(supplied_username),
-                "submitted_password_length": len(supplied_password),
-                "submitted_username_has_outer_whitespace": supplied_username != supplied_username.strip(),
-                "submitted_password_has_outer_whitespace": supplied_password != supplied_password.strip(),
-                "username_matches": username_matches,
-                "password_matches": password_matches,
-            }
-        return render_template(
-            "login.html",
-            error=error,
-            submitted_auth_diagnostics=submitted_auth_diagnostics,
-        )
+        return render_template("login.html", error=error)
 
     @app.post("/logout")
     def logout():
@@ -159,22 +145,6 @@ def create_app(test_config=None):
     @app.get("/healthz")
     def healthz():
         return {"status": "ok"}
-
-    @app.get("/debug-auth")
-    def debug_auth():
-        """Report non-secret authentication state for temporary diagnosis."""
-        return {
-            "authentication_enabled": bool(username and password),
-            "username_configured": bool(username),
-            "password_configured": bool(password),
-            "username_length": len(username),
-            "password_length": len(password),
-            "username_has_outer_whitespace": username != username.strip(),
-            "password_has_outer_whitespace": password != password.strip(),
-            "logged_in": bool(session.get("logged_in")),
-            "request_is_secure": request.is_secure,
-            "session_cookie_secure": bool(app.config["SESSION_COOKIE_SECURE"]),
-        }
 
     @app.route("/facilities/new", methods=["GET", "POST"])
     @app.route("/facilities/<int:facility_id>/edit", methods=["GET", "POST"])
