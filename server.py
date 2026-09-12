@@ -1,8 +1,10 @@
 from app import app
 from bulk_actions import register_bulk_actions
+from collection_dashboard import register_collection_dashboard
 from miyagi_enrichment import register_miyagi_enrichment
 from regional_sources import register_regional_sources
 
 register_bulk_actions(app)
 register_miyagi_enrichment(app)
 register_regional_sources(app)
+register_collection_dashboard(app)
