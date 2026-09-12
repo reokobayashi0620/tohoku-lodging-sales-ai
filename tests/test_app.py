@@ -130,6 +130,23 @@ def test_healthcheck_stays_public_when_login_is_enabled(tmp_path):
     assert response.json == {"status": "ok"}
 
 
+def test_auth_diagnostics_stay_public_without_exposing_credentials(tmp_path):
+    client = protected_app(tmp_path).test_client()
+    response = client.get("/debug-auth")
+
+    assert response.status_code == 200
+    assert response.json == {
+        "authentication_enabled": True,
+        "username_configured": True,
+        "password_configured": True,
+        "logged_in": False,
+        "request_is_secure": False,
+        "session_cookie_secure": False,
+    }
+    assert "東北担当" not in response.get_data(as_text=True)
+    assert "安全なパスワード🔑" not in response.get_data(as_text=True)
+
+
 def test_session_cookie_security_settings(tmp_path):
     app = protected_app(tmp_path)
     app.config["SESSION_COOKIE_SECURE"] = True
