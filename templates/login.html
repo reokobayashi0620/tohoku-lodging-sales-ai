@@ -6,6 +6,18 @@
   <h1 id="login-title">ログイン</h1>
   <p>営業管理画面を利用するには、ユーザー名とパスワードを入力してください。</p>
   {% if error %}<div class="flash error" role="alert">{{ error }}</div>{% endif %}
+  {% if submitted_auth_diagnostics %}
+  <aside class="flash error" aria-label="送信値の一時診断">
+    <strong>送信値の一時診断</strong>
+    <dl>
+      {% for key, value in submitted_auth_diagnostics.items() %}
+      <dt>{{ key }}</dt>
+      <dd>{{ value|string|lower if value is boolean else value }}</dd>
+      {% endfor %}
+    </dl>
+    <p>安全のため、入力内容そのものは表示していません。</p>
+  </aside>
+  {% endif %}
   <form method="post" action="{{ url_for('login') }}">
     <label for="username">ユーザー名</label>
     <input id="username" name="username" type="text" autocomplete="username" required autofocus>
