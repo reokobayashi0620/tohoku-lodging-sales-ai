@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}収集候補｜東北リペア営業ノート{% endblock %}
 {% block content %}
-<section class="page-title"><p class="eyebrow">LEAD CANDIDATES</p><h1>収集候補</h1><p>公開資料から得た候補です。確認したものだけ営業リストへ登録してください。</p></section>
+<section class="page-title"><p class="eyebrow">LEAD CANDIDATES</p><h1>収集候補</h1><p>公開資料から得た候補です。施設名・運営会社・属性を確認してから営業リストへ登録できます。</p></section>
 <section class="panel">
   <div class="candidate-tabs">
     <a href="{{ url_for('candidates', status='pending') }}">未確認</a>
@@ -10,16 +10,17 @@
     <a href="{{ url_for('candidates', status='all') }}">すべて</a>
   </div>
   <div class="table-wrap"><table>
-    <thead><tr><th>住所</th><th>市区町村</th><th>情報源</th><th>取得日</th><th>状態</th><th>操作</th></tr></thead>
+    <thead><tr><th>候補</th><th>所在地</th><th>調査</th><th>優先度</th><th>属性</th><th>操作</th></tr></thead>
     <tbody>{% for candidate in candidates %}<tr>
-      <td><strong>{{ candidate.address }}</strong></td><td>{{ candidate.city or '未判定' }}</td>
-      <td><a href="{{ candidate.source_url }}" target="_blank" rel="noopener noreferrer">{{ candidate.source_type }}</a></td>
-      <td>{{ candidate.created_at }}</td>
-      <td>{% if candidate.status == 'pending' %}未確認{% elif candidate.status == 'promoted' %}登録済{% else %}除外{% endif %}</td>
-      <td>{% if candidate.status == 'pending' %}<div class="candidate-actions">
+      <td><strong>{{ candidate.name or '名称未確認' }}</strong><small>{{ candidate.company_name or candidate.source_type }}</small></td>
+      <td>{{ candidate.address }}<small>{{ candidate.city or '市区町村未判定' }}</small></td>
+      <td><strong>{{ research_statuses.get(candidate.research_status, '未調査') }}</strong><small>{{ candidate.updated_at }}</small></td>
+      <td><span class="priority p{{ priorities[candidate.id] }}">{{ priorities[candidate.id] }}</span></td>
+      <td class="tags">{% if candidate.pet_friendly %}<span>ペット可</span>{% endif %}{% if candidate.whole_house %}<span>一棟貸し</span>{% endif %}{% if candidate.wood_floor %}<span>木質床</span>{% endif %}{% if candidate.multiple_facilities %}<span>複数施設</span>{% endif %}</td>
+      <td><div class="candidate-actions"><a class="secondary" href="{{ url_for('edit_candidate', candidate_id=candidate.id) }}">調査・編集</a>{% if candidate.status == 'pending' %}
         <form method="post" action="{{ url_for('promote_candidate', candidate_id=candidate.id) }}"><button type="submit">営業リストへ登録</button></form>
         <form method="post" action="{{ url_for('exclude_candidate', candidate_id=candidate.id) }}"><button class="secondary" type="submit">除外</button></form>
-      </div>{% endif %}</td>
+      {% endif %}</div></td>
     </tr>{% else %}<tr><td colspan="6">この状態の候補はありません。</td></tr>{% endfor %}</tbody>
   </table></div>
 </section>
