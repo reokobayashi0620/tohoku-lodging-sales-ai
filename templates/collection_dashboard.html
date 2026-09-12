@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}収集ダッシュボード｜東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="page-title">
+  <p class="eyebrow">COLLECTION DASHBOARD</p>
+  <h1>収集ダッシュボード</h1>
+  <p>東北6県の候補収集・調査進捗を1画面で確認します。岩手県は公式PDFが市町村別件数中心のため、住所を推測せず「どの市町村から調べるか」の優先順位に使います。</p>
+</section>
+
+<section class="panel">
+  <h2>公式ソース対応状況</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>地域</th><th>現在の方式</th><th>状態</th></tr></thead>
+    <tbody>{% for item in coverage %}<tr>
+      <td><strong>{{ item.label }}</strong></td>
+      <td>{{ item.status }}</td>
+      <td>{% if item.active %}<span class="priority pA">自動化済</span>{% else %}<span class="priority pB">安全優先</span>{% endif %}</td>
+    </tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+
+<section class="panel">
+  <h2>県別の候補進捗</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>県</th><th>候補総数</th><th>未確認</th><th>未調査</th><th>調査中</th><th>確認済</th><th>営業登録済</th><th>営業リスト</th></tr></thead>
+    <tbody>{% for row in summary %}<tr>
+      <td><strong>{{ row.prefecture }}</strong></td>
+      <td>{{ row.total }}</td>
+      <td>{{ row.pending }}</td>
+      <td>{{ row.unresearched }}</td>
+      <td>{{ row.researching }}</td>
+      <td>{{ row.verified }}</td>
+      <td>{{ row.promoted }}</td>
+      <td>{{ row.facilities }}</td>
+    </tr>{% endfor %}</tbody>
+  </table></div>
+  <p class="hint">「営業リスト」は施設一覧テーブルの件数です。候補から登録した施設だけでなく、手動登録・サンプルデータを含む場合があります。</p>
+</section>
+
+<section class="panel">
+  <p class="eyebrow">IWATE RESEARCH PLAN</p>
+  <h2>岩手県：調査エリア優先順位</h2>
+  <div class="notice" style="margin-bottom:16px">
+    岩手県の公式「届出状況一覧」は、市町村別の届出件数を確認する資料です。個別施設の住所一覧としては扱わず、届出件数が多い市町村から検索・調査するために利用します。
+  </div>
+  <div class="candidate-actions" style="margin-bottom:16px">
+    <form method="post" action="{{ url_for('refresh_iwate_plan') }}"><button type="submit">岩手県公式件数を更新</button></form>
+    <a class="secondary" href="{{ iwate_source_url }}" target="_blank" rel="noopener">岩手県公式ページ</a>
+  </div>
+  {% if iwate_rows %}
+  <div class="table-wrap"><table>
+    <thead><tr><th>順位</th><th>市町村</th><th>公式届出件数</th><th>基準日</th><th>次の行動</th></tr></thead>
+    <tbody>{% for row in iwate_rows %}<tr>
+      <td>{{ loop.index }}</td>
+      <td><strong>{{ row.area_name }}</strong></td>
+      <td>{{ row.reported_count }}件</td>
+      <td>{{ row.snapshot_label or '基準日未抽出' }}</td>
+      <td><a class="secondary" href="https://www.google.com/search?q={{ (row.area_name ~ ' 民泊 宿泊 一棟貸し') | urlencode }}" target="_blank" rel="noopener">候補を検索</a></td>
+    </tr>{% endfor %}</tbody>
+  </table></div>
+  <p class="hint">検索結果は候補です。営業リストへ登録する前に、施設ページや運営者情報を人が確認してください。</p>
+  {% else %}
+  <p>まだ岩手県の調査優先順位を取得していません。「岩手県公式件数を更新」を実行してください。</p>
+  {% endif %}
+</section>
+{% endblock %}
