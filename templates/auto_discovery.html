@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}自動営業先発掘 | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">PHASE 3-1</p><h1>自動営業先発掘</h1><p>公開データから実在する宿泊施設候補を探し、公式サイト・電話・メールなどを営業候補へ取り込みます。</p></div></section>
+
+<section class="stats">
+  <div class="stat"><strong>{{ total }}</strong><span>自動発掘済み候補</span></div>
+  <div class="stat"><strong>{{ researchable }}</strong><span>公式サイト調査可能</span></div>
+</section>
+
+<section class="notice">
+  <strong>当初の目的に戻した機能です。</strong><br>
+  まず営業先をシステム側で発見し、その後に運営会社・連絡先・ペット可・一棟貸しなどを補完します。
+  Airbnb / Booking.com のページを直接スクレイピングせず、OpenStreetMap の公開POIと、施設自身が公開している公式サイトだけを対象にします。
+</section>
+
+<section class="card">
+  <h2>1. 県ごとに宿泊施設候補を自動発掘</h2>
+  <p>OpenStreetMap の hotel / guest_house / hostel / motel / chalet / apartment を検索します。名称・住所・Webサイト・電話・メール等が公開されている場合は一緒に取り込みます。</p>
+  <div class="actions">
+  {% for prefecture in prefectures %}
+    <form method="post" action="/auto-discovery/discover" style="display:inline-block;margin:.25rem">
+      <input type="hidden" name="prefecture" value="{{ prefecture }}">
+      <button class="button" type="submit">{{ prefecture }}を発掘</button>
+    </form>
+  {% endfor %}
+  </div>
+  <p class="muted"><small>公開APIへの負荷を抑えるため、1県ずつ実行します。同じ施設はOSM IDまたは同一公式URLで重複登録しません。</small></p>
+</section>
+
+<section class="card">
+  <h2>2. 公式サイトがある候補を自動調査</h2>
+  <p>候補の公式サイトを最大10件ずつ確認し、空欄の会社名・電話・メール・問い合わせURLと、ペット可・一棟貸し・木質床の表現を補完します。</p>
+  <form method="post" action="/auto-discovery/enrich">
+    <button class="button" type="submit">公式サイトを10件自動調査</button>
+  </form>
+  <p class="muted"><small>robots.txt を許可した公開HTMLのみ確認し、ログイン・CAPTCHA・アクセス制限を回避しません。自動調査だけで「確認済」にはせず、最終確認は人が行います。</small></p>
+</section>
+
+<section class="card">
+  <h2>3. 営業候補を確認</h2>
+  <p>自動発掘後は候補一覧で情報を確認し、優先順位の高い施設から営業アクションへ進みます。</p>
+  <a class="button" href="/candidates?status=pending">収集候補を見る</a>
+  <a class="button secondary" href="/sales-priority">営業優先順位を見る</a>
+</section>
+
+<section class="notice">
+  <strong>データ出典:</strong> OpenStreetMap contributors（ODbL）。OSMに登録されていない施設もあるため、この機能だけで東北の全宿泊施設を網羅するものではありません。自治体の届出データと併用します。
+</section>
+{% endblock %}
