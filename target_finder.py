@@ -75,17 +75,42 @@ def target_fit(row):
         fit += 10
         reasons.append("営業連絡先あり +10")
 
+    identity_known = bool(_value(row, "name"))
+    site_known = bool(_value(row, "official_url"))
+    operator_known = bool(_value(row, "company_name"))
+    contact_known = bool(_value(row, "phone") or _value(row, "email") or _value(row, "contact_url"))
+    sales_ready = identity_known and (site_known or operator_known) and contact_known
+
+    if not identity_known:
+        fit = min(fit, 35)
+        reasons.append("施設名未特定: 営業対象確定前 -")
+    if not (site_known or operator_known):
+        fit = min(fit, 45)
+        reasons.append("公式サイト・運営者未特定: 要調査 -")
+    if not contact_known:
+        fit = min(fit, 55)
+        reasons.append("連絡先未特定: 営業準備未完了 -")
+
     fit = max(0, min(100, fit))
-    if fit >= 70:
+    if sales_ready and fit >= 70:
         target_band = "S"
-    elif fit >= 50:
+    elif sales_ready and fit >= 50:
         target_band = "A"
     elif fit >= 30:
         target_band = "B"
     else:
         target_band = "C"
 
-    return {**base, "target_score": fit, "target_band": target_band, "target_reasons": reasons}
+    return {
+        **base,
+        "target_score": fit,
+        "target_band": target_band,
+        "target_reasons": reasons,
+        "sales_ready": sales_ready,
+        "identity_known": identity_known,
+        "operator_known": operator_known,
+        "contact_known": contact_known,
+    }
 
 
 def find_targets(database, prefecture="", include_osm=False, limit=100):
@@ -108,6 +133,7 @@ def find_targets(database, prefecture="", include_osm=False, limit=100):
         items.append({"candidate": row, **result})
 
     items.sort(key=lambda item: (
+        0 if item["sales_ready"] else 1,
         {"S": 0, "A": 1, "B": 2, "C": 3}[item["target_band"]],
         -item["target_score"],
         -item["score"],
@@ -125,10 +151,14 @@ def register_target_finder(app):
         include_osm = request.args.get("include_osm") == "1"
         targets = find_targets(app.config["DATABASE"], prefecture, include_osm=include_osm)
         summary = {band: sum(1 for item in targets if item["target_band"] == band) for band in "SABC"}
+        ready_count = sum(1 for item in targets if item["sales_ready"])
+        research_count = len(targets) - ready_count
         return render_template(
             "target_finder.html",
             targets=targets,
             summary=summary,
+            ready_count=ready_count,
+            research_count=research_count,
             prefectures=PREFECTURES,
             selected_prefecture=prefecture,
             include_osm=include_osm,
