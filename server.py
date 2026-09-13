@@ -1,6 +1,7 @@
 from app import app
 from bulk_actions import register_bulk_actions
 from collection_dashboard import register_collection_dashboard
+from follow_up import register_follow_up
 from miyagi_enrichment import register_miyagi_enrichment
 from regional_sources import register_regional_sources
 from sales_action import register_sales_action
@@ -16,3 +17,4 @@ register_sales_priority(app)
 register_sales_action(app)
 register_sales_activity(app)
 register_sales_analytics(app)
+register_follow_up(app)
