@@ -1,7 +1,7 @@
 import sqlite3
 
 from app import create_app
-from regional_official_import import import_official_records, parse_fukushima_html, register_regional_official_import
+from regional_official_import import _latest_yamagata_pdf, import_official_records, parse_fukushima_html, register_regional_official_import
 
 
 def _app(tmp_path):
@@ -25,6 +25,15 @@ def test_parse_fukushima_html():
     records = parse_fukushima_html(html)
     assert records[0]["name"] == "ペット貸別荘"
     assert records[0]["address"] == "福島市大町1-2"
+
+
+def test_latest_yamagata_pdf_resolves_current_link(monkeypatch):
+    class Response:
+        text = '<a href="/documents/1920/old.pdf">別資料</a><a href="/documents/1920/current.pdf">住宅宿泊事業者一覧（PDF：88KB）</a>'
+        def raise_for_status(self):
+            return None
+    monkeypatch.setattr("regional_official_import.requests.get", lambda *args, **kwargs: Response())
+    assert _latest_yamagata_pdf("https://www.pref.yamagata.jp/minpaku.html") == "https://www.pref.yamagata.jp/documents/1920/current.pdf"
 
 
 def test_regional_routes_are_registered(tmp_path):
