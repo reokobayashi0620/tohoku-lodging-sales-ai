@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}営業優先順位 | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">PHASE 2-12</p><h1>営業優先順位ダッシュボード</h1><p>「営業適合度」と「情報の確かさ」を分けて見ながら、今日調べる候補・今日連絡する候補を上から処理します。</p></div></section>
+
+<section class="stats">
+  {% for band in ['S','A','B','C'] %}<div class="stat"><strong>{{ summary[band] }}</strong><span>{{ band }}候補</span></div>{% endfor %}
+</section>
+
+<form class="filters" method="get">
+  <select name="prefecture"><option value="">東北6県すべて</option>{% for p in prefectures %}<option value="{{ p }}" {% if selected_prefecture==p %}selected{% endif %}>{{ p }}</option>{% endfor %}</select>
+  <select name="band"><option value="">S〜Cすべて</option>{% for b in ['S','A','B','C'] %}<option value="{{ b }}" {% if selected_band==b %}selected{% endif %}>{{ b }}</option>{% endfor %}</select>
+  <label><input type="checkbox" name="ready" value="1" {% if ready_only %}checked{% endif %}> 営業準備が進んだS/Aのみ</label>
+  <button class="button" type="submit">絞り込む</button>
+</form>
+
+<div class="notice"><strong>判定ルール:</strong> ペット可・一棟貸し・木質床・複数施設運営を営業適合シグナルとして加点し、運営会社・連絡先・根拠URL・確認済み状態で営業準備度を加点します。S判定には「確認済＋連絡先あり」を必須とし、未確認情報だけで今すぐ営業には回しません。</div>
+
+<div class="table-wrap"><table><thead><tr><th>順位</th><th>優先度</th><th>施設 / 所在地</th><th>営業根拠</th><th>不足情報</th><th>次の行動</th></tr></thead><tbody>
+{% for item in ranked %}
+<tr>
+<td>{{ loop.index }}</td>
+<td><span class="priority priority-{{ item.band|lower }}">{{ item.band }}</span><br><strong>{{ item.score }}/100</strong></td>
+<td><strong>{{ item.candidate.name or '名称未確認' }}</strong><br><small>{{ item.candidate.prefecture }} {{ item.candidate.city }} {{ item.candidate.address }}</small>{% if item.candidate.company_name %}<br><small>{{ item.candidate.company_name }}</small>{% endif %}</td>
+<td>{% if item.reasons %}{{ item.reasons|join(' / ') }}{% else %}<span class="muted">営業属性未確認</span>{% endif %}</td>
+<td>{% if item.missing %}{{ item.missing|join('・') }}{% else %}<strong>主要項目確認済</strong>{% endif %}</td>
+<td><strong>{{ item.action }}</strong><br><a class="button secondary" href="{{ url_for('edit_candidate', candidate_id=item.candidate.id) }}">候補を確認</a>{% if item.candidate.official_url %} <a href="{{ item.candidate.official_url }}" target="_blank" rel="noopener">根拠ページ</a>{% endif %}</td>
+</tr>
+{% else %}<tr><td colspan="6">条件に一致する候補はありません。</td></tr>{% endfor %}
+</tbody></table></div>
+
+<section class="notice"><strong>運用方針:</strong> この点数は営業判断を置き換えるものではなく、確認順を決めるためのルーティング指標です。成約・見送りデータが蓄積したら、実績に合わせて配点を調整します。</section>
+{% endblock %}
