@@ -14,6 +14,7 @@ from sales_analytics import register_sales_analytics
 from sales_priority import register_sales_priority
 from security_hardening import register_security_hardening
 from system_tools import register_system_tools
+from target_finder import register_target_finder
 from today_dashboard import register_today_dashboard
 
 register_bulk_actions(app)
@@ -31,4 +32,5 @@ register_system_tools(app)
 register_auto_discovery(app)
 register_operator_enrichment(app)
 register_discovery_pipeline(app)
+register_target_finder(app)
 register_security_hardening(app)

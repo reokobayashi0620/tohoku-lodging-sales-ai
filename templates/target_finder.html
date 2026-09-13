@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}営業先発掘 | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">PHASE 4</p><h1>民泊・貸別荘 特化の営業先発掘</h1><p>一般宿泊施設を広く集めるのではなく、補修・コーティング需要が見込める民泊・貸別荘・一棟貸し・ペット可施設を優先して並べます。</p></div></section>
+
+<section class="notice"><strong>基準を変更しました。</strong><br>標準ではOpenStreetMap由来の一般宿泊POIを除外し、自治体の届出・許可系ソースや既存の公式候補を優先します。最終営業前に公式情報を人が確認してください。</section>
+
+<section class="card">
+  <form method="get" action="/targets">
+    <label>対象県
+      <select name="prefecture"><option value="">東北6県すべて</option>{% for p in prefectures %}<option value="{{ p }}" {% if p == selected_prefecture %}selected{% endif %}>{{ p }}</option>{% endfor %}</select>
+    </label>
+    <label><input type="checkbox" name="include_osm" value="1" {% if include_osm %}checked{% endif %}> OSMの一般宿泊候補も参考表示</label>
+    <button class="button" type="submit">営業先を絞り込む</button>
+  </form>
+</section>
+
+<section class="grid metrics">
+  {% for band in 'SABC' %}<div class="card"><strong>{{ band }}</strong><div class="metric">{{ summary[band] }}</div></div>{% endfor %}
+</section>
+
+<section class="card">
+  <h2>営業対象候補</h2>
+  <p class="muted">S/Aを最優先。自治体・届出系ソース、一棟貸し、ペット可、木質床、複数施設運営、運営会社・連絡先の有無を重視します。</p>
+  {% if targets %}
+  <div class="table-wrap"><table><thead><tr><th>優先</th><th>施設 / 運営</th><th>地域</th><th>営業根拠</th><th>連絡準備</th><th></th></tr></thead><tbody>
+  {% for item in targets %}{% set c=item.candidate %}<tr>
+    <td><strong>{{ item.target_band }}</strong><br>{{ item.target_score }}点</td>
+    <td><strong>{{ c['name'] or '名称未特定' }}</strong><br><small>{{ c['company_name'] or '運営会社未特定' }}</small></td>
+    <td>{{ c['prefecture'] }} {{ c['city'] }}</td>
+    <td><small>{{ item.target_reasons|join(' / ') }}</small></td>
+    <td>{% if c['phone'] or c['email'] or c['contact_url'] %}連絡先あり{% else %}要調査{% endif %}<br><small>{{ c['source_type'] }}</small></td>
+    <td><a class="button secondary" href="/sales-action/{{ c['id'] }}">営業文を確認</a></td>
+  </tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<p>条件に合う候補がまだありません。自治体・公式ソースから候補を追加すると、ここに優先順で表示されます。</p>{% endif %}
+</section>
+
+<section class="card"><h2>次に見る画面</h2><p><a href="/regional-sources">自治体・公式ソースから候補収集</a> → <a href="/operator-enrichment">運営会社・連絡先調査</a> → この画面で営業対象を絞り込みます。</p></section>
+{% endblock %}
