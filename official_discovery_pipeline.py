@@ -8,7 +8,6 @@ from operator_enrichment import operator_batch
 from regional_official_import import (
     FUKUSHIMA_LIST_URL,
     FUKUSHIMA_SOURCE_TYPE,
-    YAMAGATA_PDF_URL,
     YAMAGATA_SOURCE_TYPE,
     fetch_fukushima_records,
     fetch_yamagata_records,
@@ -49,7 +48,10 @@ def run_official_discovery_pipeline(database, sendai_source_url):
         return import_sendai_official_records(database, addresses, source_url)
     collect("仙台市", sendai)
 
-    collect("山形県", lambda: import_official_records(database, "山形県", fetch_yamagata_records(), YAMAGATA_PDF_URL, YAMAGATA_SOURCE_TYPE))
+    def yamagata():
+        records, source_url = fetch_yamagata_records()
+        return import_official_records(database, "山形県", records, source_url, YAMAGATA_SOURCE_TYPE)
+    collect("山形県", yamagata)
     collect("福島県", lambda: import_official_records(database, "福島県", fetch_fukushima_records(), FUKUSHIMA_LIST_URL, FUKUSHIMA_SOURCE_TYPE))
 
     for label, prefecture, fetcher, source_type in (
