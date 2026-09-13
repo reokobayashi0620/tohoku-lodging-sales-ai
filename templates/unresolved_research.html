@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}未特定候補の調査 | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">PHASE 4-6</p><h1>所在地しか分からない民泊を特定する</h1><p>自治体公式届出を軸に、施設名・公式サイト・運営会社・営業連絡先が不足している候補だけを調査キューにします。</p></div></section>
+<section class="notice"><strong>公式届出を起点に調査します。</strong><br>検索結果だけで自動確定せず、施設所在地・公式サイト・会社概要等の一致を確認してから営業に使います。</section>
+<section class="card"><form method="get" action="/targets/unresolved"><label>対象県 <select name="prefecture"><option value="">東北6県すべて</option>{% for p in prefectures %}<option value="{{ p }}" {% if p == selected_prefecture %}selected{% endif %}>{{ p }}</option>{% endfor %}</select></label><button class="button" type="submit">未特定候補を絞り込む</button></form></section>
+<section class="card"><h2>要調査 {{ items|length }}件</h2>{% if items %}<div class="table-wrap"><table><thead><tr><th>公式届出候補</th><th>不足情報</th><th>公開検索</th><th>次へ</th></tr></thead><tbody>{% for item in items %}{% set c=item.candidate %}<tr><td><strong>{{ c['name'] or '名称未特定' }}</strong><br>{{ c['prefecture'] }} {{ c['city'] }}<br><small>{{ c['address'] }}</small><br><small>{{ c['source_type'] }}</small></td><td>{% if item.missing_identity %}施設名/公式URL<br>{% endif %}{% if item.missing_operator %}運営会社<br>{% endif %}{% if item.missing_contact %}連絡先{% endif %}</td><td>{% for s in item.searches %}<a href="{{ s.url }}" target="_blank" rel="noopener noreferrer">{{ s.label }}</a>{% if not loop.last %}<br>{% endif %}{% endfor %}</td><td><a class="button secondary" href="/enrichment/{{ c['id'] }}">候補情報を確認</a><br><br><a href="/sales-action/{{ c['id'] }}">営業準備を見る</a></td></tr>{% endfor %}</tbody></table></div>{% else %}<p>この条件では未特定の公式候補はありません。</p>{% endif %}</section>
+<section class="card"><h2>判定ルール</h2><p>所在地の一致を最優先し、施設名だけの類似では確定しません。公式サイトまたは運営会社ページで所在地が確認できない候補は、調査中のまま残します。</p><p><a href="/targets">営業先発掘へ戻る</a> / <a href="/operator-enrichment">運営会社調査へ</a></p></section>
+{% endblock %}
