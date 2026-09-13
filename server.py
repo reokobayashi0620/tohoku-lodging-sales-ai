@@ -10,6 +10,7 @@ from sales_action import register_sales_action
 from sales_activity import register_sales_activity
 from sales_analytics import register_sales_analytics
 from sales_priority import register_sales_priority
+from security import register_security
 
 register_bulk_actions(app)
 register_miyagi_enrichment(app)
@@ -22,3 +23,4 @@ register_sales_analytics(app)
 register_follow_up(app)
 register_follow_up_draft(app)
 register_ops_dashboard(app)
+register_security(app)
