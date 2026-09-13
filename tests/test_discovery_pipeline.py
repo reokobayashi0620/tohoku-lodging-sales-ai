@@ -22,7 +22,7 @@ def test_ready_queue_includes_sales_draft(tmp_path):
     ready = build_ready_queue(app.config["DATABASE"], prefecture="宮城県")
     assert len(ready) == 1
     assert ready[0]["band"] == "S"
-    assert "ペット" in ready[0]["theme"]
+    assert ready[0]["theme"] == "pet_damage"
     assert "ペットヴィラ仙台" in ready[0]["draft"]
 
 
