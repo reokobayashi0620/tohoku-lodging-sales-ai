@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}追客文作成 | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">PHASE 2-17</p><h1>フォローアップ文作成</h1><p>最新の営業活動に合わせて、追客文のたたき台を切り替えます。送信前に必ず人が確認してください。</p></div></section>
+
+<section class="panel">
+  <h2>{{ candidate.name or '名称未確認' }}</h2>
+  <p>{{ candidate.prefecture }} {{ candidate.city }} {{ candidate.address }}</p>
+  {% if candidate.company_name %}<p><strong>運営会社:</strong> {{ candidate.company_name }}</p>{% endif %}
+  <p><strong>現在の状態:</strong> {{ follow.label }} / {{ follow.age_days }}日経過</p>
+  {% if activity.theme_key %}<p><strong>前回テーマ:</strong> {{ themes.get(activity.theme_key, {}).get('label', activity.theme_key) }}</p>{% endif %}
+  {% if activity.note %}<div class="notice"><strong>最新メモ:</strong> {{ activity.note }}</div>{% endif %}
+</section>
+
+<section class="panel">
+  <h2>文面トーン</h2>
+  <form method="get">
+    <select name="tone">
+      {% for key, label in tones.items() %}<option value="{{ key }}" {% if tone==key %}selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select>
+    <button type="submit">追客文を作り直す</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>追客文たたき台</h2>
+  <textarea rows="18" style="width:100%">{{ draft }}</textarea>
+  <p class="muted">返信内容・見積条件・約束した期日などを確認し、事実と異なる表現は修正してから使用してください。</p>
+</section>
+
+<section class="panel">
+  <h2>次の操作</h2>
+  <p><strong>推奨:</strong> {{ follow.action }}</p>
+  <div class="candidate-actions"><a class="button" href="/sales-action/{{ candidate.id }}">営業アクションへ</a> <a class="button secondary" href="/follow-up">フォローアップ一覧へ</a> <a class="button secondary" href="/sales-activities">活動履歴</a></div>
+</section>
+
+<section class="notice"><strong>送信ルール:</strong> この画面は追客文の作成支援のみです。自動送信は行いません。相手の返信内容、見積条件、連絡頻度を人が確認してから送信してください。</section>
+{% endblock %}

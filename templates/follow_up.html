@@ -31,7 +31,7 @@
   <td><strong>{{ item.label }}</strong></td>
   <td><strong>{{ item.row.name or '名称未確認' }}</strong><br><small>{{ item.row.prefecture }} {{ item.row.city }} {{ item.row.address }}</small>{% if item.row.company_name %}<br><small>{{ item.row.company_name }}</small>{% endif %}</td>
   <td>{{ activity_types.get(item.row.activity_type, item.row.activity_type) }}{% if item.row.theme_key %}<br><small>{{ themes.get(item.row.theme_key, {}).get('label', item.row.theme_key) }}</small>{% endif %}{% if item.row.note %}<br><small>{{ item.row.note }}</small>{% endif %}</td>
-  <td><strong>{{ item.action }}</strong><br><a class="button" href="/sales-action/{{ item.row.candidate_id }}">営業アクションへ</a> <a class="button secondary" href="/sales-activities">活動履歴</a></td>
+  <td><strong>{{ item.action }}</strong><br>{% if item.due %}<a class="button" href="/follow-up-draft/{{ item.row.candidate_id }}">追客文を作成</a> {% endif %}<a class="button secondary" href="/sales-action/{{ item.row.candidate_id }}">営業アクションへ</a> <a class="button secondary" href="/sales-activities">活動履歴</a></td>
 </tr>
 {% else %}<tr><td colspan="5">条件に一致するフォロー候補はありません。</td></tr>{% endfor %}
 </tbody></table></div>
