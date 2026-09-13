@@ -2,6 +2,7 @@ from app import app
 from auto_discovery import register_auto_discovery
 from bulk_actions import register_bulk_actions
 from collection_dashboard import register_collection_dashboard
+from discovery_pipeline import register_discovery_pipeline
 from follow_up import register_follow_up
 from follow_up_draft import register_follow_up_draft
 from miyagi_enrichment import register_miyagi_enrichment
@@ -29,4 +30,5 @@ register_today_dashboard(app)
 register_system_tools(app)
 register_auto_discovery(app)
 register_operator_enrichment(app)
+register_discovery_pipeline(app)
 register_security_hardening(app)
