@@ -20,6 +20,7 @@ from sendai_official import register_sendai_official
 from system_tools import register_system_tools
 from target_finder import register_target_finder
 from today_dashboard import register_today_dashboard
+from unresolved_research import register_unresolved_research
 
 register_bulk_actions(app)
 register_miyagi_enrichment(app)
@@ -41,4 +42,5 @@ register_sendai_official(app)
 register_regional_official_import(app)
 register_remaining_prefectures_official(app)
 register_candidate_reconciliation(app)
+register_unresolved_research(app)
 register_security_hardening(app)
