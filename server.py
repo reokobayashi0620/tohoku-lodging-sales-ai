@@ -1,4 +1,5 @@
 from app import app
+from auto_discovery import register_auto_discovery
 from bulk_actions import register_bulk_actions
 from collection_dashboard import register_collection_dashboard
 from follow_up import register_follow_up
@@ -25,4 +26,5 @@ register_follow_up(app)
 register_follow_up_draft(app)
 register_today_dashboard(app)
 register_system_tools(app)
+register_auto_discovery(app)
 register_security_hardening(app)
