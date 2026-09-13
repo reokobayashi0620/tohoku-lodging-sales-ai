@@ -1,6 +1,7 @@
 from app import app
 from auto_discovery import register_auto_discovery
 from bulk_actions import register_bulk_actions
+from candidate_reconciliation import register_candidate_reconciliation
 from collection_dashboard import register_collection_dashboard
 from discovery_pipeline import register_discovery_pipeline
 from follow_up import register_follow_up
@@ -39,4 +40,5 @@ register_target_finder(app)
 register_sendai_official(app)
 register_regional_official_import(app)
 register_remaining_prefectures_official(app)
+register_candidate_reconciliation(app)
 register_security_hardening(app)
