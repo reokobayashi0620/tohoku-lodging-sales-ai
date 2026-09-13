@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}営業アクション | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">PHASE 2-13</p><h1>営業アクション</h1><p>候補ごとに提案テーマと営業文のたたき台を作成します。送信前の人間確認は必須です。</p></div></section>
+
+<section class="panel">
+  <h2>{{ candidate.name or '名称未確認' }}</h2>
+  <p>{{ candidate.prefecture }} {{ candidate.city }} {{ candidate.address }}</p>
+  {% if candidate.company_name %}<p><strong>運営会社:</strong> {{ candidate.company_name }}</p>{% endif %}
+  <p><strong>営業優先度:</strong> {{ score.band }} / {{ score.score }}点　<strong>次の行動:</strong> {{ score.action }}</p>
+</section>
+
+<section class="panel">
+  <h2>提案テーマ</h2>
+  <form method="get">
+    <select name="theme">
+      {% for key, theme in themes.items() %}<option value="{{ key }}" {% if selected_theme==key %}selected{% endif %}>{{ theme.label }}</option>{% endfor %}
+    </select>
+    <button type="submit">営業文を作り直す</button>
+  </form>
+  <div class="notice" style="margin-top:12px"><strong>今回の提案:</strong> {{ themes[selected_theme].offer }}</div>
+</section>
+
+<section class="panel">
+  <h2>営業文たたき台</h2>
+  <textarea rows="18" style="width:100%">{{ draft }}</textarea>
+  <p class="muted">施設ページや現況を確認し、断定表現や未確認情報を修正してから使用してください。</p>
+</section>
+
+<section class="panel">
+  <h2>連絡先</h2>
+  {% if contact_options %}
+    <ul>{% for label, value in contact_options %}<li><strong>{{ label }}:</strong> {{ value }}</li>{% endfor %}</ul>
+  {% else %}<p>連絡先が未確認です。候補調査画面で確認してください。</p>{% endif %}
+  <div class="candidate-actions"><a class="button secondary" href="{{ url_for('edit_candidate', candidate_id=candidate.id) }}">候補情報を確認</a>{% if candidate.official_url %}<a href="{{ candidate.official_url }}" target="_blank" rel="noopener">根拠ページ</a>{% endif %}</div>
+</section>
+
+<section class="notice"><strong>送信ルール:</strong> この画面は営業文の作成支援のみです。自動送信は行いません。内容・宛先・連絡手段を人が確認してから送信してください。</section>
+{% endblock %}
