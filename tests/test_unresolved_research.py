@@ -12,7 +12,7 @@ def _app(tmp_path):
 
 def _insert(app):
     con = sqlite3.connect(app.config["DATABASE"])
-    con.execute("""INSERT INTO lead_candidates (name,prefecture,city,address,source_type,source_url,status,research_status) VALUES (?,?,?,?,?,?,?,?)""", ("", "宮城県", "石巻市", "石巻市泉町2-9-10", "宮城県公式 届出", "https://www.pref.miyagi.jp/", "pending", "pending"))
+    con.execute("""INSERT INTO lead_candidates (name,prefecture,city,address,source_type,source_url,status,research_status,normalized_key) VALUES (?,?,?,?,?,?,?,?,?)""", ("", "宮城県", "石巻市", "石巻市泉町2-9-10", "宮城県公式 届出", "https://www.pref.miyagi.jp/", "pending", "pending", "test:miyagi:ishinomaki:izumicho-2-9-10"))
     con.commit(); con.close()
 
 
