@@ -7,9 +7,12 @@
 
 <section class="card">
   <h2>まず公式民泊データを取り込む</h2>
-  <p>宮城県公式「民泊届出施設の紹介」から、公開されている施設名・届出者・所在地・電話・メール・HPを直接候補化します。住所だけの一覧より営業先特定を優先します。</p>
-  <form method="post" action="/targets/import-miyagi"><button class="button" type="submit">宮城県公式民泊を更新</button></form>
-  <p class="muted">既存候補は重複登録せず、不足している施設名・運営会社・連絡先・公式HPを補完します。公開に同意された情報が対象のため、県内全施設を網羅するものではありません。</p>
+  <p>宮城県公式の公開施設情報に加え、仙台市公式の住宅宿泊事業法届出住宅一覧から所在地を取り込みます。仙台市一覧は所在地公開が中心なので、登録後に運営会社・連絡先調査へ回します。</p>
+  <div class="candidate-actions">
+    <form method="post" action="/targets/import-miyagi"><button class="button" type="submit">宮城県公式民泊を更新</button></form>
+    <form method="post" action="/targets/import-sendai"><button class="button secondary" type="submit">仙台市公式民泊を更新</button></form>
+  </div>
+  <p class="muted">既存住所は重複登録しません。宮城県の紹介ページでは公開されている施設名・届出者・連絡先等も補完します。仙台市の公開一覧は届出住宅所在地を候補化します。</p>
 </section>
 
 <section class="card">
@@ -40,7 +43,7 @@
     <td><a class="button secondary" href="/sales-action/{{ c['id'] }}">営業文を確認</a></td>
   </tr>{% endfor %}
   </tbody></table></div>
-  {% else %}<p>条件に合う候補がまだありません。上の「宮城県公式民泊を更新」から公式候補を取り込めます。</p>{% endif %}
+  {% else %}<p>条件に合う候補がまだありません。上の公式民泊更新から候補を取り込めます。</p>{% endif %}
 </section>
 
 <section class="card"><h2>次の処理</h2><p>公式民泊を取り込む → <a href="/operator-enrichment">運営会社・連絡先を追加調査</a> → この画面でS/A候補を優先 → 営業文を確認、の順で使います。</p></section>
