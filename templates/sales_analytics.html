@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}営業分析 | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">PHASE 2-15</p><h1>営業分析ダッシュボード</h1><p>営業活動ログから返信率・見積化率・成約率を計算し、成果が出ている提案テーマと県を確認します。</p></div></section>
+
+<section class="stats">
+  <div class="stat"><strong>{{ overall.sent }}</strong><span>送信</span></div>
+  <div class="stat"><strong>{{ overall.reply_rate }}%</strong><span>返信率</span></div>
+  <div class="stat"><strong>{{ overall.estimate_rate }}%</strong><span>見積化率</span></div>
+  <div class="stat"><strong>{{ overall.win_rate }}%</strong><span>成約率</span></div>
+</section>
+
+<section class="panel">
+  <h2>現在の示唆</h2>
+  {% if overall.sent == 0 %}
+    <p>まだ送信実績がありません。営業活動ログが蓄積されると自動で分析されます。</p>
+  {% else %}
+    <p>{% if best_theme %}<strong>提案テーマ:</strong> {{ best_theme.label }}（返信率 {{ best_theme.reply_rate }}% / 見積化率 {{ best_theme.estimate_rate }}% / 成約率 {{ best_theme.win_rate }}%）{% endif %}</p>
+    <p>{% if best_prefecture %}<strong>県:</strong> {{ best_prefecture.prefecture }}（返信率 {{ best_prefecture.reply_rate }}% / 見積化率 {{ best_prefecture.estimate_rate }}% / 成約率 {{ best_prefecture.win_rate }}%）{% endif %}</p>
+    <p class="muted">少数件では率が大きく振れます。送信母数も合わせて判断してください。</p>
+  {% endif %}
+</section>
+
+<section class="panel"><h2>提案テーマ別</h2>
+<div class="table-wrap"><table><thead><tr><th>テーマ</th><th>送信</th><th>返信</th><th>見積</th><th>成約</th><th>見送り</th><th>返信率</th><th>見積化率</th><th>成約率</th></tr></thead><tbody>
+{% for row in theme_rows %}<tr><td><strong>{{ row.label }}</strong></td><td>{{ row.sent }}</td><td>{{ row.replied }}</td><td>{{ row.estimate }}</td><td>{{ row.won }}</td><td>{{ row.lost }}</td><td>{{ row.reply_rate }}%</td><td>{{ row.estimate_rate }}%</td><td>{{ row.win_rate }}%</td></tr>{% endfor %}
+</tbody></table></div></section>
+
+<section class="panel"><h2>県別</h2>
+<div class="table-wrap"><table><thead><tr><th>県</th><th>送信</th><th>返信</th><th>見積</th><th>成約</th><th>見送り</th><th>返信率</th><th>見積化率</th><th>成約率</th></tr></thead><tbody>
+{% for row in prefecture_rows %}<tr><td><strong>{{ row.prefecture }}</strong></td><td>{{ row.sent }}</td><td>{{ row.replied }}</td><td>{{ row.estimate }}</td><td>{{ row.won }}</td><td>{{ row.lost }}</td><td>{{ row.reply_rate }}%</td><td>{{ row.estimate_rate }}%</td><td>{{ row.win_rate }}%</td></tr>{% endfor %}
+</tbody></table></div></section>
+
+<section class="notice"><strong>計算ルール:</strong> 返信率・見積化率・成約率はいずれも「記録された送信件数」を分母にしています。現時点では候補単位のユニーク集計ではなく活動ログ件数ベースです。</section>
+{% endblock %}
