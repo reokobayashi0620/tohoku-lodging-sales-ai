@@ -7,6 +7,7 @@ from follow_up import register_follow_up
 from follow_up_draft import register_follow_up_draft
 from miyagi_enrichment import register_miyagi_enrichment
 from operator_enrichment import register_operator_enrichment
+from regional_official_import import register_regional_official_import
 from regional_sources import register_regional_sources
 from sales_action import register_sales_action
 from sales_activity import register_sales_activity
@@ -35,4 +36,5 @@ register_operator_enrichment(app)
 register_discovery_pipeline(app)
 register_target_finder(app)
 register_sendai_official(app)
+register_regional_official_import(app)
 register_security_hardening(app)
