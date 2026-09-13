@@ -6,7 +6,10 @@ import requests
 from bs4 import BeautifulSoup
 from flask import flash, redirect, render_template, url_for
 
+from app import candidate_key, extract_city
+
 MIYAGI_DETAIL_URL = "https://www.pref.miyagi.jp/site/miyagiminpaku/list.html"
+MIYAGI_DETAIL_SOURCE = "宮城県公式 民泊届出施設紹介"
 MAX_HTML_BYTES = 3 * 1024 * 1024
 CORPORATE_WORDS = ("株式会社", "有限会社", "合同会社", "一般社団法人", "一般財団法人", "NPO法人", "特定非営利活動法人")
 
@@ -105,6 +108,71 @@ def _find_record(address, index):
     return None
 
 
+def _company_name(operator):
+    return operator if operator and any(word in operator for word in CORPORATE_WORDS) else ""
+
+
+def import_miyagi_official_records(database, records, source_url=MIYAGI_DETAIL_URL):
+    """Create or enrich candidates directly from Miyagi's official minpaku facility table."""
+    inserted = updated = duplicates = 0
+    with sqlite3.connect(database) as con:
+        con.row_factory = sqlite3.Row
+        for record in records:
+            address = record.get("address", "").strip()
+            if not address:
+                continue
+            city = extract_city(address)
+            key = candidate_key("宮城県", city, address)
+            existing = con.execute(
+                "SELECT * FROM lead_candidates WHERE normalized_key=?", (key,)
+            ).fetchone()
+            company = _company_name(record.get("operator", ""))
+            note = "[宮城県公式民泊一覧] 公開施設情報から自動取込"
+            if record.get("operator"):
+                note += f" / 届出者: {record['operator']}"
+            note += f" / 出典: {source_url}"
+
+            if existing:
+                duplicates += 1
+                changes = {}
+                for column, value in (
+                    ("name", record.get("name", "")),
+                    ("company_name", company),
+                    ("phone", record.get("phone", "")),
+                    ("email", record.get("email", "")),
+                    ("official_url", record.get("official_url", "")),
+                ):
+                    if value and not existing[column]:
+                        changes[column] = value
+                current_notes = existing["research_notes"] or ""
+                if note not in current_notes:
+                    changes["research_notes"] = (current_notes + "\n" + note).strip()
+                if existing["research_status"] == "unresearched":
+                    changes["research_status"] = "researching"
+                if changes:
+                    assignments = ", ".join(f"{column}=?" for column in changes)
+                    con.execute(
+                        f"UPDATE lead_candidates SET {assignments}, updated_at=CURRENT_TIMESTAMP WHERE id=?",
+                        [*changes.values(), existing["id"]],
+                    )
+                    updated += 1
+                continue
+
+            con.execute(
+                """INSERT INTO lead_candidates
+                (name,company_name,prefecture,city,address,official_url,phone,email,contact_url,
+                 source_url,source_type,normalized_key,status,research_status,research_notes)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?, 'pending','researching',?)""",
+                (
+                    record.get("name", ""), company, "宮城県", city, address,
+                    record.get("official_url", ""), record.get("phone", ""), record.get("email", ""), "",
+                    source_url, MIYAGI_DETAIL_SOURCE, key, note,
+                ),
+            )
+            inserted += 1
+    return {"source_records": len(records), "inserted": inserted, "updated": updated, "duplicates": duplicates}
+
+
 def enrich_pending_candidates(database, records, source_url=MIYAGI_DETAIL_URL):
     index = _record_index(records)
     matched = 0
@@ -160,6 +228,20 @@ def register_miyagi_enrichment(app):
     @app.get("/enrichment", endpoint="enrichment_page")
     def enrichment_page():
         return render_template("enrichment.html", source_url=MIYAGI_DETAIL_URL)
+
+    @app.post("/targets/import-miyagi", endpoint="import_miyagi_targets")
+    def import_miyagi_targets():
+        try:
+            records = fetch_miyagi_detail_records()
+            stats = import_miyagi_official_records(app.config["DATABASE"], records)
+            flash(
+                f"宮城県公式民泊一覧 {stats['source_records']}件を確認。新規{stats['inserted']}件、既存更新{stats['updated']}件です。",
+                "success",
+            )
+        except (requests.RequestException, ValueError, OSError) as exc:
+            app.logger.warning("Miyagi official import failed: %s", exc)
+            flash("宮城県公式民泊一覧を取得できませんでした。時間を置いて再度お試しください。", "error")
+        return redirect("/targets?prefecture=宮城県")
 
     @app.post("/candidates/enrich-miyagi", endpoint="enrich_miyagi_candidates")
     def enrich_miyagi_candidates():
