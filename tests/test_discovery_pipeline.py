@@ -1,6 +1,12 @@
 import sqlite3
 
+from app import create_app
 from discovery_pipeline import build_ready_queue, register_discovery_pipeline
+
+
+def _make_app(tmp_path):
+    db_path = tmp_path / "pipeline.db"
+    return create_app({"TESTING": True, "DATABASE": db_path, "APP_USERNAME": "", "APP_PASSWORD": ""})
 
 
 def _insert_candidate(database, **overrides):
@@ -10,7 +16,8 @@ def _insert_candidate(database, **overrides):
         con.execute("""INSERT INTO lead_candidates (name,company_name,prefecture,city,address,official_url,phone,email,contact_url,pet_friendly,whole_house,multiple_facilities,wood_floor,research_status,research_notes,source_url,source_type,normalized_key,status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'pending')""", tuple(values[k] for k in values))
 
 
-def test_ready_queue_includes_sales_draft(app):
+def test_ready_queue_includes_sales_draft(tmp_path):
+    app = _make_app(tmp_path)
     _insert_candidate(app.config["DATABASE"])
     ready = build_ready_queue(app.config["DATABASE"], prefecture="宮城県")
     assert len(ready) == 1
@@ -19,12 +26,14 @@ def test_ready_queue_includes_sales_draft(app):
     assert "ペットヴィラ仙台" in ready[0]["draft"]
 
 
-def test_ready_queue_filters_prefecture(app):
+def test_ready_queue_filters_prefecture(tmp_path):
+    app = _make_app(tmp_path)
     _insert_candidate(app.config["DATABASE"])
     assert build_ready_queue(app.config["DATABASE"], prefecture="青森県") == []
 
 
-def test_pipeline_page_renders_ready_candidate(app):
+def test_pipeline_page_renders_ready_candidate(tmp_path):
+    app = _make_app(tmp_path)
     register_discovery_pipeline(app)
     _insert_candidate(app.config["DATABASE"])
     response = app.test_client().get("/pipeline?prefecture=宮城県")
@@ -36,7 +45,8 @@ def test_pipeline_page_renders_ready_candidate(app):
     assert "自動送信はしません" in text
 
 
-def test_pipeline_rejects_invalid_prefecture(app):
+def test_pipeline_rejects_invalid_prefecture(tmp_path):
+    app = _make_app(tmp_path)
     register_discovery_pipeline(app)
     response = app.test_client().post("/pipeline/run", data={"prefecture":"東京都"})
     assert response.status_code == 302
