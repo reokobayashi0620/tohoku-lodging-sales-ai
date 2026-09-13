@@ -8,7 +8,7 @@ from flask import flash, redirect
 
 from app import candidate_key, download_pdf, extract_city, pdf_text
 
-YAMAGATA_PDF_URL = "https://www.pref.yamagata.jp/documents/1920/r061114.pdf"
+YAMAGATA_PAGE_URL = "https://www.pref.yamagata.jp/020071/kenfuku/doubutsuaigo/eisei/seikatsueisei/minpaku/minpaku.html"
 YAMAGATA_SOURCE_TYPE = "山形県公式 住宅宿泊事業者一覧"
 FUKUSHIMA_LIST_URL = "https://www.pref.fukushima.lg.jp/sec/32031a/minpaku-04.html"
 FUKUSHIMA_SOURCE_TYPE = "福島県公式 住宅宿泊事業法受理済み届出住宅一覧"
@@ -17,6 +17,22 @@ CORPORATE_WORDS = ("株式会社", "有限会社", "合同会社", "一般社団
 
 def _clean(value):
     return unicodedata.normalize("NFKC", value or "").strip()
+
+
+def _latest_yamagata_pdf(page_url=YAMAGATA_PAGE_URL):
+    response = requests.get(page_url, timeout=20, headers={"User-Agent": "Mozilla/5.0 TohokuLodgingSalesAI/1.0", "Accept-Language": "ja,en;q=0.7"})
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "html.parser")
+    matches = []
+    for anchor in soup.find_all("a", href=True):
+        label = _clean(anchor.get_text(" ", strip=True))
+        href = anchor.get("href", "")
+        if "住宅宿泊事業者一覧" not in label or ".pdf" not in href.lower():
+            continue
+        matches.append(requests.compat.urljoin(page_url, href))
+    if not matches:
+        raise ValueError("山形県公式ページから住宅宿泊事業者一覧PDFを特定できませんでした。")
+    return matches[-1]
 
 
 def parse_yamagata_pdf(pdf_bytes):
@@ -39,11 +55,12 @@ def parse_yamagata_pdf(pdf_bytes):
     return records
 
 
-def fetch_yamagata_records(url=YAMAGATA_PDF_URL):
-    records = parse_yamagata_pdf(download_pdf(url))
+def fetch_yamagata_records(page_url=YAMAGATA_PAGE_URL):
+    pdf_url = _latest_yamagata_pdf(page_url)
+    records = parse_yamagata_pdf(download_pdf(pdf_url))
     if not records:
         raise ValueError("山形県公式PDFから所在地を抽出できませんでした。")
-    return records
+    return records, pdf_url
 
 
 def parse_fukushima_html(html):
@@ -120,8 +137,8 @@ def register_regional_official_import(app):
     @app.post("/targets/import-yamagata", endpoint="import_yamagata_targets")
     def import_yamagata_targets():
         try:
-            records = fetch_yamagata_records()
-            stats = import_official_records(app.config["DATABASE"], "山形県", records, YAMAGATA_PDF_URL, YAMAGATA_SOURCE_TYPE)
+            records, source_url = fetch_yamagata_records()
+            stats = import_official_records(app.config["DATABASE"], "山形県", records, source_url, YAMAGATA_SOURCE_TYPE)
             flash(f"山形県公式民泊一覧 {stats['source_records']}件を確認。新規{stats['inserted']}件、既存更新{stats['updated']}件です。", "success")
         except (requests.RequestException, ValueError, OSError) as exc:
             app.logger.warning("Yamagata official import failed: %s", exc)
