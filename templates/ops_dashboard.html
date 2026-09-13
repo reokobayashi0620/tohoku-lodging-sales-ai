@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}今日の営業 | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">RELEASE READY</p><h1>今日の営業</h1><p>調査・初回営業・追客・成果確認をこの画面から順番に進めます。</p></div></section>
+
+<section class="stats">
+  <div class="stat"><strong>{{ stats.ready_sales }}</strong><span>営業準備済 S/A</span></div>
+  <div class="stat"><strong>{{ stats.due_follow_up }}</strong><span>要フォロー</span></div>
+  <div class="stat"><strong>{{ stats.replied }}</strong><span>返信</span></div>
+  <div class="stat"><strong>{{ stats.estimate }}</strong><span>見積</span></div>
+  <div class="stat"><strong>{{ stats.won }}</strong><span>成約</span></div>
+</section>
+
+<section class="panel">
+  <h2>今日の進め方</h2>
+  <div class="candidate-actions">
+    {% if stats.due_follow_up %}<a class="button" href="/follow-up">1. 要フォロー {{ stats.due_follow_up }}件</a>{% else %}<a class="button secondary" href="/follow-up">1. フォロー確認</a>{% endif %}
+    {% if stats.ready_sales %}<a class="button" href="/sales-priority?ready=1">2. 新規営業 {{ stats.ready_sales }}件</a>{% else %}<a class="button secondary" href="/sales-priority">2. 営業候補確認</a>{% endif %}
+    <a class="button secondary" href="/candidates">3. 候補調査</a>
+    <a class="button secondary" href="/sales-analytics">4. 営業分析</a>
+  </div>
+  <p class="muted">おすすめ順は「返信・見積後の対応 → 新規営業 → 情報不足候補の調査」です。</p>
+</section>
+
+<section class="panel">
+  <h2>要フォロー</h2>
+  {% if due_follow_up %}
+  <div class="table-wrap"><table><thead><tr><th>状態</th><th>施設</th><th>経過</th><th>次の行動</th></tr></thead><tbody>
+  {% for item in due_follow_up %}<tr>
+    <td><strong>{{ item.label }}</strong></td>
+    <td>{{ item.row.name or '名称未確認' }}<br><small>{{ item.row.prefecture }} {{ item.row.city }}</small></td>
+    <td>{{ item.age_days }}日</td>
+    <td>{{ item.action }}<br><a class="button" href="/follow-up-draft/{{ item.row.candidate_id }}">追客文を作る</a></td>
+  </tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<p>今すぐ対応が必要なフォロー候補はありません。</p>{% endif %}
+</section>
+
+<section class="panel">
+  <h2>新規営業候補</h2>
+  {% if ready_sales %}
+  <div class="table-wrap"><table><thead><tr><th>優先</th><th>施設</th><th>根拠</th><th>行動</th></tr></thead><tbody>
+  {% for item in ready_sales %}<tr>
+    <td><span class="priority priority-{{ item.band|lower }}">{{ item.band }}</span><br>{{ item.score }}/100</td>
+    <td><strong>{{ item.candidate.name or '名称未確認' }}</strong><br><small>{{ item.candidate.prefecture }} {{ item.candidate.city }}</small></td>
+    <td>{{ item.reasons|join(' / ') }}</td>
+    <td><a class="button" href="/sales-action/{{ item.candidate.id }}">営業文を作る</a></td>
+  </tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<p>S/Aの営業準備済み候補はありません。候補調査を進めてください。</p>{% endif %}
+</section>
+
+<section class="panel">
+  <h2>営業KPI</h2>
+  <p><strong>送信 {{ stats.sent }}件</strong>　返信率 {{ stats.reply_rate }}%　成約率 {{ stats.win_rate }}%</p>
+  <p class="muted">営業活動ログに記録された件数ベースです。母数が少ない間は率より件数も合わせて確認してください。</p>
+  <div class="candidate-actions"><a class="button secondary" href="/sales-activities">活動履歴</a><a class="button secondary" href="/ops/export.csv">バックアップCSV</a></div>
+</section>
+
+<section class="notice"><strong>運用ルール:</strong> 自動送信は行いません。営業文・追客文・宛先は必ず人が確認してください。公開情報から取得した候補情報も、営業利用前に根拠ページを確認してください。</section>
+{% endblock %}
