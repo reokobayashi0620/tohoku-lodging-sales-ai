@@ -37,6 +37,6 @@ def test_csrf_not_forced_when_auth_disabled(tmp_path):
         "SECRET_KEY": "test-secret",
     })
     register_security(app)
-    response = app.test_client().post("/collect", data={"source": "invalid"})
+    response = app.test_client().post("/logout")
     # No CSRF rejection in local/test mode without authentication.
-    assert response.status_code != 400
+    assert response.status_code == 302
