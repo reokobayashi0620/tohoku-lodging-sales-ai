@@ -23,8 +23,6 @@ def test_remaining_routes_registered(tmp_path):
 
     database = tmp_path / "sales.db"
     test_app = app_module.create_app({"TESTING": True, "DATABASE": database, "SECRET_KEY": "test"})
-    with test_app.app_context():
-        app_module.init_db()
     register_remaining_prefectures_official(test_app)
     rules = {rule.rule for rule in test_app.url_map.iter_rules()}
     assert "/targets/import-iwate" in rules
