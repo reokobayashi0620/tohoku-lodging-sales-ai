@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}営業アクション | 東北リペア営業ノート{% endblock %}
 {% block content %}
-<section class="hero"><div><p class="eyebrow">PHASE 2-13</p><h1>営業アクション</h1><p>候補ごとに提案テーマと営業文のたたき台を作成します。送信前の人間確認は必須です。</p></div></section>
+<section class="hero"><div><p class="eyebrow">PHASE 2-14</p><h1>営業アクション</h1><p>候補ごとに提案テーマと営業文のたたき台を作成し、実施した営業活動も同じ画面から記録します。送信前の人間確認は必須です。</p></div></section>
 
 <section class="panel">
   <h2>{{ candidate.name or '名称未確認' }}</h2>
@@ -35,5 +35,22 @@
   <div class="candidate-actions"><a class="button secondary" href="{{ url_for('edit_candidate', candidate_id=candidate.id) }}">候補情報を確認</a>{% if candidate.official_url %}<a href="{{ candidate.official_url }}" target="_blank" rel="noopener">根拠ページ</a>{% endif %}</div>
 </section>
 
-<section class="notice"><strong>送信ルール:</strong> この画面は営業文の作成支援のみです。自動送信は行いません。内容・宛先・連絡手段を人が確認してから送信してください。</section>
+<section class="panel">
+  <h2>営業活動を記録</h2>
+  <form method="post" action="/sales-activities/{{ candidate.id }}" class="filters">
+    <input type="hidden" name="theme_key" value="{{ selected_theme }}">
+    <select name="activity_type" required>
+      <option value="">活動を選択</option>
+      <option value="sent">送信済み</option><option value="replied">返信あり</option><option value="estimate">見積</option><option value="won">成約</option><option value="lost">見送り</option>
+    </select>
+    <select name="channel">
+      <option value="">連絡手段（任意）</option><option value="email">メール</option><option value="form">問い合わせフォーム</option><option value="phone">電話</option><option value="other">その他</option>
+    </select>
+    <input type="text" name="note" maxlength="2000" placeholder="返信内容・見積金額・次回対応など（任意）">
+    <button class="button" type="submit">活動を記録</button>
+  </form>
+  <p class="muted">選択中の提案テーマも一緒に保存され、テーマ別の返信・成約傾向を後で確認できます。</p>
+</section>
+
+<section class="notice"><strong>送信ルール:</strong> この画面は営業文の作成支援と活動記録のみです。自動送信は行いません。内容・宛先・連絡手段を人が確認してから送信してください。</section>
 {% endblock %}
