@@ -24,7 +24,7 @@
 <td><strong>{{ item.candidate.name or '名称未確認' }}</strong><br><small>{{ item.candidate.prefecture }} {{ item.candidate.city }} {{ item.candidate.address }}</small>{% if item.candidate.company_name %}<br><small>{{ item.candidate.company_name }}</small>{% endif %}</td>
 <td>{% if item.reasons %}{{ item.reasons|join(' / ') }}{% else %}<span class="muted">営業属性未確認</span>{% endif %}</td>
 <td>{% if item.missing %}{{ item.missing|join('・') }}{% else %}<strong>主要項目確認済</strong>{% endif %}</td>
-<td><strong>{{ item.action }}</strong><br>{% if item.band in ['S','A'] %}<a class="button" href="{{ url_for('sales_action', candidate_id=item.candidate.id) }}">提案・営業文を作成</a> {% endif %}<a class="button secondary" href="{{ url_for('edit_candidate', candidate_id=item.candidate.id) }}">候補を確認</a>{% if item.candidate.official_url %} <a href="{{ item.candidate.official_url }}" target="_blank" rel="noopener">根拠ページ</a>{% endif %}</td>
+<td><strong>{{ item.action }}</strong><br>{% if item.band in ['S','A'] %}<a class="button" href="/sales-action/{{ item.candidate.id }}">提案・営業文を作成</a> {% endif %}<a class="button secondary" href="{{ url_for('edit_candidate', candidate_id=item.candidate.id) }}">候補を確認</a>{% if item.candidate.official_url %} <a href="{{ item.candidate.official_url }}" target="_blank" rel="noopener">根拠ページ</a>{% endif %}</td>
 </tr>
 {% else %}<tr><td colspan="6">条件に一致する候補はありません。</td></tr>{% endfor %}
 </tbody></table></div>
