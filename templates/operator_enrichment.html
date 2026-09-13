@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}運営会社自動調査 | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">PHASE 3-2</p><h1>運営会社・連絡先の自動特定</h1><p>公式サイト内の会社概要・運営会社・特定商取引ページなどを確認し、営業先の運営主体と連絡先を補完します。</p></div></section>
+
+<section class="stats">
+  <div class="stat"><strong>{{ unresolved }}</strong><span>運営会社未特定</span></div>
+  <div class="stat"><strong>{{ reachable_missing }}</strong><span>連絡先未特定</span></div>
+  <div class="stat"><strong>{{ ready|length }}</strong><span>S/A営業候補</span></div>
+</section>
+
+<section class="notice">
+  <strong>目的:</strong> 「施設を見つける」だけで終わらせず、誰が運営し、どこへ営業すればよいかまで自動で近づけます。自動抽出結果は必ず営業前に公式ページで最終確認してください。
+</section>
+
+<section class="card">
+  <h2>1. 運営会社・問い合わせ先を自動調査</h2>
+  <p>公式サイトがある候補を最大10件ずつ調査します。トップページに加え、同一ドメイン内の「会社概要」「運営会社」「企業情報」「特定商取引」等の公開ページを最大3ページ確認します。</p>
+  <form method="post" action="/operator-enrichment/run">
+    <button class="button" type="submit">10件を自動調査</button>
+  </form>
+  <p class="muted"><small>robots.txtを尊重し、ログイン・CAPTCHA・アクセス制限を回避しません。既に人が入力した会社名・電話・メール・問い合わせURLは上書きしません。</small></p>
+</section>
+
+<section class="card">
+  <h2>2. 営業準備が整った候補</h2>
+  <p>自動調査後にS/A判定になった候補を上位20件まで表示します。Aは根拠ページを最終確認してから営業へ進みます。</p>
+  <div class="table-wrap"><table><thead><tr><th>優先</th><th>施設</th><th>運営会社</th><th>連絡先</th><th>次へ</th></tr></thead><tbody>
+  {% for item in ready %}
+  <tr>
+    <td><strong>{{ item.band }} / {{ item.score }}</strong></td>
+    <td><strong>{{ item.candidate.name or '名称未確認' }}</strong><br><small>{{ item.candidate.prefecture }} {{ item.candidate.city }}</small></td>
+    <td>{{ item.candidate.company_name or '未特定' }}</td>
+    <td>{% if item.candidate.email %}{{ item.candidate.email }}{% elif item.candidate.phone %}{{ item.candidate.phone }}{% elif item.candidate.contact_url %}問い合わせフォームあり{% else %}未特定{% endif %}</td>
+    <td><a class="button" href="/sales-action/{{ item.candidate.id }}">営業文を作成</a> <a class="button secondary" href="/candidates/{{ item.candidate.id }}/edit">根拠確認</a></td>
+  </tr>
+  {% else %}<tr><td colspan="5">現在、S/A候補はありません。自動発掘→公式サイト調査→運営会社調査の順に進めてください。</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+
+<section class="notice"><strong>自動判定の扱い:</strong> 運営会社名は法人表記や構造化データ等を根拠に候補として保存しますが、自動処理だけで「確認済」にはしません。営業先の誤認防止のため、最終確認は人が行います。</section>
+{% endblock %}

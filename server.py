@@ -5,6 +5,7 @@ from collection_dashboard import register_collection_dashboard
 from follow_up import register_follow_up
 from follow_up_draft import register_follow_up_draft
 from miyagi_enrichment import register_miyagi_enrichment
+from operator_enrichment import register_operator_enrichment
 from regional_sources import register_regional_sources
 from sales_action import register_sales_action
 from sales_activity import register_sales_activity
@@ -27,4 +28,5 @@ register_follow_up_draft(app)
 register_today_dashboard(app)
 register_system_tools(app)
 register_auto_discovery(app)
+register_operator_enrichment(app)
 register_security_hardening(app)
