@@ -4,6 +4,7 @@ from collection_dashboard import register_collection_dashboard
 from follow_up import register_follow_up
 from follow_up_draft import register_follow_up_draft
 from miyagi_enrichment import register_miyagi_enrichment
+from ops_dashboard import register_ops_dashboard
 from regional_sources import register_regional_sources
 from sales_action import register_sales_action
 from sales_activity import register_sales_activity
@@ -20,3 +21,4 @@ register_sales_activity(app)
 register_sales_analytics(app)
 register_follow_up(app)
 register_follow_up_draft(app)
+register_ops_dashboard(app)
