@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}一括営業パイプライン | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">PHASE 3-3</p><h1>一括営業パイプライン</h1><p>県を1つ選ぶだけで、施設発掘 → 運営会社・連絡先調査 → 営業優先順位 → 営業文のたたき台までつなぎます。</p></div></section>
+
+<section class="notice">
+  <strong>ここが当初計画の中心画面です。</strong><br>
+  自動送信はしません。システムが営業候補と下書きを準備し、最後に人が公式情報・宛先・文章を確認して送ります。
+</section>
+
+<section class="card">
+  <h2>1. 対象県を選んで一括実行</h2>
+  <form method="post" action="/pipeline/run">
+    <label>対象県
+      <select name="prefecture" required>
+        <option value="">選択してください</option>
+        {% for p in prefectures %}<option value="{{ p }}" {% if p == selected_prefecture %}selected{% endif %}>{{ p }}</option>{% endfor %}
+      </select>
+    </label>
+    <button class="button" type="submit">発掘から営業準備まで実行</button>
+  </form>
+  <p class="muted"><small>公開Overpass APIへの負荷を抑えるため1県ずつ実行し、並列実行しません。重複候補は再登録せず、公式サイト調査も1回20件までです。</small></p>
+</section>
+
+<section class="card">
+  <h2>2. 既に集めた候補だけ再調査</h2>
+  <form method="post" action="/pipeline/research-only">
+    <select name="prefecture" required>
+      <option value="">選択してください</option>
+      {% for p in prefectures %}<option value="{{ p }}" {% if p == selected_prefecture %}selected{% endif %}>{{ p }}</option>{% endfor %}
+    </select>
+    <button class="button secondary" type="submit">運営会社・連絡先を追加調査</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>3. 営業準備ができた候補</h2>
+  {% if ready %}
+  <div class="table-wrap"><table><thead><tr><th>優先</th><th>施設</th><th>運営会社</th><th>連絡先</th><th>提案テーマ</th><th>次へ</th></tr></thead><tbody>
+  {% for item in ready %}<tr>
+    <td><strong>{{ item.band }} / {{ item.score }}</strong></td>
+    <td>{{ item.candidate.name }}<br><small>{{ item.candidate.prefecture }} {{ item.candidate.city }}</small></td>
+    <td>{{ item.candidate.company_name or '未特定' }}</td>
+    <td>{% if item.candidate.email %}{{ item.candidate.email }}{% elif item.candidate.phone %}{{ item.candidate.phone }}{% elif item.candidate.contact_url %}問い合わせフォーム{% else %}未特定{% endif %}</td>
+    <td>{{ item.theme }}</td>
+    <td><a class="button" href="/sales-action/{{ item.candidate.id }}">営業文を確認</a></td>
+  </tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<p>現在、条件を満たすS/A候補はありません。一括実行後にここへ表示されます。</p>{% endif %}
+</section>
+
+<section class="notice">
+  <strong>データ利用について:</strong> OpenStreetMapの公開POIは発掘候補として利用し、営業前には施設公式サイト等で確認します。公開Overpass APIは小規模・低頻度利用に抑え、将来処理量が増えた場合は有料または自前のデータ取得基盤へ切り替えます。
+</section>
+{% endblock %}
