@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}フォローアップ | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">PHASE 2-16</p><h1>フォローアップ管理</h1><p>営業活動ログの最新状態から、今フォローすべき相手を自動で並べます。</p></div></section>
+
+<section class="stats">
+  <div class="stat"><strong>{{ summary.estimate_followup }}</strong><span>見積提出後</span></div>
+  <div class="stat"><strong>{{ summary.reply_action }}</strong><span>返信あり</span></div>
+  <div class="stat"><strong>{{ summary.no_reply }}</strong><span>未返信</span></div>
+  <div class="stat"><strong>{{ summary.waiting }}</strong><span>送信後待機</span></div>
+</section>
+
+<form class="filters" method="get">
+  <select name="bucket">
+    <option value="">すべて</option>
+    <option value="estimate_followup" {% if bucket_filter=='estimate_followup' %}selected{% endif %}>見積提出後</option>
+    <option value="reply_action" {% if bucket_filter=='reply_action' %}selected{% endif %}>返信あり</option>
+    <option value="no_reply" {% if bucket_filter=='no_reply' %}selected{% endif %}>未返信</option>
+    <option value="waiting" {% if bucket_filter=='waiting' %}selected{% endif %}>送信後待機</option>
+  </select>
+  <label><input type="checkbox" name="due" value="1" {% if due_only %}checked{% endif %}> 今対応が必要な候補のみ</label>
+  <button class="button" type="submit">絞り込む</button>
+</form>
+
+<div class="notice"><strong>判定ルール:</strong> 「返信あり」は即対応、「見積提出後」と「未返信」は3日以上経過で要フォロー。「成約」「見送り」はキューから除外します。活動を追加すると最新状態で自動再判定されます。</div>
+
+<div class="table-wrap"><table><thead><tr><th>優先</th><th>状態</th><th>施設 / 所在地</th><th>最新活動</th><th>次の行動</th></tr></thead><tbody>
+{% for item in queue %}
+<tr>
+  <td>{% if item.due %}<strong>対応</strong>{% else %}<span class="muted">待機</span>{% endif %}<br><small>{{ item.age_days }}日経過</small></td>
+  <td><strong>{{ item.label }}</strong></td>
+  <td><strong>{{ item.row.name or '名称未確認' }}</strong><br><small>{{ item.row.prefecture }} {{ item.row.city }} {{ item.row.address }}</small>{% if item.row.company_name %}<br><small>{{ item.row.company_name }}</small>{% endif %}</td>
+  <td>{{ activity_types.get(item.row.activity_type, item.row.activity_type) }}{% if item.row.theme_key %}<br><small>{{ themes.get(item.row.theme_key, {}).get('label', item.row.theme_key) }}</small>{% endif %}{% if item.row.note %}<br><small>{{ item.row.note }}</small>{% endif %}</td>
+  <td><strong>{{ item.action }}</strong><br><a class="button" href="/sales-action/{{ item.row.candidate_id }}">営業アクションへ</a> <a class="button secondary" href="/sales-activities">活動履歴</a></td>
+</tr>
+{% else %}<tr><td colspan="5">条件に一致するフォロー候補はありません。</td></tr>{% endfor %}
+</tbody></table></div>
+
+<section class="notice"><strong>運用方針:</strong> 自動送信は行いません。表示順は「誰に次に連絡するか」を決めるための補助です。相手の返信内容・約束した期日・施設事情を確認してから連絡してください。</section>
+{% endblock %}
