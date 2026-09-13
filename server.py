@@ -9,6 +9,7 @@ from miyagi_enrichment import register_miyagi_enrichment
 from operator_enrichment import register_operator_enrichment
 from regional_official_import import register_regional_official_import
 from regional_sources import register_regional_sources
+from remaining_prefectures_official import register_remaining_prefectures_official
 from sales_action import register_sales_action
 from sales_activity import register_sales_activity
 from sales_analytics import register_sales_analytics
@@ -37,4 +38,5 @@ register_discovery_pipeline(app)
 register_target_finder(app)
 register_sendai_official(app)
 register_regional_official_import(app)
+register_remaining_prefectures_official(app)
 register_security_hardening(app)

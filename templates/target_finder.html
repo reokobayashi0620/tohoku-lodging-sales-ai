@@ -2,17 +2,20 @@
 {% block title %}営業先発掘 | 東北リペア営業ノート{% endblock %}
 {% block content %}
 <section class="hero"><div><p class="eyebrow">PHASE 4</p><h1>民泊・貸別荘 特化の営業先発掘</h1><p>一般宿泊施設を広く集めるのではなく、補修・コーティング需要が見込める民泊・貸別荘・一棟貸し・ペット可施設を優先して並べます。</p></div></section>
-<section class="notice"><strong>自治体公式データを優先。</strong><br>標準ではOpenStreetMap由来の一般宿泊POIを除外し、自治体の届出・許可系ソースや既存の公式候補を優先します。最終営業前に公式情報を人が確認してください。</section>
+<section class="notice"><strong>東北6県の自治体公式データを優先。</strong><br>標準ではOpenStreetMap由来の一般宿泊POIを除外し、自治体の届出・許可系ソースを優先します。最終営業前に公式情報を人が確認してください。</section>
 <section class="card">
   <h2>公式民泊データを取り込む</h2>
-  <p>現在、宮城県・仙台市・山形県・福島県の公式公開情報を営業候補へ直接取り込めます。公開項目が所在地のみの場合は、登録後に運営会社・連絡先調査へ回します。</p>
+  <p>宮城・岩手・山形・福島・秋田・青森の公式公開情報を営業候補へ直接取り込めます。所在地のみ公開される県は、登録後に運営会社・連絡先調査へ回します。</p>
   <div class="candidate-actions">
     <form method="post" action="/targets/import-miyagi"><button class="button" type="submit">宮城県公式民泊を更新</button></form>
     <form method="post" action="/targets/import-sendai"><button class="button secondary" type="submit">仙台市公式民泊を更新</button></form>
+    <form method="post" action="/targets/import-iwate"><button class="button secondary" type="submit">岩手県公式民泊を更新</button></form>
     <form method="post" action="/targets/import-yamagata"><button class="button secondary" type="submit">山形県公式民泊を更新</button></form>
     <form method="post" action="/targets/import-fukushima"><button class="button secondary" type="submit">福島県公式民泊を更新</button></form>
+    <form method="post" action="/targets/import-akita"><button class="button secondary" type="submit">秋田県公式民泊を更新</button></form>
+    <form method="post" action="/targets/import-aomori"><button class="button secondary" type="submit">青森県公式民泊を更新</button></form>
   </div>
-  <p class="muted">既存住所は重複登録しません。公式側に屋号・法人名・電話が公開されている場合は候補にも反映し、不足項目は後段で調査します。</p>
+  <p class="muted">既存住所は重複登録しません。公式側に法人名・電話等が公開されている場合は候補にも反映し、不足項目は後段で調査します。</p>
 </section>
 <section class="card"><form method="get" action="/targets"><label>対象県 <select name="prefecture"><option value="">東北6県すべて</option>{% for p in prefectures %}<option value="{{ p }}" {% if p == selected_prefecture %}selected{% endif %}>{{ p }}</option>{% endfor %}</select></label><label><input type="checkbox" name="include_osm" value="1" {% if include_osm %}checked{% endif %}> OSMの一般宿泊候補も参考表示</label><button class="button" type="submit">営業先を絞り込む</button></form></section>
 <section class="grid metrics">{% for band in 'SABC' %}<div class="card"><strong>{{ band }}</strong><div class="metric">{{ summary[band] }}</div></div>{% endfor %}</section>
