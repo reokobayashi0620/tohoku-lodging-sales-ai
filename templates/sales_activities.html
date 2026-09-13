@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}営業活動ログ | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">PHASE 2-14</p><h1>営業活動ログ</h1><p>送信・返信・見積・成約・見送りを記録し、どの提案テーマが反応につながったかを蓄積します。</p></div></section>
+
+<section class="stats">
+  <div class="stat"><strong>{{ funnel.sent }}</strong><span>送信済み</span></div>
+  <div class="stat"><strong>{{ funnel.replied }}</strong><span>返信あり</span></div>
+  <div class="stat"><strong>{{ funnel.estimate }}</strong><span>見積</span></div>
+  <div class="stat"><strong>{{ funnel.won }}</strong><span>成約</span></div>
+  <div class="stat"><strong>{{ funnel.lost }}</strong><span>見送り</span></div>
+</section>
+
+<section class="panel">
+  <h2>提案テーマ別の反応</h2>
+  <div class="table-wrap"><table><thead><tr><th>提案テーマ</th><th>送信</th><th>返信</th><th>見積</th><th>成約</th><th>見送り</th></tr></thead><tbody>
+  {% for key, theme in themes.items() %}
+    {% set item = theme_summary.get(key, {}) %}
+    <tr><td>{{ theme.label }}</td><td>{{ item.get('sent',0) }}</td><td>{{ item.get('replied',0) }}</td><td>{{ item.get('estimate',0) }}</td><td>{{ item.get('won',0) }}</td><td>{{ item.get('lost',0) }}</td></tr>
+  {% endfor %}
+  </tbody></table></div>
+</section>
+
+<section class="panel">
+  <h2>活動履歴</h2>
+  <div class="table-wrap"><table><thead><tr><th>日時</th><th>施設</th><th>活動</th><th>提案テーマ</th><th>連絡手段</th><th>メモ</th></tr></thead><tbody>
+  {% for row in rows %}
+    <tr>
+      <td>{{ row.created_at }}</td>
+      <td><strong>{{ row.name or '名称未確認' }}</strong><br><small>{{ row.prefecture }} {{ row.city }} {{ row.address }}</small>{% if row.company_name %}<br><small>{{ row.company_name }}</small>{% endif %}</td>
+      <td>{{ activity_types.get(row.activity_type, row.activity_type) }}</td>
+      <td>{% if row.theme_key %}{{ themes.get(row.theme_key, {}).get('label', row.theme_key) }}{% else %}<span class="muted">未記録</span>{% endif %}</td>
+      <td>{% if row.channel %}{{ channels.get(row.channel, row.channel) }}{% else %}<span class="muted">未記録</span>{% endif %}</td>
+      <td>{{ row.note or '' }}</td>
+    </tr>
+  {% else %}<tr><td colspan="6">営業活動はまだ記録されていません。</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+
+<section class="notice"><strong>運用:</strong> 活動ログは実績分析用です。送信自体は自動化せず、内容・宛先・連絡手段を人が確認して実行します。</section>
+{% endblock %}
