@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}システム状態 | 東北リペア営業ノート{% endblock %}
+{% block content %}
+<section class="hero"><div><p class="eyebrow">MVP 1.0</p><h1>システム状態</h1><p>営業データを実運用する前に、保護設定とバックアップ状態を確認します。</p></div></section>
+
+<section class="stats"><div class="stat"><strong>{{ ready }}/{{ total }}</strong><span>運用準備チェック</span></div></section>
+
+<section class="panel"><h2>準備状況</h2><div class="table-wrap"><table><thead><tr><th>項目</th><th>状態</th><th>内容</th></tr></thead><tbody>
+{% for item in checks %}<tr><td><strong>{{ item.label }}</strong></td><td>{% if item.ok %}<strong>OK</strong>{% else %}<strong>要対応</strong>{% endif %}</td><td>{{ item.detail }}</td></tr>{% endfor %}
+</tbody></table></div></section>
+
+<section class="panel"><h2>データバックアップ</h2><p>現在のSQLiteデータベースを丸ごと保存します。CSVより完全なバックアップなので、実運用中は定期的に保管してください。</p><p><strong>DB:</strong> {{ database }}</p><a class="button" href="/backup/database">SQLiteバックアップを保存</a></section>
+
+<section class="notice"><strong>重要:</strong> DBが <code>/tmp</code> 配下の場合、再起動・再デプロイでデータが消える可能性があります。本番利用ではRenderの永続ディスク等へ <code>DATABASE_PATH</code> を移してください。</section>
+{% endblock %}

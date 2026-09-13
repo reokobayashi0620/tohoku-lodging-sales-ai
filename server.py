@@ -9,6 +9,9 @@ from sales_action import register_sales_action
 from sales_activity import register_sales_activity
 from sales_analytics import register_sales_analytics
 from sales_priority import register_sales_priority
+from security_hardening import register_security_hardening
+from system_tools import register_system_tools
+from today_dashboard import register_today_dashboard
 
 register_bulk_actions(app)
 register_miyagi_enrichment(app)
@@ -20,3 +23,6 @@ register_sales_activity(app)
 register_sales_analytics(app)
 register_follow_up(app)
 register_follow_up_draft(app)
+register_today_dashboard(app)
+register_system_tools(app)
+register_security_hardening(app)
