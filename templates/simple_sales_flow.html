@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}シンプル営業フロー{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">SIMPLE SALES FLOW</p>
+  <h1>見つける → 作る → 送る → 追う</h1>
+  <p>営業先を事業者単位で管理します。施設を細かく調べるより、複数物件を持つ運営会社・管理会社への営業を優先します。</p>
+  <form method="post" action="/sales-flow/discover"><button class="button" type="submit">事業者を見つけてリストに追加</button></form>
+</section>
+
+<section class="card">
+  <h2>① 新規営業先 <span class="badge">{{ groups.new|length }}</span></h2>
+  <p>営業文を確認し、営業資料「床コーティング・傷補修 営業資料.pdf」を添付して送信します。送信後は必ず「送信済み」を押してください。</p>
+  {% for item in groups.new %}
+  {% set c=item.candidate %}
+  <article class="card">
+    <h3>{{ c.company_name or c.name }}</h3>
+    <p>{{ c.prefecture }} {{ c.city }}{% if c.phone %} ／ {{ c.phone }}{% endif %}{% if c.email %} ／ {{ c.email }}{% endif %}</p>
+    <p>{{ c.research_notes }}</p>
+    <p>
+      {% if c.official_url %}<a class="button secondary" href="{{ c.official_url }}" target="_blank" rel="noopener">公式サイト</a>{% endif %}
+      <a class="button secondary" href="/sales-action/{{ c.id }}">営業文を確認</a>
+      {% if item.mailto %}<a class="button" href="{{ item.mailto }}">メールを作成</a>{% endif %}
+      {% if c.contact_url %}<a class="button" href="{{ c.contact_url }}" target="_blank" rel="noopener">問い合わせフォーム</a>{% endif %}
+    </p>
+    <details><summary>営業文をその場で確認</summary><pre style="white-space:pre-wrap">{{ item.draft }}</pre></details>
+    <form method="post" action="/sales-flow/{{ c.id }}/activity">
+      <input type="hidden" name="activity_type" value="sent">
+      <select name="channel"><option value="email">メール</option><option value="form">問い合わせフォーム</option><option value="phone">電話</option><option value="other">その他</option></select>
+      <button type="submit">送信済みにする</button>
+    </form>
+  </article>
+  {% else %}<p>新規営業先はありません。「事業者を見つけてリストに追加」から開始してください。</p>{% endfor %}
+</section>
+
+<section class="card">
+  <h2>② 送信済み・返信待ち <span class="badge">{{ groups.sent|length }}</span></h2>
+  <p>送信から{{ follow_up_days }}日までは返信待ちです。返信が来たら「返信あり」に移します。</p>
+  {% for item in groups.sent %}{% set c=item.candidate %}
+  <article class="card"><h3>{{ c.company_name or c.name }}</h3><p>最終送信: {{ item.last_activity.created_at if item.last_activity else '' }}</p>
+    <form method="post" action="/sales-flow/{{ c.id }}/activity"><input type="hidden" name="activity_type" value="replied"><input type="hidden" name="channel" value="other"><button type="submit">返信あり</button></form>
+  </article>{% else %}<p>現在、返信待ちはありません。</p>{% endfor %}
+</section>
+
+<section class="card">
+  <h2>③ 返信あり <span class="badge">{{ groups.replied|length }}</span></h2>
+  <p>ここは最優先で対応する営業案件です。</p>
+  {% for item in groups.replied %}{% set c=item.candidate %}
+  <article class="card"><h3>{{ c.company_name or c.name }}</h3><p>{% if c.phone %}{{ c.phone }}{% endif %}{% if c.email %} ／ {{ c.email }}{% endif %}</p>
+    <p><a class="button secondary" href="/sales-action/{{ c.id }}">内容を開く</a></p>
+    <form method="post" action="/sales-flow/{{ c.id }}/activity"><input type="hidden" name="channel" value="other"><button name="activity_type" value="won" type="submit">成約</button> <button name="activity_type" value="lost" type="submit">見送り</button></form>
+  </article>{% else %}<p>返信あり案件はまだありません。</p>{% endfor %}
+</section>
+
+<section class="card">
+  <h2>④ 追客 <span class="badge">{{ groups.followup|length }}</span></h2>
+  <p>送信から{{ follow_up_days }}日以上返信がない事業者だけを自動でここに出します。</p>
+  {% for item in groups.followup %}{% set c=item.candidate %}
+  <article class="card"><h3>{{ c.company_name or c.name }}</h3><p><a class="button secondary" href="/sales-action/{{ c.id }}">追客文を準備</a>{% if c.contact_url %} <a class="button" href="{{ c.contact_url }}" target="_blank" rel="noopener">再アプローチ</a>{% endif %}</p>
+    <form method="post" action="/sales-flow/{{ c.id }}/activity"><input type="hidden" name="activity_type" value="sent"><input type="hidden" name="channel" value="other"><button type="submit">追客送信済み</button></form>
+  </article>{% else %}<p>現在、追客対象はありません。</p>{% endfor %}
+</section>
+
+{% if groups.research %}<section class="card"><h2>連絡先不足 <span class="badge">{{ groups.research|length }}</span></h2><p>連絡先が分からない事業者です。営業対象にはまだ出しません。</p></section>{% endif %}
+{% endblock %}

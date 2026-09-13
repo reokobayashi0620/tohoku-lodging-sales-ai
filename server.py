@@ -18,6 +18,7 @@ from sales_analytics import register_sales_analytics
 from sales_priority import register_sales_priority
 from security_hardening import register_security_hardening
 from sendai_official import register_sendai_official
+from simple_sales_flow import register_simple_sales_flow
 from system_tools import register_system_tools
 from target_finder import register_target_finder
 from today_dashboard import register_today_dashboard
@@ -45,4 +46,5 @@ register_remaining_prefectures_official(app)
 register_candidate_reconciliation(app)
 register_unresolved_research(app)
 register_official_discovery_pipeline(app)
+register_simple_sales_flow(app)
 register_security_hardening(app)
