@@ -7,6 +7,7 @@ from discovery_pipeline import register_discovery_pipeline
 from follow_up import register_follow_up
 from follow_up_draft import register_follow_up_draft
 from miyagi_enrichment import register_miyagi_enrichment
+from official_discovery_pipeline import register_official_discovery_pipeline
 from operator_enrichment import register_operator_enrichment
 from regional_official_import import register_regional_official_import
 from regional_sources import register_regional_sources
@@ -43,4 +44,5 @@ register_regional_official_import(app)
 register_remaining_prefectures_official(app)
 register_candidate_reconciliation(app)
 register_unresolved_research(app)
+register_official_discovery_pipeline(app)
 register_security_hardening(app)
