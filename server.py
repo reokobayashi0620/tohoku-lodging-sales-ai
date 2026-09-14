@@ -1,5 +1,6 @@
 from app import app
 from auto_discovery import register_auto_discovery
+from automatic_candidate_discovery import register_automatic_candidate_discovery
 from bulk_actions import register_bulk_actions
 from candidate_reconciliation import register_candidate_reconciliation
 from collection_dashboard import register_collection_dashboard
@@ -47,4 +48,5 @@ register_candidate_reconciliation(app)
 register_unresolved_research(app)
 register_official_discovery_pipeline(app)
 register_simple_sales_flow(app)
+register_automatic_candidate_discovery(app)
 register_security_hardening(app)
