@@ -3,7 +3,7 @@ import hmac
 import io
 import os
 
-from flask import Response, abort, request, session
+from flask import Response, abort, request
 
 from simple_sales_flow import build_flow
 
@@ -41,35 +41,36 @@ def export_rows(database):
             candidate = item["candidate"]
             last = item.get("last_activity")
             rows.append([
-                candidate["id"],
-                candidate["prefecture"],
-                candidate["city"],
-                candidate["name"],
-                candidate["company_name"],
-                candidate["official_url"],
-                candidate["contact_url"],
-                candidate["email"],
-                candidate["phone"],
-                _mark(candidate["pet_friendly"]),
-                _mark(candidate["whole_house"]),
-                _mark(candidate["multiple_facilities"]),
-                _mark(candidate["wood_floor"]),
-                stage_labels[stage],
-                item["theme"],
-                last["created_at"] if last else "",
-                candidate["source_url"],
-                candidate["research_notes"],
+                candidate["id"], candidate["prefecture"], candidate["city"], candidate["name"],
+                candidate["company_name"], candidate["official_url"], candidate["contact_url"],
+                candidate["email"], candidate["phone"], _mark(candidate["pet_friendly"]),
+                _mark(candidate["whole_house"]), _mark(candidate["multiple_facilities"]),
+                _mark(candidate["wood_floor"]), stage_labels[stage], item["theme"],
+                last["created_at"] if last else "", candidate["source_url"], candidate["research_notes"],
             ])
     rows.sort(key=lambda row: (row[1], row[2], str(row[4] or row[3])))
     return rows
 
 
+def _csv_response(database):
+    output = io.StringIO()
+    writer = csv.writer(output, lineterminator="\n")
+    writer.writerow(CSV_HEADERS)
+    writer.writerows(export_rows(database))
+    return Response(
+        "\ufeff" + output.getvalue(),
+        mimetype="text/csv; charset=utf-8",
+        headers={"Cache-Control": "no-store"},
+    )
+
+
 def register_spreadsheet_sync(app):
-    # The core app may require a login session. Insert this hook first so a valid
-    # sync token can authenticate only this read-only export request.
+    # The app login guard is registered by the core app. A valid sync token is
+    # handled before that guard and returns only this read-only CSV; it never
+    # creates an authenticated app session.
     def allow_sheet_sync():
         if request.endpoint == "sales_sync_csv" and _authorized():
-            session["logged_in"] = True
+            return _csv_response(app.config["DATABASE"])
         return None
 
     app.before_request_funcs.setdefault(None, []).insert(0, allow_sheet_sync)
@@ -78,15 +79,6 @@ def register_spreadsheet_sync(app):
     def sales_sync_csv():
         if not _authorized():
             abort(403)
-        output = io.StringIO()
-        writer = csv.writer(output, lineterminator="\n")
-        writer.writerow(CSV_HEADERS)
-        writer.writerows(export_rows(app.config["DATABASE"]))
-        body = "\ufeff" + output.getvalue()
-        return Response(
-            body,
-            mimetype="text/csv; charset=utf-8",
-            headers={"Cache-Control": "no-store"},
-        )
+        return _csv_response(app.config["DATABASE"])
 
     return app
