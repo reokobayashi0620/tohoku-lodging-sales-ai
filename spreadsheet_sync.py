@@ -3,7 +3,7 @@ import hmac
 import io
 import os
 
-from flask import Response, abort, request
+from flask import Response, abort, request, session
 
 from simple_sales_flow import build_flow
 
@@ -65,6 +65,15 @@ def export_rows(database):
 
 
 def register_spreadsheet_sync(app):
+    # The core app may require a login session. Insert this hook first so a valid
+    # sync token can authenticate only this read-only export request.
+    def allow_sheet_sync():
+        if request.endpoint == "sales_sync_csv" and _authorized():
+            session["logged_in"] = True
+        return None
+
+    app.before_request_funcs.setdefault(None, []).insert(0, allow_sheet_sync)
+
     @app.get("/exports/sales.csv", endpoint="sales_sync_csv")
     def sales_sync_csv():
         if not _authorized():
