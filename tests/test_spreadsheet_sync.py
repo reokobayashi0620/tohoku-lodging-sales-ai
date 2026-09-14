@@ -2,7 +2,7 @@ import csv
 import io
 
 import app as app_module
-from simple_sales_flow import seed_businesses
+from simple_sales_flow import register_simple_sales_flow, seed_businesses
 from spreadsheet_sync import CSV_HEADERS, register_spreadsheet_sync
 
 
@@ -14,6 +14,7 @@ def make_app(tmp_path, monkeypatch):
         "APP_USERNAME": "officeMK",
         "APP_PASSWORD": "secret",
     })
+    register_simple_sales_flow(app)
     register_spreadsheet_sync(app)
     seed_businesses(app.config["DATABASE"])
     return app
