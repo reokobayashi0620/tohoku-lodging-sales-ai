@@ -11,8 +11,8 @@ def make_app(tmp_path, monkeypatch):
     app = app_module.create_app({
         "TESTING": True,
         "DATABASE": tmp_path / "sales.db",
-        "APP_USERNAME": "",
-        "APP_PASSWORD": "",
+        "APP_USERNAME": "officeMK",
+        "APP_PASSWORD": "secret",
     })
     register_spreadsheet_sync(app)
     seed_businesses(app.config["DATABASE"])
@@ -22,11 +22,11 @@ def make_app(tmp_path, monkeypatch):
 def test_sales_csv_requires_token(tmp_path, monkeypatch):
     app = make_app(tmp_path, monkeypatch)
     client = app.test_client()
-    assert client.get("/exports/sales.csv").status_code == 403
-    assert client.get("/exports/sales.csv?token=wrong").status_code == 403
+    assert client.get("/exports/sales.csv").status_code == 302
+    assert client.get("/exports/sales.csv?token=wrong").status_code == 302
 
 
-def test_sales_csv_exports_seeded_businesses(tmp_path, monkeypatch):
+def test_sales_csv_exports_seeded_businesses_without_login(tmp_path, monkeypatch):
     app = make_app(tmp_path, monkeypatch)
     response = app.test_client().get("/exports/sales.csv?token=test-token")
     assert response.status_code == 200
