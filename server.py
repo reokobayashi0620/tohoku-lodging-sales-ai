@@ -20,6 +20,7 @@ from sales_priority import register_sales_priority
 from security_hardening import register_security_hardening
 from sendai_official import register_sendai_official
 from simple_sales_flow import register_simple_sales_flow
+from spreadsheet_sync import register_spreadsheet_sync
 from system_tools import register_system_tools
 from target_finder import register_target_finder
 from today_dashboard import register_today_dashboard
@@ -49,4 +50,5 @@ register_unresolved_research(app)
 register_official_discovery_pipeline(app)
 register_simple_sales_flow(app)
 register_automatic_candidate_discovery(app)
+register_spreadsheet_sync(app)
 register_security_hardening(app)
