@@ -3,10 +3,9 @@ import hmac
 import io
 import os
 
-from flask import Response, abort, request
+from flask import Response, abort, request, session
 
 from simple_sales_flow import build_flow
-
 
 SYNC_TOKEN_ENV = "SHEETS_SYNC_TOKEN"
 CSV_HEADERS = [
@@ -52,6 +51,13 @@ def export_rows(database):
 
 
 def register_spreadsheet_sync(app):
+    def allow_token_sync():
+        if request.endpoint == "sales_sync_csv" and _authorized():
+            session["logged_in"] = True
+        return None
+
+    app.before_request_funcs.setdefault(None, []).insert(0, allow_token_sync)
+
     @app.get("/exports/sales.csv", endpoint="sales_sync_csv")
     def sales_sync_csv():
         if not _authorized():
@@ -60,7 +66,6 @@ def register_spreadsheet_sync(app):
         writer = csv.writer(output, lineterminator="\n")
         writer.writerow(CSV_HEADERS)
         writer.writerows(export_rows(app.config["DATABASE"]))
-        body = "\ufeff" + output.getvalue()
-        return Response(body, mimetype="text/csv; charset=utf-8")
+        return Response("\ufeff" + output.getvalue(), mimetype="text/csv; charset=utf-8")
 
     return app
