@@ -1,7 +1,8 @@
 import sqlite3
 
 from app import create_app
-from operator_enrichment import discover_operator_pages, extract_operator_evidence, ready_candidates, register_operator_enrichment
+import operator_enrichment as operator_module
+from operator_enrichment import discover_operator_pages, extract_operator_evidence, operator_batch, ready_candidates, register_operator_enrichment
 from sales_activity import register_sales_activity
 
 
@@ -21,6 +22,13 @@ def test_extract_operator_evidence_from_body_and_contacts():
     assert result["contact_url"] == "https://example.jp/contact"
 
 
+def test_extract_operator_evidence_reads_plain_text_email():
+    html = '<html><body><div>会社名：株式会社東北ステイ</div><p>営業窓口 sales@example.jp</p></body></html>'
+    result = extract_operator_evidence(html, "https://example.jp/", "サンプル宿")
+    assert result["email"] == "sales@example.jp"
+    assert "ページ本文のメール表記" in result["evidence"]
+
+
 def test_discover_operator_pages_stays_same_origin_and_limits():
     html = '''
     <a href="/company">会社概要</a>
@@ -35,6 +43,36 @@ def test_discover_operator_pages_stays_same_origin_and_limits():
         "https://example.jp/about",
         "https://example.jp/legal",
     ]
+
+
+def test_discover_operator_pages_includes_contact_page():
+    pages = discover_operator_pages('<a href="/contact">お問い合わせ</a>', "https://example.jp/stay")
+    assert pages == ["https://example.jp/contact"]
+
+
+def test_operator_batch_moves_to_unchecked_candidate(monkeypatch, tmp_path):
+    db_path = tmp_path / "operator-fair.db"
+    create_app({"TESTING": True, "DATABASE": db_path, "APP_USERNAME": "", "APP_PASSWORD": ""})
+    with sqlite3.connect(db_path) as con:
+        for index in range(2):
+            con.execute('''INSERT INTO lead_candidates
+              (name,company_name,prefecture,city,address,official_url,research_status,source_url,source_type,normalized_key,status)
+              VALUES (?,?,?,?,?,?,'unresearched','src','test',?,'pending')''',
+              (f"調査宿{index}", f"株式会社調査{index}", "宮城県", "仙台市", f"仙台市{index}",
+               f"https://example{index}.jp", f"operator|fair|{index}"))
+        con.commit()
+
+    checked = []
+
+    def fake_research(row):
+        checked.append(row["id"])
+        return ({"company_name": row["company_name"], "phone": "", "email": "", "contact_url": "",
+                 "evidence": [], "pages": [row["official_url"]]}, "調査完了")
+
+    monkeypatch.setattr(operator_module, "research_operator", fake_research)
+    assert operator_batch(db_path, limit=1)["checked"] == 1
+    assert operator_batch(db_path, limit=1)["checked"] == 1
+    assert checked[0] != checked[1]
 
 
 def test_ready_candidates_returns_a_band(tmp_path):
