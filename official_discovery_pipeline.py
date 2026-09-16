@@ -68,11 +68,16 @@ def run_official_discovery_pipeline(database, sendai_source_url):
     stats["matched"] = reconciled["matched"]
     stats["updated"] += reconciled["updated"]
 
-    operator = operator_batch(database, limit=25)
+    # Process a broad, fair batch. Per-candidate cooldown prevents the same
+    # incomplete records from monopolizing every daily run.
+    operator = operator_batch(database, limit=75)
     stats["operator_checked"] = operator["checked"]
     stats["operator_updated"] = operator["updated"]
     stats["company_found"] = operator["company_found"]
     stats["contact_found"] = operator["contact_found"]
+    stats["email_found"] = operator["email_found"]
+    stats["form_found"] = operator["form_found"]
+    stats["actionable_found"] = operator["actionable_found"]
     stats["errors"] = errors
     return stats
 
