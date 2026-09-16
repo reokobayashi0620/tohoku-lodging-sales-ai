@@ -1,6 +1,7 @@
 import json
 import re
 import sqlite3
+from datetime import datetime, timedelta, timezone
 from urllib.parse import urljoin, urlparse
 
 import requests
@@ -11,9 +12,12 @@ from auto_discovery import CORPORATE_WORDS, SOURCE_TYPE, _clean, _robots_allowed
 from sales_priority import score_candidate
 
 OPERATOR_PAGE_RE = re.compile(
-    r"会社概要|運営会社|運営者|企業情報|法人情報|about|company|corporate|operator|profile|特定商取引|事業者情報",
+    r"会社概要|運営会社|運営者|企業情報|法人情報|about|company|corporate|operator|profile|特定商取引|事業者情報|"
+    r"お問い合わせ|問い合わせ|お問合せ|contact|inquiry",
     re.I,
 )
+EMAIL_RE = re.compile(r"(?<![\w.+-])([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})(?![\w.-])", re.I)
+ENRICHMENT_RETRY_DAYS = 7
 
 
 def _company_candidates(text):
@@ -87,6 +91,14 @@ def extract_operator_evidence(html, base_url, facility_name=""):
             result["email"] = value
             result["evidence"].append("メールリンク")
             break
+    if not result["email"]:
+        for value in EMAIL_RE.findall(text):
+            value = value.strip().lower()
+            if value.endswith((".png", ".jpg", ".jpeg", ".gif", ".webp")):
+                continue
+            result["email"] = value
+            result["evidence"].append("ページ本文のメール表記")
+            break
     for tag in soup.select('a[href^="tel:"]'):
         value = tag.get("href", "")[4:].strip()
         if value:
@@ -103,7 +115,7 @@ def extract_operator_evidence(html, base_url, facility_name=""):
     return result
 
 
-def discover_operator_pages(html, base_url, max_pages=3):
+def discover_operator_pages(html, base_url, max_pages=6):
     soup = BeautifulSoup(html, "html.parser")
     base = urlparse(base_url)
     pages = []
@@ -121,6 +133,34 @@ def discover_operator_pages(html, base_url, max_pages=3):
         if len(pages) >= max_pages:
             break
     return pages
+
+
+def ensure_operator_enrichment_state(database):
+    with sqlite3.connect(database) as con:
+        con.execute(
+            """CREATE TABLE IF NOT EXISTS operator_enrichment_attempts (
+                candidate_id INTEGER PRIMARY KEY,
+                checked_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                outcome TEXT NOT NULL DEFAULT '',
+                FOREIGN KEY (candidate_id) REFERENCES lead_candidates(id)
+            )"""
+        )
+        con.execute(
+            "CREATE INDEX IF NOT EXISTS idx_operator_enrichment_checked_at "
+            "ON operator_enrichment_attempts(checked_at)"
+        )
+
+
+def _record_attempt(database, candidate_id, outcome):
+    with sqlite3.connect(database) as con:
+        con.execute(
+            """INSERT INTO operator_enrichment_attempts (candidate_id,checked_at,outcome)
+               VALUES (?,CURRENT_TIMESTAMP,?)
+               ON CONFLICT(candidate_id) DO UPDATE SET
+                 checked_at=CURRENT_TIMESTAMP,
+                 outcome=excluded.outcome""",
+            (candidate_id, outcome[:200]),
+        )
 
 
 def research_operator(candidate):
@@ -152,26 +192,37 @@ def research_operator(candidate):
 
 
 def operator_batch(database, limit=10):
+    ensure_operator_enrichment_state(database)
+    retry_before = (datetime.now(timezone.utc) - timedelta(days=ENRICHMENT_RETRY_DAYS)).strftime("%Y-%m-%d %H:%M:%S")
     con = sqlite3.connect(database)
     con.row_factory = sqlite3.Row
     try:
         rows = con.execute(
-            """SELECT * FROM lead_candidates
-               WHERE status='pending' AND official_url<>''
-                 AND (company_name='' OR phone='' OR email='' OR contact_url='')
-               ORDER BY CASE source_type WHEN ? THEN 0 ELSE 1 END, updated_at DESC, id DESC
+            """SELECT c.* FROM lead_candidates c
+               LEFT JOIN operator_enrichment_attempts a ON a.candidate_id=c.id
+               WHERE c.status='pending' AND c.official_url<>''
+                 AND (c.company_name='' OR c.email='' OR c.contact_url='')
+                 AND (a.checked_at IS NULL OR a.checked_at < ?)
+               ORDER BY CASE WHEN a.checked_at IS NULL THEN 0 ELSE 1 END,
+                        CASE c.source_type WHEN ? THEN 0 ELSE 1 END,
+                        CASE WHEN c.company_name<>'' THEN 0 ELSE 1 END,
+                        c.updated_at DESC, c.id DESC
                LIMIT ?""",
-            (SOURCE_TYPE, limit),
+            (retry_before, SOURCE_TYPE, limit),
         ).fetchall()
     finally:
         con.close()
 
-    stats = {"checked": 0, "updated": 0, "company_found": 0, "contact_found": 0, "failed": 0}
+    stats = {
+        "checked": 0, "updated": 0, "company_found": 0, "contact_found": 0,
+        "email_found": 0, "form_found": 0, "actionable_found": 0, "failed": 0,
+    }
     for row in rows:
         stats["checked"] += 1
         try:
             result, _ = research_operator(row)
             if not result:
+                _record_attempt(database, row["id"], "skipped")
                 continue
             changes = {}
             if not row["company_name"] and result["company_name"]:
@@ -181,14 +232,23 @@ def operator_batch(database, limit=10):
             for field in ("phone", "email", "contact_url"):
                 if not row[field] and result[field]:
                     changes[field] = result[field]
+                    if field == "email":
+                        stats["email_found"] += 1
+                    elif field == "contact_url":
+                        stats["form_found"] += 1
             contact_after = contact_before or any(result[field] for field in ("phone", "email", "contact_url"))
             if contact_after and not contact_before:
                 stats["contact_found"] += 1
             evidence = "、".join(result["evidence"]) or "追加根拠なし"
             page_list = " / ".join(result["pages"][:4])
             note = f"[運営会社自動調査] 根拠: {evidence} / 確認ページ: {page_list}"
-            changes["research_notes"] = ((row["research_notes"] or "") + "\n" + note).strip()
-            changes["research_status"] = "researching"
+            current_notes = row["research_notes"] or ""
+            if note not in current_notes:
+                changes["research_notes"] = (current_notes + "\n" + note).strip()
+            company_after = row["company_name"] or result["company_name"]
+            email_after = row["email"] or result["email"]
+            form_after = row["contact_url"] or result["contact_url"]
+            changes["research_status"] = "verified" if company_after and (email_after or form_after) else "researching"
             if changes:
                 set_sql = ", ".join(f"{key}=?" for key in changes)
                 with sqlite3.connect(database) as write_con:
@@ -197,8 +257,12 @@ def operator_batch(database, limit=10):
                         list(changes.values()) + [row["id"]],
                     )
                 stats["updated"] += 1
+            if company_after and (email_after or form_after):
+                stats["actionable_found"] += 1
+            _record_attempt(database, row["id"], "actionable" if company_after and (email_after or form_after) else "incomplete")
         except (requests.RequestException, ValueError, OSError):
             stats["failed"] += 1
+            _record_attempt(database, row["id"], "failed")
     return stats
 
 
