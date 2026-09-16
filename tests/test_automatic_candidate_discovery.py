@@ -30,6 +30,9 @@ def test_automatic_discovery_runs_only_once_per_jst_day(tmp_path):
             "operator_updated": 4,
             "company_found": 2,
             "contact_found": 1,
+            "email_found": 1,
+            "form_found": 2,
+            "actionable_found": 3,
             "errors": [],
         }
 
