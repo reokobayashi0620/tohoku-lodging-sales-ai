@@ -1,0 +1,9 @@
+{
+  "brand": "NexT DooR",
+  "region": "Tohoku",
+  "languages": ["en"],
+  "channels": ["instagram", "facebook"],
+  "require_human_approval": true,
+  "reuse_listing_photos_only_when_permission_confirmed": true,
+  "cta_url": "https://next-door-akiya.netlify.app/"
+}
