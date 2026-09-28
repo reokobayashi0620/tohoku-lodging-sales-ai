@@ -1,7 +1,5 @@
-source_id,prefecture,source_name,source_url,source_type,collection_status,photo_status,notes
-iwate_town,Iwate,Iwate Town Akiya Bank,https://town.iwate.iwate.jp/akiya/,municipal,manual_review,do_not_reuse_until_confirmed,"Public listing facts visible; confirm site terms/robots before automated fetch."
-sendai_akiu,Miyagi,Sendai Akiu Vacant House Listings,https://www.city.sendai.jp/akiu-chiiki/akiyarikatuyouzigyou2022.html,municipal,manual_review,do_not_reuse_until_confirmed,"Official listing page; confirm reuse conditions for each image."
-akita_city,Akita,Akita City Akiya Bank,https://www.city.akita.lg.jp/faq/bohan/1013290.html,municipal,manual_review,do_not_reuse_until_confirmed,"City publishes property information; transactions handled by cooperating real-estate agents."
-yamagata_portal,Yamagata,Yamagata Akiya Bank Portal,https://yamagata-iju.jp/sumai/akiyabank.html,prefectural_index,index_only,n/a,"Use to discover municipal official sources; do not treat index as listing source."
-fukushima_portal,Fukushima,Fukushima Gurashi Akiya Bank,https://www.fukushima-iju.jp/vacant-house/index.html,prefectural_index,index_only,n/a,"Use to discover municipal official sources."
-aomori_city,Aomori,Aomori City Akiya Bank,https://www.city.aomori.aomori.jp/kurashi_kankyo/sumai/1002247/1002251.html,municipal_index,index_only,n/a,"Official city page redirects listing discovery to nationwide Akiya Bank; third-party platform terms must be checked separately."
+source_id,prefecture,municipality,source_name,source_url,source_type,enabled,notes
+iwate_pref_index,Iwate,All,Iwate Prefecture municipal akiya links,https://www.pref.iwate.jp/sangyoukoyou/sangyoushinkou/shinjigyou/1045518/1069132/1069344/1072424.html,prefecture_index,true,Use as discovery index; verify municipal listing pages before extraction
+iwate_town,Iwate,Iwate Town,Iwate Town Akiya Bank,https://town.iwate.iwate.jp/akiya/akiyabank/,municipal_bank,true,First monitored municipal source
+miyagi_pref,Miyagi,All,Miyagi Prefecture vacant-house measures,https://www.pref.miyagi.jp/soshiki/juutaku/akiyataisaku.html,prefecture_index,true,Use to discover current municipal programs
+akita_pref,Akita,All,Akita Prefecture Akiya Bank information,https://www.pref.akita.lg.jp/pages/archive/69341,prefecture_index,true,Links to prefectural migration portal and national banks
