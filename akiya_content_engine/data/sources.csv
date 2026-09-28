@@ -3,3 +3,6 @@ iwate_pref_index,Iwate,All,Iwate Prefecture municipal akiya links,https://www.pr
 iwate_town,Iwate,Iwate Town,Iwate Town Akiya Bank,https://town.iwate.iwate.jp/akiya/akiyabank/,municipal_bank,true,First monitored municipal source
 miyagi_pref,Miyagi,All,Miyagi Prefecture vacant-house measures,https://www.pref.miyagi.jp/soshiki/juutaku/akiyataisaku.html,prefecture_index,true,Use to discover current municipal programs
 akita_pref,Akita,All,Akita Prefecture Akiya Bank information,https://www.pref.akita.lg.jp/pages/archive/69341,prefecture_index,true,Links to prefectural migration portal and national banks
+aomori_mlit,Aomori,All,MLIT municipal akiya link directory,https://www.mlit.go.jp/totikensangyo/const/akiyabank_link.html,prefecture_index,true,Use national government directory to discover Aomori municipal sources
+yamagata_portal,Yamagata,All,Yamagata Migration Portal Akiya Bank,https://yamagata-iju.jp/sumai/akiyabank.html,prefecture_index,true,Official prefectural migration portal with municipal akiya-bank links
+fukushima_portal,Fukushima,All,Fukushima Migration Portal Akiya Bank,https://www.fukushima-iju.jp/vacant-house/index.html,prefecture_index,true,Official prefectural migration portal with municipal akiya-bank links
