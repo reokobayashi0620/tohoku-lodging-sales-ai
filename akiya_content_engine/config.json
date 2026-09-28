@@ -1,12 +1,26 @@
 {
   "brand": "NexT DooR",
   "region": "Tohoku",
-  "languages": ["en"],
-  "channels": ["linkedin", "pinterest"],
-  "future_channels": ["instagram", "facebook"],
+  "languages": [
+    "en"
+  ],
+  "channels": [
+    "instagram",
+    "facebook",
+    "linkedin",
+    "pinterest"
+  ],
+  "optional_channels": [
+    "threads"
+  ],
   "require_human_approval": true,
   "reuse_listing_photos_only_when_permission_confirmed": true,
+  "image_specs": {
+    "instagram": "1080x1350",
+    "facebook": "1200x1500",
+    "linkedin": "1200x1500",
+    "pinterest": "1000x1500"
+  },
   "pinterest_board": "Akiya Japan",
-  "pinterest_image_size": "1000x1500",
   "cta_url": "https://next-door-akiya.netlify.app/"
 }
