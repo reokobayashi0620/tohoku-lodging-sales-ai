@@ -1,0 +1,12 @@
+source_id,prefecture,municipality,source_name,source_url,source_type,enabled,notes
+iwate_pref_index,Iwate,All,Iwate Prefecture municipal akiya links,https://www.pref.iwate.jp/sangyoukoyou/sangyoushinkou/shinjigyou/1045518/1069132/1069344/1072424.html,prefecture_index,true,Use as discovery index; verify municipal listing pages before extraction
+iwate_town,Iwate,Iwate Town,Iwate Town Akiya Bank,https://town.iwate.iwate.jp/akiya/akiyabank/,municipal_bank,true,First monitored municipal source
+miyagi_pref,Miyagi,All,Miyagi Prefecture vacant-house measures,https://www.pref.miyagi.jp/soshiki/juutaku/akiyataisaku.html,prefecture_index,true,Use to discover current municipal programs
+akita_pref,Akita,All,Akita Prefecture Akiya Bank information,https://www.pref.akita.lg.jp/pages/archive/69341,prefecture_index,true,Links to prefectural migration portal and national banks
+aomori_mlit,Aomori,All,MLIT municipal akiya link directory,https://www.mlit.go.jp/totikensangyo/const/akiyabank_link.html,prefecture_index,true,Use national government directory to discover Aomori municipal sources
+yamagata_portal,Yamagata,All,Yamagata Migration Portal Akiya Bank,https://yamagata-iju.jp/sumai/akiyabank.html,prefecture_index,true,Official prefectural migration portal with municipal akiya-bank links
+fukushima_portal,Fukushima,All,Fukushima Migration Portal Akiya Bank,https://www.fukushima-iju.jp/vacant-house/index.html,prefecture_index,true,Official prefectural migration portal with municipal akiya-bank links
+
+hirosaki_area_bank,Aomori,Hirosaki Area,Hirosaki Area Akiya and Vacant Land Bank,https://www.city.hirosaki.aomori.jp/akiyabank-8/,municipal_bank,true,Official 8-municipality bank with public sale listings and structured price/area data
+ishinomaki_bank,Miyagi,Ishinomaki,Ishinomaki City Akiya Bank,https://www.city.ishinomaki.lg.jp/d0010/d0030/d0050/010/010/index.html,municipal_bank,true,Official city akiya-bank entry; detailed listings are linked through the national akiya-bank system
+kazuno_bank,Akita,Kazuno,Kazuno City Land and Building Data Bank,https://www.city.kazuno.lg.jp/kurashi_tetuzuki/2/14690.html,municipal_bank,true,Official city entry linking to Kazuno Gurashi public property listings
