@@ -21,13 +21,15 @@ jobs:
         run: python akiya_content_engine/scripts/parse_hirosaki_area.py
       - name: Discover Ishinomaki public listings
         run: python akiya_content_engine/scripts/parse_ishinomaki.py
+      - name: Discover Kazuno public listings
+        run: python akiya_content_engine/scripts/parse_kazuno.py
       - name: Merge discovery feeds
         run: |
           python - <<'PY'
           import csv
           from pathlib import Path
           root=Path("akiya_content_engine/data")
-          files=[root/"discovered_listings.csv",root/"discovered_listings_hirosaki.csv",root/"discovered_listings_ishinomaki.csv"]
+          files=[root/"discovered_listings.csv",root/"discovered_listings_hirosaki.csv",root/"discovered_listings_ishinomaki.csv",root/"discovered_listings_kazuno.csv"]
           rows=[]; fields=[]
           for p in files:
               if not p.exists(): continue
@@ -51,6 +53,7 @@ jobs:
           git add akiya_content_engine/data/discovered_listings.csv \
                   akiya_content_engine/data/discovered_listings_hirosaki.csv \
                   akiya_content_engine/data/discovered_listings_ishinomaki.csv \
+                  akiya_content_engine/data/discovered_listings_kazuno.csv \
                   akiya_content_engine/data/akiya_content_candidates.csv \
                   akiya_content_engine/output/social_drafts.md
           git diff --cached --quiet || git commit -m "Build daily akiya social drafts"
