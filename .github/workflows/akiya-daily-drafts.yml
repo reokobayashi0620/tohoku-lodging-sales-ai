@@ -25,13 +25,15 @@ jobs:
         run: python akiya_content_engine/scripts/parse_kazuno.py
       - name: Discover Nagai public listings
         run: python akiya_content_engine/scripts/parse_nagai.py
+      - name: Discover Date Fukushima public listings
+        run: python akiya_content_engine/scripts/parse_date_fukushima.py
       - name: Merge discovery feeds
         run: |
           python - <<'PY'
           import csv
           from pathlib import Path
           root=Path("akiya_content_engine/data")
-          files=[root/"discovered_listings.csv",root/"discovered_listings_hirosaki.csv",root/"discovered_listings_ishinomaki.csv",root/"discovered_listings_kazuno.csv",root/"discovered_listings_nagai.csv"]
+          files=[root/"discovered_listings.csv",root/"discovered_listings_hirosaki.csv",root/"discovered_listings_ishinomaki.csv",root/"discovered_listings_kazuno.csv",root/"discovered_listings_nagai.csv",root/"discovered_listings_date_fukushima.csv"]
           rows=[]; fields=[]
           for p in files:
               if not p.exists(): continue
@@ -57,6 +59,7 @@ jobs:
                   akiya_content_engine/data/discovered_listings_ishinomaki.csv \
                   akiya_content_engine/data/discovered_listings_kazuno.csv \
                   akiya_content_engine/data/discovered_listings_nagai.csv \
+                  akiya_content_engine/data/discovered_listings_date_fukushima.csv \
                   akiya_content_engine/data/akiya_content_candidates.csv \
                   akiya_content_engine/output/social_drafts.md
           git diff --cached --quiet || git commit -m "Build daily akiya social drafts"
