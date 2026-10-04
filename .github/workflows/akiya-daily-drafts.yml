@@ -2,6 +2,12 @@ name: Akiya Daily Draft Builder
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/akiya-daily-drafts.yml'
+      - 'akiya_content_engine/scripts/**'
+      - 'akiya_content_engine/config.json'
   schedule:
     - cron: "30 22 * * *"
 
