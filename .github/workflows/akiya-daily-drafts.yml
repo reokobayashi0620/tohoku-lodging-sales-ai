@@ -1,6 +1,11 @@
 name: Akiya Daily Draft Builder
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'akiya_content_engine/data/**'
+      - 'akiya_content_engine/output/**'
   schedule:
     - cron: "30 22 * * *"
 permissions:
