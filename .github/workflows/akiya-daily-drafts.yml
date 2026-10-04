@@ -20,13 +20,13 @@ jobs:
       - name: Discover Hirosaki-area public listings
         run: python akiya_content_engine/scripts/parse_hirosaki_area.py
       - name: Discover Ishinomaki public listings
-        run: python akiya_content_engine/scripts/parse_ishinomaki.py
+        run: python akiya_content_engine/scripts/parse_ishinomaki.py || echo 'WARN: Ishinomaki source unavailable; continuing'
       - name: Discover Kazuno public listings
-        run: python akiya_content_engine/scripts/parse_kazuno.py
+        run: python akiya_content_engine/scripts/parse_kazuno.py || echo 'WARN: Kazuno source unavailable; continuing'
       - name: Discover Nagai public listings
-        run: python akiya_content_engine/scripts/parse_nagai.py
+        run: python akiya_content_engine/scripts/parse_nagai.py || echo 'WARN: Nagai source unavailable; continuing'
       - name: Discover Date Fukushima public listings
-        run: python akiya_content_engine/scripts/parse_date_fukushima.py
+        run: python akiya_content_engine/scripts/parse_date_fukushima.py || echo 'WARN: Date Fukushima source unavailable; continuing'
       - name: Merge discovery feeds
         run: |
           python - <<'PY'
