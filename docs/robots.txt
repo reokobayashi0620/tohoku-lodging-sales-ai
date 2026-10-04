@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://next-door-akiya.netlify.app/sitemap.xml

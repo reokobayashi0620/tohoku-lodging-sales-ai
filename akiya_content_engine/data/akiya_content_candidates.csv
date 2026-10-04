@@ -1,0 +1,271 @@
+listing_id,source_id,prefecture,municipality,property_type,asking_price_jpy,building_sqm,land_sqm,features,source_url,source_updated_at,retrieved_at,status
+dbec15df8579e6fd,iwate_town,Iwate,Iwate Town,Residential / for sale,9400000,,,27-土川第１地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年8月28日,2026-10-04T06:59:27.955856+00:00,needs_review
+97849a4640ca4471,iwate_town,Iwate,Iwate Town,Residential / for sale,1000000,,,26-一方井第１４地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年8月24日,2026-10-04T06:59:27.955856+00:00,needs_review
+8393207b1bdbe63a,iwate_town,Iwate,Iwate Town,Residential / for sale,2500000,,,25-江刈内第６地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年6月22日,2026-10-04T06:59:27.955856+00:00,needs_review
+46bc4f75aef3303d,iwate_town,Iwate,Iwate Town,Residential / for sale,8000000,,,24-川口第30地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年5月22日,2026-10-04T06:59:27.955856+00:00,needs_review
+9c1db8404552c41b,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,19800000,161.47,321.02,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+653fedf3fb523c2c,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,5000000,87.75,165.60,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+cbcf1262d98620fe,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,12800000,113.40,248.03,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+e6f5e4d751a3a6fb,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,1200000,40.09,66.63,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+d7ae7386c5845bba,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,13500000,185.25,240.28,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+b171a1d33bfeb4ef,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,35000000,181.69,1134.22,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+de40d54729175afc,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,8500000,112.61,192.03,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+20d156ca3d0bddf0,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,15040000,187.24,414.46,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+4857af439238ab23,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,4000000,162.8,693.46,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+e09d1ac24652680e,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,13900000,118.68,365.25,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+07ec11f9ef16adb2,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,4200000,87.60,166.13,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+b6835cfe9e7ea463,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,7800000,152.30,202.80,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+3a7345ed0be48d3c,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,3400000,103.56,170.17,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+e011184f99540f52,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,15200000,245.85,590.41,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+074b16a09bfc4671,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,2900000,101.87,174.58,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+c1eb13ab6ef84d10,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,6000000,119.0,165.82,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+8333c7eae89215d7,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,9800000,150.71,294.12,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+192ec658b8117819,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,15800000,117.19,167.04,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+12dde1b5351b4898,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,7200000,110.93,218.73,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+038950b55dc5f49a,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,9000000,,285.32,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+bfe02afc9bb9f3b0,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,2800000,92.67,137.83,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+24abe39fd67edf76,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,12670000,63.18,246.56,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+ccaa11dea3428a66,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,6800000,163.37,1243.23,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+124f05252eca2f86,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,1500000,103.45,57.96,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+e55656054a3d779e,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,8600000,145.73,234.96,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+9a11dcb93b3d5414,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,17000000,207.91,432.74,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+3241641af86e8713,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,9300000,113.80,633.06,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+50a984301d4abba9,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,16000000,142.44,726.47,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+a4c4dfc95428227a,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,5100000,93.16,248.04,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+bf867346b198be56,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,14000000,237.73,264.47,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+767550ef8be49132,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,9210000,157.33,230.72,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+98ccdaae4d71dcde,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,3900000,47.10,105.19,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+1b2d055ed5d7457a,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,3000000,115.93,213.53,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+e08979a7f1726f55,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,7500000,145.80,262.63,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+92c4ba959310440d,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,3200000,142.37,1042.18,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+0f0b8231255121b5,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,8000000,162.79,200,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+5ad70ab0c28fb52d,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,3600000,91.08,,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+3e381aa426fdddf6,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,22800000,183.83,333.89,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+a203e78453450169,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,8760000,169.09,231.75,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+61cd8035cb0aa1d2,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,1400000,33.05,117.66,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+c18e695892e82ed6,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,4500000,90.99,137.26,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+9111206901190ce9,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,9500000,187.01,198.99,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+aa8b26bf13bf69a1,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,500000,62.09,1679.0,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+a96d20076f899f5d,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,10000000,162.53,357.6,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+d427f55ac9104dfb,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,7840000,108.49,215.88,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+f093ee1b163339e5,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,6400000,77.83,403.92,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+fe298ee3603028d6,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,13850000,158.16,254.47,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+11adb1c1b0bbc6cd,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,3800000,121.72,113.69,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+1e92b8252a2f6b1a,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,8800000,205.39,164.92,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+ac9dd91a3933db72,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,11500000,143.85,253.60,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+29ea0739ea3b80b8,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,5850000,60.75,256.48,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+4424414f39e8f3be,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,6300000,141.02,210.96,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+4e058d141bc15b77,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,11000000,131.59,185.61,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+d64dccede432568a,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,21000000,272.05,302.39,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+b25f84affe00a8a9,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,19300000,107.64,404.5,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+a782c65deb8e75f9,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,3500000,93.01,81.15,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+9cd189e008d40c45,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,12500000,125.86,219.24,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+74919024749f664e,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,4900000,101.54,264.0,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+60eec76bd8c7e2c6,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,7000000,135.51,1484.1,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+34e701d1b78d55a4,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,3260000,78.24,269.44,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+9aa8bddf880b61ac,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,1000000,52.05,218.76,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+7859161f0f91674b,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,4600000,67.61,168.01,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+c1d8df0298eb9271,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,12000000,139.06,330.59,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+b4d14db6ead28086,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,5500000,72.87,282.93,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+7ac30691d81d33f0,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,12700000,177.01,426.44,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+8ce8fb29d5a513c4,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,300000,232.21,395.06,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,,needs_review
+8aaac6fc10d1ac10,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,1900000,99.16,118.05,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+a5cc2b7f59b005ea,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,4800000,99.37,202.25,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+de5888f7f96dc84f,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,9800000,107.64,234.54,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+63b2b3f44adeea8c,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,1000000,206.14,234.45,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+890fbbbcf5526ba6,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,12800000,199.77,460.38,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+dc2a344679d05ebd,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,3200000,154.28,693.34,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+63b88aae3ec0e16d,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,2500000,132.61,205.45,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+d70b633642e1ea88,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,6800000,131.89,1163.47,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+3596db1e1383c98e,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,1480000,140.08,256.28,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+e981c93d665449b5,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,3000000,166.54,1638.81,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+94a680101ec5aaeb,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,6200000,59.49,277.64,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+a67a0e3f5bf2447a,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,12500000,143.16,226.71,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+18e0986b1981c133,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,5300000,152.85,308.72,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+8de11c51b471b2d4,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,4900000,125.91,334.51,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+5af325220a165361,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,2900000,132.84,453.42,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+e42e163b64a015ed,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,3980000,120.63,173.09,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+9b0e4fffc886451c,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,8400000,193.81,694.98,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+9b0e7dbbcc0550b2,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,5000000,151.93,321.67,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+159c1f5d6da0636e,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,7600000,54.65,503.59,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+7b6c1cf9a69e6cc3,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,15000000,354.32,2883.2,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+f2b857d9a6de27f6,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,2200000,106.11,159.57,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+6e76f618337ffa06,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,4000000,106.47,255.3,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+1ffd4651dcfc1dd2,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,1200000,115.10,782.84,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+e068130b4d32a2ef,hirosaki_area_bank,Aomori,Kuroishi,Residential / sale,4600000,215.69,590.53,,https://www.city.hirosaki.aomori.jp/akiyabank-8/kuroishi/akiya.html,,,needs_review
+bb18f5d792a13b1a,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,3300000,240.06,174.44,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+28b8b17d6d2c41d8,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,200000,138.7,240.73,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+1d1bebba1826a46a,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,1500000,187.59,1781.7,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+24569b7dc81319ec,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,17980000,195.42,772.02,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+9ac48984774ba7a6,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,5000000,110.95,573.34,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+5d92d8150e5f531b,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,3000000,169.56,1387.01,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+cafceefde1766ead,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,8800000,279.45,1645.78,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+ab6ed503f67ecf63,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,1800000,538.85,233.78,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+6e90a7b7e4a3c31d,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,1000000,229.03,615.75,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+458bcd31c2bf931f,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,4800000,77.51,1741,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+68c2fae220e03967,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,15800000,144.0,242.92,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+9dd293ead47f2e06,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,1520000,52.96,198.0,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+3484e37cf078414c,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,2800000,89.43,331.33,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+a3a87b03ce25a0c0,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,500000,96.58,461.92,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+f00bb37068d5c9bb,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,700000,160.91,660.88,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+57baa8a57e4e8fc8,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,4000000,152.07,920.31,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+d284a4c3f6d9f269,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,600000,106.59,598.4,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+01b6a41281517c65,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,5800000,188.02,979.68,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+209300e23a2b6158,hirosaki_area_bank,Aomori,Hirakawa,Residential / sale,5500000,158.44,557.84,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirakawa/akiya.html,,,needs_review
+bd31539b4b2d2871,hirosaki_area_bank,Aomori,Fujisaki,Residential / sale,3000000,69.42,241.25,,https://www.city.hirosaki.aomori.jp/akiyabank-8/fujisaki/akiya.html,,,needs_review
+73f287f34aa39be6,hirosaki_area_bank,Aomori,Fujisaki,Residential / sale,15000000,145.19,495.87,,https://www.city.hirosaki.aomori.jp/akiyabank-8/fujisaki/akiya.html,,,needs_review
+b45685d3dcee1e59,hirosaki_area_bank,Aomori,Fujisaki,Residential / sale,4500000,11.23,795.71,,https://www.city.hirosaki.aomori.jp/akiyabank-8/fujisaki/akiya.html,,,needs_review
+230c9cf382118868,hirosaki_area_bank,Aomori,Fujisaki,Residential / sale,2600000,118.99,165.02,,https://www.city.hirosaki.aomori.jp/akiyabank-8/fujisaki/akiya.html,,,needs_review
+28c41d3b583645bf,hirosaki_area_bank,Aomori,Fujisaki,Residential / sale,22000000,284.03,1239.22,,https://www.city.hirosaki.aomori.jp/akiyabank-8/fujisaki/akiya.html,,,needs_review
+5a87028fb541de7c,hirosaki_area_bank,Aomori,Fujisaki,Residential / sale,3500000,215.83,1677.6,,https://www.city.hirosaki.aomori.jp/akiyabank-8/fujisaki/akiya.html,,,needs_review
+8d88a4d6c75aeae4,hirosaki_area_bank,Aomori,Fujisaki,Residential / sale,6500000,152.03,244.53,,https://www.city.hirosaki.aomori.jp/akiyabank-8/fujisaki/akiya.html,,,needs_review
+355b62d6dd49934e,hirosaki_area_bank,Aomori,Fujisaki,Residential / sale,200000,142.96,863.48,,https://www.city.hirosaki.aomori.jp/akiyabank-8/fujisaki/akiya.html,,,needs_review
+e67752d4546dd083,hirosaki_area_bank,Aomori,Fujisaki,Residential / sale,7640000,291.69,548.45,,https://www.city.hirosaki.aomori.jp/akiyabank-8/fujisaki/akiya.html,,,needs_review
+133eaab54e9b63ce,hirosaki_area_bank,Aomori,Fujisaki,Residential / sale,25000000,251.94,336.65,,https://www.city.hirosaki.aomori.jp/akiyabank-8/fujisaki/akiya.html,,,needs_review
+dbe364157267ae47,hirosaki_area_bank,Aomori,Fujisaki,Residential / sale,500000,135.53,393.13,,https://www.city.hirosaki.aomori.jp/akiyabank-8/fujisaki/akiya.html,,,needs_review
+6e105c565794fc47,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,1500000,148.76,1062.53,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+d7ecda97125bc8d8,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,5000000,59.0,1539.15,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+a9005642fddb6f5a,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,1000000,135.23,363.39,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+31c5c7f543feb3d0,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,2000000,112.61,192.42,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+1cdfca277ddbbcd2,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,15000000,77.42,176.85,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+901f2aa5213cd37f,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,1800000,74.01,176.68,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+30e07effb09a75a0,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,2700000,98.34,245.20,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+82c2040db77e6781,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,750000,181.41,514.00,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+90ac87be0e200da6,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,3000000,136.63,251.32,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+8155d24e0b5cf147,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,5600000,193.41,348.46,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+b13ae4a96edc77cb,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,20000000,172.80,1294.27,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+1dafeeb21e8e62f1,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,8000000,232.69,1182.51,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+c2935a450580d330,hirosaki_area_bank,Aomori,Itayanagi,Residential / sale,2900000,191.24,1432,,https://www.city.hirosaki.aomori.jp/akiyabank-8/itayanagi/akiya.html,,,needs_review
+dbc158367eb3cc57,hirosaki_area_bank,Aomori,Owanii,Residential / sale,5200000,94.72,59.25,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+18758a7213a3208b,hirosaki_area_bank,Aomori,Owanii,Residential / sale,4000000,218.17,562.43,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+ba1e3e3b2181b15f,hirosaki_area_bank,Aomori,Owanii,Residential / sale,1000000,194.03,421.10,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+34693b812ac5f083,hirosaki_area_bank,Aomori,Owanii,Residential / sale,800000,131.74,399.06,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+80870062410adb26,hirosaki_area_bank,Aomori,Owanii,Residential / sale,360000,83.46,319.39,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+669e3bd73993aece,hirosaki_area_bank,Aomori,Owanii,Residential / sale,6000000,171.93,590.5,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+550ef8e2ff7f2282,hirosaki_area_bank,Aomori,Owanii,Residential / sale,1200000,192.19,113.39,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+0f34aaf72c8c6967,hirosaki_area_bank,Aomori,Owanii,Residential / sale,1500000,69.56,412.21,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+4e4388b8651b464b,hirosaki_area_bank,Aomori,Owanii,Residential / sale,10000000,237.25,179.94,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+1984060276b231ef,hirosaki_area_bank,Aomori,Owanii,Residential / sale,4500000,312.15,320.77,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+2869ee391997d021,hirosaki_area_bank,Aomori,Owanii,Residential / sale,2500000,126.76,124.2,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+7d70ec1049279e4c,hirosaki_area_bank,Aomori,Owanii,Residential / sale,8500000,181.78,410.27,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+7ee5c3d4fcf9178f,hirosaki_area_bank,Aomori,Owanii,Residential / sale,2400000,98.82,26,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+23235847c6507b66,hirosaki_area_bank,Aomori,Owanii,Residential / sale,200000,170.79,1446.85,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+523c44796227330f,hirosaki_area_bank,Aomori,Owanii,Residential / sale,5000000,141.11,268.90,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+185ad19da09f2fc3,hirosaki_area_bank,Aomori,Owanii,Residential / sale,2000000,138.83,833.00,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+d8530972547b435d,hirosaki_area_bank,Aomori,Owanii,Residential / sale,4950000,122.94,233.37,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+7409d375785cc21d,hirosaki_area_bank,Aomori,Owanii,Residential / sale,2650000,130.64,184.45,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+6ba42a252f21497b,hirosaki_area_bank,Aomori,Owanii,Residential / sale,3000000,107.62,391.73,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+e21b47f06bd65a30,hirosaki_area_bank,Aomori,Owanii,Residential / sale,8400000,276.47,533.57,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+d07da3c23c414b88,hirosaki_area_bank,Aomori,Owanii,Residential / sale,3980000,150.01,454.23,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+8d3562fac46326f4,hirosaki_area_bank,Aomori,Owanii,Residential / sale,1300000,127.65,232.35,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+ac8c5ca4ced5b97d,hirosaki_area_bank,Aomori,Owanii,Residential / sale,1480000,132.49,307.40,,https://www.city.hirosaki.aomori.jp/akiyabank-8/oowani/akiya.html,,,needs_review
+b1b7e1d91c73d33e,hirosaki_area_bank,Aomori,Inakadate,Residential / sale,3000000,177.60,449.10,,https://www.city.hirosaki.aomori.jp/akiyabank-8/inakadate/akiya.html,,,needs_review
+219bdadd10c54182,hirosaki_area_bank,Aomori,Inakadate,Residential / sale,8000000,561.7,5470.96,,https://www.city.hirosaki.aomori.jp/akiyabank-8/inakadate/akiya.html,,,needs_review
+f9411f179552cb8a,hirosaki_area_bank,Aomori,Inakadate,Residential / sale,6000000,218.96,489.81,,https://www.city.hirosaki.aomori.jp/akiyabank-8/inakadate/akiya.html,,,needs_review
+c1da46dace439004,hirosaki_area_bank,Aomori,Inakadate,Residential / sale,4200000,69.56,345.40,,https://www.city.hirosaki.aomori.jp/akiyabank-8/inakadate/akiya.html,,,needs_review
+6581249ce9368fc2,hirosaki_area_bank,Aomori,Inakadate,Residential / sale,5000000,99.6,337.11,,https://www.city.hirosaki.aomori.jp/akiyabank-8/inakadate/akiya.html,,,needs_review
+774f33363ce20a62,hirosaki_area_bank,Aomori,Inakadate,Residential / sale,3300000,161.41,364.73,,https://www.city.hirosaki.aomori.jp/akiyabank-8/inakadate/akiya.html,,,needs_review
+52082640a112fd28,hirosaki_area_bank,Aomori,Inakadate,Residential / sale,4000000,257.01,218.22,,https://www.city.hirosaki.aomori.jp/akiyabank-8/inakadate/akiya.html,,,needs_review
+0369a271d526a77e,hirosaki_area_bank,Aomori,Inakadate,Residential / sale,3500000,161.30,1371.51,,https://www.city.hirosaki.aomori.jp/akiyabank-8/inakadate/akiya.html,,,needs_review
+95c3864a00a7ea18,hirosaki_area_bank,Aomori,Inakadate,Residential / sale,4830000,120.86,456,,https://www.city.hirosaki.aomori.jp/akiyabank-8/inakadate/akiya.html,,,needs_review
+dbd82ecf81c4707c,hirosaki_area_bank,Aomori,Inakadate,Residential / sale,5920000,44.71,558.46,,https://www.city.hirosaki.aomori.jp/akiyabank-8/inakadate/akiya.html,,,needs_review
+adb5b1bb9d1b89d0,hirosaki_area_bank,Aomori,Inakadate,Residential / sale,8500000,80.00,756.39,,https://www.city.hirosaki.aomori.jp/akiyabank-8/inakadate/akiya.html,,,needs_review
+4790865e5b20734f,hirosaki_area_bank,Aomori,Nishimeya,Residential / sale,4600000,100.19,660.71,,https://www.city.hirosaki.aomori.jp/akiyabank-8/nishimeya/akiya.html,,,needs_review
+39c12d409b75cbc9,hirosaki_area_bank,Aomori,Nishimeya,Residential / sale,200000,67.76,424.71,,https://www.city.hirosaki.aomori.jp/akiyabank-8/nishimeya/akiya.html,,,needs_review
+97b53e3adadd2af2,hirosaki_area_bank,Aomori,Nishimeya,Residential / sale,1000000,267.19,679.12,,https://www.city.hirosaki.aomori.jp/akiyabank-8/nishimeya/akiya.html,,,needs_review
+8b99865ef1e9f1d4,hirosaki_area_bank,Aomori,Nishimeya,Residential / sale,10000000,136.06,331.00,,https://www.city.hirosaki.aomori.jp/akiyabank-8/nishimeya/akiya.html,,,needs_review
+4b17098fad90ef4d,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,,688.51,Property No. 141,https://kazuno-gurashi.jp/akiya_bank/%e5%9c%9f%e5%9c%b0%e7%95%aa%e5%8f%b7141%e3%80%80,,,needs_review
+1c8faba38c255561,kazuno_bank,Akita,Kazuno,Residential / sale,20000000,,2441.14,Property No. 147,https://kazuno-gurashi.jp/akiya_bank/%e5%9c%9f%e5%9c%b0%e7%95%aa%e5%8f%b7147,,,needs_review
+22ad7341a7078c56,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,347.52,704.07,Property No. 117; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6%e7%95%aa%e5%8f%b7117,,,needs_review
+30a9e78ea53c2d50,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,173.84,365.27,Property No. 132; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6%e7%95%aa%e5%8f%b7132,,,needs_review
+cffb9a8b317c17af,kazuno_bank,Akita,Kazuno,Residential / sale,2500000,140.26,512.00,Property No. 60; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6%e7%95%aa%e5%8f%b760,,,needs_review
+a8f0feee3c224e4e,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,97.86,,Property No. 151; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-151,,,needs_review
+4ac803eeee82bccf,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,134.55,477.69,Property No. 154; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-154,,,needs_review
+2027f3827e63c67e,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,129.58,164.98,Property No. 168; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-168,,,needs_review
+ff8b0b130f763def,kazuno_bank,Akita,Kazuno,Residential / sale,3500000,229.83,466.99,Property No. 177; Layout 9DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-177,,,needs_review
+2f06ec05fa18e7d8,kazuno_bank,Akita,Kazuno,Residential / sale,2980000,204.55,387.62,Property No. 180; Layout 6LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-180,,,needs_review
+45117dba2b584679,kazuno_bank,Akita,Kazuno,Residential / sale,8000000,238.20,663.18,Property No. 183; Layout 8DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-183,,,needs_review
+6e402d40bfb57a2b,kazuno_bank,Akita,Kazuno,Residential / sale,3980000,96.87,504.05,Property No. 184; Layout 2LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-184,,,needs_review
+179f6cf0c488dd26,kazuno_bank,Akita,Kazuno,Residential / sale,500000,209.31,1708.33,Property No. 189; Layout 7DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-189,,,needs_review
+363e902ec98406f5,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,182.54,920.75,Property No. 192; Layout 7LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-192,,,needs_review
+4c1eb9aedc3b51ed,kazuno_bank,Akita,Kazuno,Residential / sale,7800000,213,611.55,Property No. 193; Layout 6LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-193,,,needs_review
+8cc7dc36d98dd66b,kazuno_bank,Akita,Kazuno,Residential / sale,4000000,152.33,682.34,Property No. 200; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-200,,,needs_review
+b8e0c344ef2db468,kazuno_bank,Akita,Kazuno,Residential / sale,1500000,109.71,173.32,Property No. 201; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-201,,,needs_review
+081f5ded6e67bd7e,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,210.85,826.68,Property No. 213; Layout 7LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-213,,,needs_review
+73db60b72c068707,kazuno_bank,Akita,Kazuno,Residential / sale,3300000,218.18,841.93,Property No. 215; Layout 8LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-215,,,needs_review
+43018ace1ee0f365,kazuno_bank,Akita,Kazuno,Residential / sale,6500000,151.17,275.45,Property No. 218; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-218,,,needs_review
+eecbc2ede0b863e9,kazuno_bank,Akita,Kazuno,Residential / sale,1980000,147.12,462.39,Property No. 219; Layout 4LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-219,,,needs_review
+9e9b0303187b45b7,kazuno_bank,Akita,Kazuno,Residential / sale,6000000,201.62,269.96,Property No. 220; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-220,,,needs_review
+14845302115ed31e,kazuno_bank,Akita,Kazuno,Residential / sale,4800000,172.88,363.37,Property No. 222; Layout 10DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-222,,,needs_review
+8f8751a7609e3571,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,160.65,644.15,Property No. 224; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-224,,,needs_review
+b0b1b9efd76d27c6,kazuno_bank,Akita,Kazuno,Residential / sale,10000,109.08,170.46,Property No. 226; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-226,,,needs_review
+f496f726b37f57ee,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,225.45,1275.56,Property No. 227; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-227,,,needs_review
+52686bdc5c5022e9,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,104.33,314.36,Property No. 228; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-228,,,needs_review
+9143a430f0539018,kazuno_bank,Akita,Kazuno,Residential / sale,200000,163.65,344.22,Property No. 229; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-229,,,needs_review
+ba405558ae8929de,kazuno_bank,Akita,Kazuno,Residential / sale,7500000,147.39,420.92,Property No. 230; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-230,,,needs_review
+b9b816467448a819,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,149.88,511.17,Property No. 231; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-231,,,needs_review
+d2a1ad84d9e6ab80,kazuno_bank,Akita,Kazuno,Residential / sale,500000,206.11,1245.33,Property No. 232; Layout 7DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-232,,,needs_review
+3c6c32a42d053574,kazuno_bank,Akita,Kazuno,Residential / sale,900000,138.31,305.48,Property No. 233; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-233,,,needs_review
+1a6bc3a55b0f6f92,kazuno_bank,Akita,Kazuno,Residential / sale,13000000,124.20,2690.24,Property No. 235; Layout 3DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-235,,,needs_review
+f689a80a94247da6,kazuno_bank,Akita,Kazuno,Residential / sale,400000,198.48,143.05,Property No. 241; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-241,,,needs_review
+fb8d2e8d24a3fd39,kazuno_bank,Akita,Kazuno,Residential / sale,5500000,119.53,309.16,Property No. 242; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-242,,,needs_review
+1d8ebb9dc21ba5a8,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,254.77,1230.22,Property No. 245; Layout 9DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-245,,,needs_review
+3b92ab122adb5021,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,36.37,158.66,Property No. 246; Layout 4DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-246,,,needs_review
+38fa38f09c134000,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,117.72,508.74,Property No. 247; Layout 7DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-247,,,needs_review
+b9d511d2d24f3158,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,144.62,1109.52,Property No. 248; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-248,,,needs_review
+236f24a7440e2473,kazuno_bank,Akita,Kazuno,Residential / sale,9800000,130.83,602.51,Property No. 250; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-250,,,needs_review
+2603e4c3480599d5,kazuno_bank,Akita,Kazuno,Residential / sale,300000,108.89,201.15,Property No. 253; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-253,,,needs_review
+83672c063a8f9899,kazuno_bank,Akita,Kazuno,Residential / sale,8000000,120.9,341.88,Property No. 255; Layout 4DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-255,,,needs_review
+4bf9052c0dc9597f,kazuno_bank,Akita,Kazuno,Residential / sale,5400000,125.87,461.0,Property No. 256; Layout 4DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-256,,,needs_review
+7001a9e3b338136c,kazuno_bank,Akita,Kazuno,Residential / sale,200000,178.03,889.23,Property No. 257; Layout 7LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-257,,,needs_review
+d85f0566cb27997a,kazuno_bank,Akita,Kazuno,Residential / sale,5000000,195.02,332.13,Property No. 258; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-258,,,needs_review
+4b40ce938d1512b5,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,113.02,502.08,Property No. 259; Layout 4DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-259,,,needs_review
+96ff84a6ed4eaad2,kazuno_bank,Akita,Kazuno,Residential / sale,1980000,119.92,426.84,Property No. 260; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-260,,,needs_review
+33cba9993c627cfb,kazuno_bank,Akita,Kazuno,Residential / sale,300000,261.42,1003.67,Property No. 261; Layout 9DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-261,,,needs_review
+915e3e95ad77caa4,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,250.29,802.19,Property No. 262; Layout 8D,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-262,,,needs_review
+5c29788726a56436,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,72.25,303.65,Property No. 263; Layout 2LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-263,,,needs_review
+7a525fe1949e1513,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,105.59,168.48,Property No. 264; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-264,,,needs_review
+6d0fee9a8f7427a6,kazuno_bank,Akita,Kazuno,Residential / sale,6000000,259.70,824.14,Property No. 265; Layout 9LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-265,,,needs_review
+22f7c27d79b8afff,kazuno_bank,Akita,Kazuno,Residential / sale,3500000,230.02,1154.48,Property No. 267; Layout 8LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-267,,,needs_review
+b2323727405292b7,kazuno_bank,Akita,Kazuno,Residential / sale,2800000,208.34,537.79,Property No. 268; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-268,,,needs_review
+ec6a53a441ac06c2,kazuno_bank,Akita,Kazuno,Residential / sale,2600000,146.96,324.00,Property No. 269; Layout 8LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-269,,,needs_review
+39a871c507d12486,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,233.27,1147.83,Property No. 270; Layout 7DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-270,,,needs_review
+58c4cfe0c28b4195,kazuno_bank,Akita,Kazuno,Residential / sale,200000,106.39,417.64,Property No. 271; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-271,,,needs_review
+5dbf7fcc06a4ee46,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,84.30,274.64,Property No. 272; Layout 3DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-272,,,needs_review
+3b72b655c7f4c04b,kazuno_bank,Akita,Kazuno,Residential / sale,4000000,218.98,615.0,Property No. 273; Layout 7LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-273,,,needs_review
+c1d390f4b43751f6,kazuno_bank,Akita,Kazuno,Residential / sale,100000,93.98,332.01,Property No. 274; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-274,,,needs_review
+dd11dc227f039442,kazuno_bank,Akita,Kazuno,Residential / sale,500000,159.81,498.06,Property No. 275; Layout 8DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-275,,,needs_review
+6d9d98088e15448e,kazuno_bank,Akita,Kazuno,Residential / sale,1800000,137.06,900.46,Property No. 276; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-276,,,needs_review
+8a661a311f2d1f6a,kazuno_bank,Akita,Kazuno,Residential / sale,7800000,155.13,231.85,Property No. 278; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-278,,,needs_review
+51b1df3d05f1bc28,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,167.61,470.33,Property No. 279; Layout 6LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-279,,,needs_review
+cdfaa3677af4344c,kazuno_bank,Akita,Kazuno,Residential / sale,500000,193.17,814.16,Property No. 281; Layout 6LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-281,,,needs_review
+c9ca72ada5159558,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,125.84,194.27,Property No. 283; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-283,,,needs_review
+58dc125c8b36ee19,kazuno_bank,Akita,Kazuno,Residential / sale,700000,,157.61,Property No. 284,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-284,,,needs_review
+7d50ce65c4c808ce,kazuno_bank,Akita,Kazuno,Residential / sale,500000,69.56,397,Property No. 285; Layout 3LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-285,,,needs_review
+96d53f86077b6b2b,kazuno_bank,Akita,Kazuno,Residential / sale,2300000,108.08,665.00,Property No. 286; Layout 4LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-286,,,needs_review
+56b6c5a54abb8cba,kazuno_bank,Akita,Kazuno,Residential / sale,2900000,162.35,306.01,Property No. 287; Layout 7DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-287,,,needs_review
+a69b2dc712d11ef7,kazuno_bank,Akita,Kazuno,Residential / sale,5000000,239.66,1450.31,Property No. 288; Layout 9LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-288,,,needs_review
+78c8e1a75921d82c,kazuno_bank,Akita,Kazuno,Residential / sale,980000,174.37,329.03,Property No. 289; Layout 7LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-289,,,needs_review
+687284bca2363f51,kazuno_bank,Akita,Kazuno,Residential / sale,2500000,,331.08,Property No. 290,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-290,,,needs_review
+5bb2e5945e4f5ee3,kazuno_bank,Akita,Kazuno,Residential / sale,900000,,125.61,Property No. 291,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-291,,,needs_review
+7efcd8fd22b92317,kazuno_bank,Akita,Kazuno,Residential / sale,1950000,,320.12,Property No. 292,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-292,,,needs_review
+cc5dd33d10957675,kazuno_bank,Akita,Kazuno,Residential / sale,2100000,106.73,120.74,Property No. 293; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-293,,,needs_review
+cbc2cf4d5f42556d,kazuno_bank,Akita,Kazuno,Residential / sale,6800000,116.75,288.79,Property No. 294; Layout 4LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-294,,,needs_review
+a9228fce9bcbda92,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,,445.30,Property No. 295,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-295,,,needs_review
+92e70111eaf3ac5f,kazuno_bank,Akita,Kazuno,Residential / sale,4200000,102.92,319.43,Property No. 296; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-296,,,needs_review
+c54064bf2df95a41,kazuno_bank,Akita,Kazuno,Residential / sale,12000000,235.43,215.02,Property No. 298; Layout 8DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-298,,,needs_review
+e8f26028a76355a1,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,251.04,732.28,Property No. 299; Layout 9DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-299,,,needs_review
+eb290343c25da4a0,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,84.46,216.64,Property No. 47; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/047,,,needs_review
+419075529dfa7d20,kazuno_bank,Akita,Kazuno,Residential / sale,8000000,300.71,1111,Property No. 63; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/063,,,needs_review
+411418aad35d6553,kazuno_bank,Akita,Kazuno,Residential / sale,10000000,167.90,663.00,Property No. 81; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/081,,,needs_review
+579e8ba4bc838b87,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,133.88,782.88,Property No. 99; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/099,,,needs_review
+f37e21cac3298577,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,142.14,685.83,Property No. 7,https://kazuno-gurashi.jp/akiya_bank/117,,,needs_review
+fc3004b98019d839,kazuno_bank,Akita,Kazuno,Residential / sale,5000000,132.48,434.37,Property No. 106; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/671,,,needs_review
+31e90db277bf1ca2,date_fukushima_bank,Fukushima,Date,Residential / sale,6000000,,,Repair indicated; Property No. 066,https://www.city.fukushima-date.lg.jp/soshiki/11/11412.html,,,needs_review
+04aa3fa4baee8d3f,date_fukushima_bank,Fukushima,Date,Residential / sale,3000000,,,Repair indicated; Property No. 064,https://www.city.fukushima-date.lg.jp/soshiki/11/11412.html,,,needs_review
+8bca934502029749,date_fukushima_bank,Fukushima,Date,Residential / sale,2000000,,,Repair indicated; Property No. 060,https://www.city.fukushima-date.lg.jp/soshiki/11/11412.html,,,needs_review
+d31e33f1046bff47,date_fukushima_bank,Fukushima,Date,Residential / sale,1500000,,,Repair indicated; Property No. 058,https://www.city.fukushima-date.lg.jp/soshiki/11/11412.html,,,needs_review
+432b648dd40dbc8b,date_fukushima_bank,Fukushima,Date,Residential / sale,5500000,,,Repair indicated; Property No. 054,https://www.city.fukushima-date.lg.jp/soshiki/11/11412.html,,,needs_review
+2fc26fb31f44e62b,date_fukushima_bank,Fukushima,Date,Residential / sale,1600000,,,Property No. 036,https://www.city.fukushima-date.lg.jp/soshiki/11/11412.html,,,needs_review
+c1e4dd91d9d499ae,date_fukushima_bank,Fukushima,Date,Residential / sale,10000000,,,Repair indicated; Negotiable; Property No. 020,https://www.city.fukushima-date.lg.jp/soshiki/11/11412.html,,,needs_review
+947abeb83ac6f5a3,date_fukushima_bank,Fukushima,Date,Residential / sale,15000000,,,Repair indicated; Negotiable; Property No. 016,https://www.city.fukushima-date.lg.jp/soshiki/11/11412.html,,,needs_review
