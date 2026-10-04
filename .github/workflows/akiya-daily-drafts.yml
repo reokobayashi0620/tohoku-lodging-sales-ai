@@ -1,15 +1,17 @@
 name: Akiya Daily Draft Builder
-"on":
+
+on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths-ignore:
-      - 'akiya_content_engine/data/**'
-      - 'akiya_content_engine/output/**'
   schedule:
     - cron: "30 22 * * *"
+
 permissions:
   contents: write
+
+concurrency:
+  group: akiya-daily-drafts
+  cancel-in-progress: false
+
 jobs:
   build-drafts:
     runs-on: ubuntu-latest
@@ -20,52 +22,36 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Discover supported public listings
+      - name: Discover Iwate listings
+        continue-on-error: true
         run: python akiya_content_engine/scripts/parse_iwate_town.py
-      - name: Discover Hirosaki-area public listings
+      - name: Discover Aomori listings
+        continue-on-error: true
         run: python akiya_content_engine/scripts/parse_hirosaki_area.py
-      - name: Discover Ishinomaki public listings
-        run: python akiya_content_engine/scripts/parse_ishinomaki.py || echo 'WARN: Ishinomaki source unavailable; continuing'
-      - name: Discover Kazuno public listings
-        run: python akiya_content_engine/scripts/parse_kazuno.py || echo 'WARN: Kazuno source unavailable; continuing'
-      - name: Discover Nagai public listings
-        run: python akiya_content_engine/scripts/parse_nagai.py || echo 'WARN: Nagai source unavailable; continuing'
-      - name: Discover Date Fukushima public listings
-        run: python akiya_content_engine/scripts/parse_date_fukushima.py || echo 'WARN: Date Fukushima source unavailable; continuing'
+      - name: Discover Miyagi listings
+        continue-on-error: true
+        run: python akiya_content_engine/scripts/parse_ishinomaki.py
+      - name: Discover Akita listings
+        continue-on-error: true
+        run: python akiya_content_engine/scripts/parse_kazuno.py
+      - name: Discover Yamagata listings
+        continue-on-error: true
+        run: python akiya_content_engine/scripts/parse_nagai.py
+      - name: Discover Fukushima listings
+        continue-on-error: true
+        run: python akiya_content_engine/scripts/parse_date_fukushima.py
       - name: Merge discovery feeds
-        run: |
-          python - <<'PY'
-          import csv
-          from pathlib import Path
-          root=Path("akiya_content_engine/data")
-          files=[root/"discovered_listings.csv",root/"discovered_listings_hirosaki.csv",root/"discovered_listings_ishinomaki.csv",root/"discovered_listings_kazuno.csv",root/"discovered_listings_nagai.csv",root/"discovered_listings_date_fukushima.csv"]
-          rows=[]; fields=[]
-          for p in files:
-              if not p.exists(): continue
-              with p.open(encoding="utf-8") as fh:
-                  r=csv.DictReader(fh)
-                  if not fields: fields=r.fieldnames or []
-                  rows.extend(list(r))
-          if fields:
-              with (root/"discovered_listings.csv").open("w",newline="",encoding="utf-8") as fh:
-                  w=csv.DictWriter(fh,fieldnames=fields,extrasaction="ignore"); w.writeheader(); w.writerows(rows)
-          print(f"Merged {len(rows)} discovered listing rows")
-          PY
-      - name: Deduplicate candidates
+        run: python akiya_content_engine/scripts/merge_discovery.py
+      - name: Build candidates
         run: python akiya_content_engine/scripts/build_candidates.py
-      - name: Generate approved social drafts
+      - name: Build SEO property pages
+        run: python akiya_content_engine/scripts/build_site.py
+      - name: Generate social drafts
         run: python akiya_content_engine/scripts/generate_social_drafts.py
-      - name: Save generated data and drafts
+      - name: Save generated content
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add akiya_content_engine/data/discovered_listings.csv \
-                  akiya_content_engine/data/discovered_listings_hirosaki.csv \
-                  akiya_content_engine/data/discovered_listings_ishinomaki.csv \
-                  akiya_content_engine/data/discovered_listings_kazuno.csv \
-                  akiya_content_engine/data/discovered_listings_nagai.csv \
-                  akiya_content_engine/data/discovered_listings_date_fukushima.csv \
-                  akiya_content_engine/data/akiya_content_candidates.csv \
-                  akiya_content_engine/output/social_drafts.md
-          git diff --cached --quiet || git commit -m "Build daily akiya social drafts"
-          git push
+          git add akiya_content_engine/data akiya_content_engine/output docs
+          git diff --cached --quiet || git commit -m "Build daily akiya buyer content [skip ci]"
+          git push origin HEAD:main
