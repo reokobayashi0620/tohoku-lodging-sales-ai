@@ -6,7 +6,7 @@ from urllib.parse import quote
 ROOT=Path(__file__).resolve().parents[1]
 INPUT=ROOT/"data"/"akiya_content_candidates.csv"
 SITE=Path("docs")
-BASE="https://next-door-akiya.netlify.app"
+BASE="https://reokobayashi0620.github.io/tohoku-lodging-sales-ai"
 
 def esc(v): return html.escape(str(v or ""))
 def slug(v): return re.sub(r"[^a-z0-9]+","-",str(v).lower()).strip("-") or "listing"
