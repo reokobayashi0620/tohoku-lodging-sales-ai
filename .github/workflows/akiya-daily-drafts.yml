@@ -52,14 +52,15 @@ jobs:
       - name: Publish generated site at Pages root
         run: |
           cp docs/index.html index.html
-          rm -rf properties
+          rm -rf properties prefectures
           cp -R docs/properties properties
+          cp -R docs/prefectures prefectures
           cp docs/sitemap.xml sitemap.xml
           cp docs/robots.txt robots.txt
       - name: Save generated content
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add akiya_content_engine/data akiya_content_engine/output docs index.html properties sitemap.xml robots.txt
+          git add akiya_content_engine/data akiya_content_engine/output docs index.html properties prefectures sitemap.xml robots.txt
           git diff --cached --quiet || git commit -m "Build daily akiya buyer content [skip ci]"
           git push origin HEAD:main
