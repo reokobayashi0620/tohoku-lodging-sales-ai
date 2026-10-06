@@ -21,6 +21,7 @@ concurrency:
 jobs:
   build-drafts:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -29,23 +30,17 @@ jobs:
         with:
           python-version: "3.12"
       - name: Discover Iwate listings
-        continue-on-error: true
-        run: python akiya_content_engine/scripts/parse_iwate_town.py
+        run: python akiya_content_engine/scripts/run_source.py iwate
       - name: Discover Aomori listings
-        continue-on-error: true
-        run: python akiya_content_engine/scripts/parse_hirosaki_area.py
+        run: python akiya_content_engine/scripts/run_source.py aomori
       - name: Discover Miyagi listings
-        continue-on-error: true
-        run: python akiya_content_engine/scripts/parse_ishinomaki.py
+        run: python akiya_content_engine/scripts/run_source.py miyagi
       - name: Discover Akita listings
-        continue-on-error: true
-        run: python akiya_content_engine/scripts/parse_kazuno.py
+        run: python akiya_content_engine/scripts/run_source.py akita
       - name: Discover Yamagata listings
-        continue-on-error: true
-        run: python akiya_content_engine/scripts/parse_nagai.py
+        run: python akiya_content_engine/scripts/run_source.py yamagata
       - name: Discover Fukushima listings
-        continue-on-error: true
-        run: python akiya_content_engine/scripts/parse_date_fukushima.py
+        run: python akiya_content_engine/scripts/run_source.py fukushima
       - name: Merge discovery feeds
         run: python akiya_content_engine/scripts/merge_discovery.py
       - name: Build candidates
