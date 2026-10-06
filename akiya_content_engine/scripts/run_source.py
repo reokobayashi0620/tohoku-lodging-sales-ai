@@ -25,9 +25,9 @@ SOURCES = {
         "output": DATA / "discovered_listings_hirosaki.csv",
     },
     "miyagi": {
-        "label": "Miyagi / Ishinomaki",
-        "script": "parse_ishinomaki.py",
-        "output": DATA / "discovered_listings_ishinomaki.csv",
+        "label": "Miyagi / Kurihara",
+        "script": "parse_kurihara.py",
+        "output": DATA / "discovered_listings_kurihara.csv",
     },
     "akita": {
         "label": "Akita / Kazuno",
@@ -35,9 +35,9 @@ SOURCES = {
         "output": DATA / "discovered_listings_kazuno.csv",
     },
     "yamagata": {
-        "label": "Yamagata / Nagai",
-        "script": "parse_nagai.py",
-        "output": DATA / "discovered_listings_nagai.csv",
+        "label": "Yamagata / Tendo",
+        "script": "parse_tendo.py",
+        "output": DATA / "discovered_listings_tendo.csv",
     },
     "fukushima": {
         "label": "Fukushima / Date City",
