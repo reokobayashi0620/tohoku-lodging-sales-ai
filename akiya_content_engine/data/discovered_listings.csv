@@ -1,8 +1,8 @@
 listing_id,source_id,prefecture,municipality,property_type,asking_price_jpy,building_sqm,land_sqm,features,source_url,source_updated_at,retrieved_at
-,iwate_town,Iwate,Iwate Town,Residential / for sale,9400000,,,27-土川第１地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年8月28日,2026-10-05T01:08:43.608125+00:00
-,iwate_town,Iwate,Iwate Town,Residential / for sale,1000000,,,26-一方井第１４地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年8月24日,2026-10-05T01:08:43.608125+00:00
-,iwate_town,Iwate,Iwate Town,Residential / for sale,2500000,,,25-江刈内第６地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年6月22日,2026-10-05T01:08:43.608125+00:00
-,iwate_town,Iwate,Iwate Town,Residential / for sale,8000000,,,24-川口第30地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年5月22日,2026-10-05T01:08:43.608125+00:00
+,iwate_town,Iwate,Iwate Town,Residential / for sale,9400000,,,27-土川第１地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年8月28日,2026-10-06T02:25:14.578775+00:00
+,iwate_town,Iwate,Iwate Town,Residential / for sale,1000000,,,26-一方井第１４地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年8月24日,2026-10-06T02:25:14.578775+00:00
+,iwate_town,Iwate,Iwate Town,Residential / for sale,2500000,,,25-江刈内第６地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年6月22日,2026-10-06T02:25:14.578775+00:00
+,iwate_town,Iwate,Iwate Town,Residential / for sale,8000000,,,24-川口第30地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年5月22日,2026-10-06T02:25:14.578775+00:00
 ,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,19800000,161.47,321.02,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,
 ,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,5000000,87.75,165.60,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,
 ,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,12800000,113.40,248.03,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,
