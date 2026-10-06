@@ -13,3 +13,6 @@ kazuno_bank,Akita,Kazuno,Kazuno City Land and Building Data Bank,https://www.cit
 miyagi_municipal_index,Miyagi,All,Miyagi Prefecture municipal akiya-bank index,https://www.pref.miyagi.jp/soshiki/juutaku/akiyataisakusityouson.html,prefecture_index,true,Official prefectural index updated 2026-06; use to discover municipal banks before extraction
 yamagata_akiya_index,Yamagata,All,Yamagata vacant-house municipal information,https://akiya.pref.yamagata.jp/?page_id=10,prefecture_index,true,Prefectural consultation portal linking municipal akiya-bank information
 fukushima_iju_index,Fukushima,All,Fukushima Migration Portal Akiya Bank,https://www.fukushima-iju.jp/vacant-house/index.html,prefecture_index,true,Official prefectural migration portal linking municipal akiya banks
+
+kurihara_bank,Miyagi,Kurihara,Kurihara City Akiya information,https://www.kuriharacity.jp/welcome/,municipal_bank,true,Official city migration and akiya page; fallback for blocked national-bank endpoint
+tendo_bank,Yamagata,Tendo,Tendo City Akiya Bank,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,municipal_bank,true,Official city page with current registered akiya listings; fallback for blocked national-bank endpoint
