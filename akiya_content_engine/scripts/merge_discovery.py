@@ -7,8 +7,8 @@ DATA=ROOT/"data"
 OUTPUT=DATA/"discovered_listings.csv"
 FILES=[
  "discovered_listings_iwate.csv","discovered_listings_hirosaki.csv",
- "discovered_listings_ishinomaki.csv","discovered_listings_kazuno.csv",
- "discovered_listings_nagai.csv","discovered_listings_date_fukushima.csv",
+ "discovered_listings_kurihara.csv","discovered_listings_kazuno.csv",
+ "discovered_listings_tendo.csv","discovered_listings_date_fukushima.csv",
 ]
 # The Iwate parser historically writes discovered_listings.csv; preserve it before overwrite.
 inputs=[]
