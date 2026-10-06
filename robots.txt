@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/sitemap.xml
