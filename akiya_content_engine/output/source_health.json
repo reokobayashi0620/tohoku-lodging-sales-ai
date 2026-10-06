@@ -1,0 +1,44 @@
+{
+  "iwate": {
+    "label": "Iwate / Iwate Town",
+    "status": "ok",
+    "listings": 5,
+    "checked_at": "2026-10-06T21:12:23.726890+00:00",
+    "detail": "ok"
+  },
+  "aomori": {
+    "label": "Aomori / Hirosaki Area",
+    "status": "ok",
+    "listings": 237,
+    "checked_at": "2026-10-06T21:12:29.220898+00:00",
+    "detail": "ok"
+  },
+  "miyagi": {
+    "label": "Miyagi / Ishinomaki",
+    "status": "failed",
+    "listings": 0,
+    "checked_at": "2026-10-06T21:12:29.908384+00:00",
+    "detail": "urllib.error.HTTPError: HTTP Error 403: Forbidden"
+  },
+  "akita": {
+    "label": "Akita / Kazuno",
+    "status": "ok",
+    "listings": 87,
+    "checked_at": "2026-10-06T21:13:47.833537+00:00",
+    "detail": "ok"
+  },
+  "yamagata": {
+    "label": "Yamagata / Nagai",
+    "status": "failed",
+    "listings": 0,
+    "checked_at": "2026-10-06T21:13:48.491039+00:00",
+    "detail": "urllib.error.HTTPError: HTTP Error 403: Forbidden"
+  },
+  "fukushima": {
+    "label": "Fukushima / Date City",
+    "status": "ok",
+    "listings": 10,
+    "checked_at": "2026-10-06T21:13:49.353016+00:00",
+    "detail": "ok"
+  }
+}
