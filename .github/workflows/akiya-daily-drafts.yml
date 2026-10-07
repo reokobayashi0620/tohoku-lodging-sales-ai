@@ -62,5 +62,20 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add akiya_content_engine/data akiya_content_engine/output docs index.html properties prefectures sitemap.xml robots.txt
-          git diff --cached --quiet || git commit -m "Build daily akiya buyer content [skip ci]"
-          git push origin HEAD:main
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git commit -m "Build daily akiya buyer content [skip ci]"
+          # Another workflow may update main while this job is generating files.
+          # Rebase our generated-content commit onto the latest main before pushing.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main && git push origin HEAD:main; then
+              exit 0
+            fi
+            git rebase --abort || true
+            sleep $((attempt * 5))
+          done
+          echo "Failed to save generated content after 3 attempts"
+          exit 1
