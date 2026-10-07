@@ -11,6 +11,7 @@ SITE=Path("docs")
 BASE="https://reokobayashi0620.github.io/tohoku-lodging-sales-ai"
 FORM_ACTION="https://formsubmit.co/d45da5a4f774175159fdc40ef5f882c8"
 OG_IMAGE=BASE+"/wide_landscape_promotional_banner_hero_image_for_a.png"
+GA_MEASUREMENT_ID="G-HLC3D2DY9S"
 PREFS=("Aomori","Iwate","Miyagi","Akita","Yamagata","Fukushima")
 
 def esc(v): return html.escape(str(v or ""))
@@ -27,8 +28,10 @@ def shell(title,desc,body,canonical,jsonld=None):
     if jsonld:
         structured='<script type="application/ld+json">'+json.dumps(jsonld,ensure_ascii=False).replace("</","<\\/")+"</script>"
     nav=" · ".join(f'<a href="{BASE}/prefectures/{slug(p)}.html">{p}</a>' for p in PREFS)
+    analytics="<script async src=\"https://www.googletagmanager.com/gtag/js?id="+GA_MEASUREMENT_ID+"\"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag(\'js\',new Date());gtag(\'config\',\'"+GA_MEASUREMENT_ID+"\');</script>"
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title><meta name="description" content="{esc(desc)}"><link rel="canonical" href="{esc(canonical)}">
+{analytics}
 <meta property="og:type" content="website"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(desc)}"><meta property="og:url" content="{esc(canonical)}"><meta property="og:image" content="{esc(OG_IMAGE)}"><meta property="og:image:width" content="1536"><meta property="og:image:height" content="1024"><meta property="og:image:alt" content="NexT DooR — Discover Japan’s Akiya Homes"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(title)}"><meta name="twitter:description" content="{esc(desc)}"><meta name="twitter:image" content="{esc(OG_IMAGE)}">
 {structured}<style>
 body{{font-family:system-ui,-apple-system,sans-serif;margin:auto;max-width:1040px;padding:28px;color:#17212b;line-height:1.55}}a{{color:#075985}}header{{margin-bottom:28px}}nav{{margin-top:10px;font-size:.95rem}}.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}}.card{{border:1px solid #ddd;border-radius:16px;padding:20px;margin:16px 0}}.cta,button{{display:inline-block;background:#111;color:white;padding:14px 20px;border:0;border-radius:10px;text-decoration:none;font-weight:700;cursor:pointer}}small,.muted{{color:#555}}label{{display:block;font-weight:650;margin-top:14px}}input,select,textarea{{width:100%;box-sizing:border-box;padding:12px;margin-top:6px;border:1px solid #bbb;border-radius:8px;font:inherit}}textarea{{min-height:110px}}.health-ok{{color:#166534}}.health-failed{{color:#b42318}}.notice{{padding:14px;border:1px solid #9ac7a8;border-radius:10px;background:#f3fff6}}footer{{margin-top:36px}}@media(max-width:600px){{body{{padding:18px}}}}
