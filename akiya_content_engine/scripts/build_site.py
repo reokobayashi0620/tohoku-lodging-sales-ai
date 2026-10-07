@@ -9,7 +9,8 @@ INPUT=ROOT/"data"/"akiya_content_candidates.csv"
 HEALTH=ROOT/"output"/"source_health.json"
 SITE=Path("docs")
 BASE="https://reokobayashi0620.github.io/tohoku-lodging-sales-ai"
-FORM_ACTION="https://formsubmit.co/d45da5a4f774175159fdc40ef5f882c8"\nOG_IMAGE=BASE+"/wide_landscape_promotional_banner_hero_image_for_a.png"
+FORM_ACTION="https://formsubmit.co/d45da5a4f774175159fdc40ef5f882c8"
+OG_IMAGE=BASE+"/wide_landscape_promotional_banner_hero_image_for_a.png"
 PREFS=("Aomori","Iwate","Miyagi","Akita","Yamagata","Fukushima")
 
 def esc(v): return html.escape(str(v or ""))
