@@ -1,8 +1,8 @@
 listing_id,source_id,prefecture,municipality,property_type,asking_price_jpy,building_sqm,land_sqm,features,source_url,source_updated_at,retrieved_at
-,iwate_town,Iwate,Iwate Town,Residential / for sale,9400000,,,27-土川第１地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年8月28日,2026-10-08T02:11:42.252455+00:00
-,iwate_town,Iwate,Iwate Town,Residential / for sale,1000000,,,26-一方井第１４地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年8月24日,2026-10-08T02:11:42.252455+00:00
-,iwate_town,Iwate,Iwate Town,Residential / for sale,2500000,,,25-江刈内第６地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年6月22日,2026-10-08T02:11:42.252455+00:00
-,iwate_town,Iwate,Iwate Town,Residential / for sale,8000000,,,24-川口第30地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年5月22日,2026-10-08T02:11:42.252455+00:00
+,iwate_town,Iwate,Iwate Town,Residential / for sale,9400000,,,27-土川第１地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年8月28日,2026-10-09T02:25:43.665218+00:00
+,iwate_town,Iwate,Iwate Town,Residential / for sale,1000000,,,26-一方井第１４地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年8月24日,2026-10-09T02:25:43.665218+00:00
+,iwate_town,Iwate,Iwate Town,Residential / for sale,2500000,,,25-江刈内第６地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年6月22日,2026-10-09T02:25:43.665218+00:00
+,iwate_town,Iwate,Iwate Town,Residential / for sale,8000000,,,24-川口第30地割 住宅,https://town.iwate.iwate.jp/akiya/akiyabank/,2026年5月22日,2026-10-09T02:25:43.665218+00:00
 ,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,19800000,161.47,321.02,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,
 ,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,5000000,87.75,165.60,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,
 ,hirosaki_area_bank,Aomori,Hirosaki,Residential / sale,12800000,113.40,248.03,,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,,
@@ -174,31 +174,118 @@ listing_id,source_id,prefecture,municipality,property_type,asking_price_jpy,buil
 ,hirosaki_area_bank,Aomori,Nishimeya,Residential / sale,200000,67.76,424.71,,https://www.city.hirosaki.aomori.jp/akiyabank-8/nishimeya/akiya.html,,
 ,hirosaki_area_bank,Aomori,Nishimeya,Residential / sale,1000000,267.19,679.12,,https://www.city.hirosaki.aomori.jp/akiyabank-8/nishimeya/akiya.html,,
 ,hirosaki_area_bank,Aomori,Nishimeya,Residential / sale,10000000,136.06,331.00,,https://www.city.hirosaki.aomori.jp/akiyabank-8/nishimeya/akiya.html,,
-240,kurihara_bank,Miyagi,Kurihara,Residential / for sale,10000000,,,Property No. 240; 0240「賃貸可◎敷地内で家庭菜園を楽しめる！別棟を趣味部屋に; Area: 一迫柳目字曽根要害,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-225,kurihara_bank,Miyagi,Kurihara,Residential / for sale,9000000,,,Property No. 225; 0225「窓用シャッター付きで、目立った補修箇所無し！駅まで徒歩10分圏内！; Area: 金成有壁前沢田,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-207,kurihara_bank,Miyagi,Kurihara,Residential / for sale,980000,,,Property No. 207; 0207; Area: 金成末野新鹿野下,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-155,kurihara_bank,Miyagi,Kurihara,Residential / for sale,2000000,,,Property No. 155; 0155「値下げ！栗の木と暮らす、豊かな自然と実りの秋; Area: 花山字本沢,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-152,kurihara_bank,Miyagi,Kurihara,Residential / for sale,1300000,,,Property No. 152; 0152「値下げ！長閑な自然の中で実現する穏やかな暮らし; Area: 一迫字川口鍛冶屋,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-231,kurihara_bank,Miyagi,Kurihara,Residential / for sale,18000000,,,Property No. 231; 0231「古民家風！修繕箇所なし！栗駒山眺望可能物件; Area: 栗駒沼倉河子田,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-227,kurihara_bank,Miyagi,Kurihara,Residential / for sale,4000000,,,Property No. 227; 0227「ブロック塀囲いの広い敷地でのびのび暮らせる; Area: 志波姫北郷荒町,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-221,kurihara_bank,Miyagi,Kurihara,Residential / for sale,1000000,,,Property No. 221; 0221「値下げ！掘りごたつあり◎祭りで賑わう六日町商店街に佇む古民家; Area: 栗駒岩ケ崎六日町,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-218,kurihara_bank,Miyagi,Kurihara,Residential / for sale,5000000,,,Property No. 218; 0218; Area: 若柳字川北新町,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-214,kurihara_bank,Miyagi,Kurihara,Residential / for sale,800000,,,Property No. 214; 0214「値下げ！スーパー、ドラックストア、保育所、学校など1.5キロメートル圏内！; Area: 若柳字川北塚ノ越,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-215,kurihara_bank,Miyagi,Kurihara,Residential / for sale,2300000,,,Property No. 215; 0215; Area: 瀬峰除,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-213,kurihara_bank,Miyagi,Kurihara,Residential / for sale,1200000,,,Property No. 213; 0213; Area: 若柳字川北中町,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-230,kurihara_bank,Miyagi,Kurihara,Residential / for sale,3000000,,,Property No. 230; 0230「1階が物置とガレージ！3階建て賃貸可能物件◎; Area: 築館字下宮野館,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-203,kurihara_bank,Miyagi,Kurihara,Residential / for sale,5000000,,,Property No. 203; 0203「値下げ！広い敷地でBBQ！ドックランも！楽しみ方無限大！; Area: 瀬峰下藤沢,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-228,kurihara_bank,Miyagi,Kurihara,Residential / for sale,24800000,,,Property No. 228; 0228「日本伝統工法の匠の技が施された平屋物件！庭園付き; Area: 志波姫八樟原,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-205,kurihara_bank,Miyagi,Kurihara,Residential / for sale,2500000,,,Property No. 205; 0205「値下げ！四季を彩る草花や石で手入れされた庭、野菜作りに最適な畑あり; Area: 若柳字大林町裏,https://www.kuriharacity.jp/welcome/,,2026-10-08T02:11:52.214742+00:00
-121,tendo_bank,Yamagata,Tendo,Residential / for sale,9800000,,227.03,Property No. 121; 北久野本三丁目,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-08T02:12:24.212918+00:00
-120,tendo_bank,Yamagata,Tendo,Residential / for sale,8000000,,546.19,Property No. 120; 大字蔵増,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-08T02:12:24.212918+00:00
-119,tendo_bank,Yamagata,Tendo,Residential / for sale,8000000,,689.09,Property No. 119; 大字寺津,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-08T02:12:24.212918+00:00
-118,tendo_bank,Yamagata,Tendo,Residential / for sale,1500000,,480.36,Property No. 118; 大字川原子,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-08T02:12:24.212918+00:00
-117,tendo_bank,Yamagata,Tendo,Residential / for sale,2900000,,1220.00,Property No. 117; 大字道満,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-08T02:12:24.212918+00:00
-116,tendo_bank,Yamagata,Tendo,Residential / for sale,9000000,,1733.99,Property No. 116; 大字高擶,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-08T02:12:24.212918+00:00
-115,tendo_bank,Yamagata,Tendo,Residential / for sale,8900000,,179.07,Property No. 115; 東久野本三丁目,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-08T02:12:24.212918+00:00
-114,tendo_bank,Yamagata,Tendo,Residential / for sale,33000000,,373.15,Property No. 114; 駅西一丁目,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-08T02:12:24.212918+00:00
-112,tendo_bank,Yamagata,Tendo,Residential / for sale,8000000,,224.65,Property No. 112; 大字荒谷,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-08T02:12:24.212918+00:00
+240,kurihara_bank,Miyagi,Kurihara,Residential / for sale,10000000,,,Property No. 240; 0240「賃貸可◎敷地内で家庭菜園を楽しめる！別棟を趣味部屋に; Area: 一迫柳目字曽根要害,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+225,kurihara_bank,Miyagi,Kurihara,Residential / for sale,9000000,,,Property No. 225; 0225「窓用シャッター付きで、目立った補修箇所無し！駅まで徒歩10分圏内！; Area: 金成有壁前沢田,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+207,kurihara_bank,Miyagi,Kurihara,Residential / for sale,980000,,,Property No. 207; 0207; Area: 金成末野新鹿野下,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+155,kurihara_bank,Miyagi,Kurihara,Residential / for sale,2000000,,,Property No. 155; 0155「値下げ！栗の木と暮らす、豊かな自然と実りの秋; Area: 花山字本沢,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+152,kurihara_bank,Miyagi,Kurihara,Residential / for sale,1300000,,,Property No. 152; 0152「値下げ！長閑な自然の中で実現する穏やかな暮らし; Area: 一迫字川口鍛冶屋,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+231,kurihara_bank,Miyagi,Kurihara,Residential / for sale,18000000,,,Property No. 231; 0231「古民家風！修繕箇所なし！栗駒山眺望可能物件; Area: 栗駒沼倉河子田,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+227,kurihara_bank,Miyagi,Kurihara,Residential / for sale,4000000,,,Property No. 227; 0227「ブロック塀囲いの広い敷地でのびのび暮らせる; Area: 志波姫北郷荒町,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+221,kurihara_bank,Miyagi,Kurihara,Residential / for sale,1000000,,,Property No. 221; 0221「値下げ！掘りごたつあり◎祭りで賑わう六日町商店街に佇む古民家; Area: 栗駒岩ケ崎六日町,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+218,kurihara_bank,Miyagi,Kurihara,Residential / for sale,5000000,,,Property No. 218; 0218; Area: 若柳字川北新町,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+214,kurihara_bank,Miyagi,Kurihara,Residential / for sale,800000,,,Property No. 214; 0214「値下げ！スーパー、ドラックストア、保育所、学校など1.5キロメートル圏内！; Area: 若柳字川北塚ノ越,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+215,kurihara_bank,Miyagi,Kurihara,Residential / for sale,2300000,,,Property No. 215; 0215; Area: 瀬峰除,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+213,kurihara_bank,Miyagi,Kurihara,Residential / for sale,1200000,,,Property No. 213; 0213; Area: 若柳字川北中町,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+230,kurihara_bank,Miyagi,Kurihara,Residential / for sale,3000000,,,Property No. 230; 0230「1階が物置とガレージ！3階建て賃貸可能物件◎; Area: 築館字下宮野館,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+203,kurihara_bank,Miyagi,Kurihara,Residential / for sale,5000000,,,Property No. 203; 0203「値下げ！広い敷地でBBQ！ドックランも！楽しみ方無限大！; Area: 瀬峰下藤沢,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+228,kurihara_bank,Miyagi,Kurihara,Residential / for sale,24800000,,,Property No. 228; 0228「日本伝統工法の匠の技が施された平屋物件！庭園付き; Area: 志波姫八樟原,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+205,kurihara_bank,Miyagi,Kurihara,Residential / for sale,2500000,,,Property No. 205; 0205「値下げ！四季を彩る草花や石で手入れされた庭、野菜作りに最適な畑あり; Area: 若柳字大林町裏,https://www.kuriharacity.jp/welcome/,,2026-10-09T02:25:52.899840+00:00
+,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,,688.51,Property No. 141,https://kazuno-gurashi.jp/akiya_bank/%e5%9c%9f%e5%9c%b0%e7%95%aa%e5%8f%b7141%e3%80%80,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,20000000,,2441.14,Property No. 147,https://kazuno-gurashi.jp/akiya_bank/%e5%9c%9f%e5%9c%b0%e7%95%aa%e5%8f%b7147,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,347.52,704.07,Property No. 117; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6%e7%95%aa%e5%8f%b7117,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,173.84,365.27,Property No. 132; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6%e7%95%aa%e5%8f%b7132,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2500000,140.26,512.00,Property No. 60; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6%e7%95%aa%e5%8f%b760,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,97.86,,Property No. 151; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-151,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,134.55,477.69,Property No. 154; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-154,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,129.58,164.98,Property No. 168; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-168,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3500000,229.83,466.99,Property No. 177; Layout 9DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-177,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2980000,204.55,387.62,Property No. 180; Layout 6LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-180,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,8000000,238.20,663.18,Property No. 183; Layout 8DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-183,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3980000,96.87,504.05,Property No. 184; Layout 2LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-184,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,500000,209.31,1708.33,Property No. 189; Layout 7DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-189,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,182.54,920.75,Property No. 192; Layout 7LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-192,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,7800000,213,611.55,Property No. 193; Layout 6LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-193,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,4000000,152.33,682.34,Property No. 200; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-200,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1500000,109.71,173.32,Property No. 201; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-201,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,210.85,826.68,Property No. 213; Layout 7LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-213,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3300000,218.18,841.93,Property No. 215; Layout 8LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-215,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,6500000,151.17,275.45,Property No. 218; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-218,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1980000,147.12,462.39,Property No. 219; Layout 4LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-219,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,6000000,201.62,269.96,Property No. 220; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-220,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,4800000,172.88,363.37,Property No. 222; Layout 10DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-222,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,160.65,644.15,Property No. 224; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-224,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,10000,109.08,170.46,Property No. 226; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-226,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,225.45,1275.56,Property No. 227; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-227,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,104.33,314.36,Property No. 228; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-228,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,200000,163.65,344.22,Property No. 229; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-229,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,7500000,147.39,420.92,Property No. 230; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-230,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,149.88,511.17,Property No. 231; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-231,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,500000,206.11,1245.33,Property No. 232; Layout 7DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-232,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,900000,138.31,305.48,Property No. 233; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-233,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,13000000,124.20,2690.24,Property No. 235; Layout 3DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-235,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,400000,198.48,143.05,Property No. 241; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-241,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,5500000,119.53,309.16,Property No. 242; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-242,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,254.77,1230.22,Property No. 245; Layout 9DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-245,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,36.37,158.66,Property No. 246; Layout 4DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-246,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,117.72,508.74,Property No. 247; Layout 7DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-247,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,144.62,1109.52,Property No. 248; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-248,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,9800000,130.83,602.51,Property No. 250; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-250,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,300000,108.89,201.15,Property No. 253; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-253,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,8000000,120.9,341.88,Property No. 255; Layout 4DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-255,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,5400000,125.87,461.0,Property No. 256; Layout 4DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-256,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,200000,178.03,889.23,Property No. 257; Layout 7LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-257,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,5000000,195.02,332.13,Property No. 258; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-258,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,113.02,502.08,Property No. 259; Layout 4DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-259,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1980000,119.92,426.84,Property No. 260; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-260,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,300000,261.42,1003.67,Property No. 261; Layout 9DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-261,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,250.29,802.19,Property No. 262; Layout 8D,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-262,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,72.25,303.65,Property No. 263; Layout 2LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-263,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,105.59,168.48,Property No. 264; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-264,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,6000000,259.70,824.14,Property No. 265; Layout 9LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-265,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3500000,230.02,1154.48,Property No. 267; Layout 8LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-267,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2800000,208.34,537.79,Property No. 268; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-268,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2600000,146.96,324.00,Property No. 269; Layout 8LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-269,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,233.27,1147.83,Property No. 270; Layout 7DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-270,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,200000,106.39,417.64,Property No. 271; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-271,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,84.30,274.64,Property No. 272; Layout 3DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-272,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,4000000,218.98,615.0,Property No. 273; Layout 7LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-273,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,100000,93.98,332.01,Property No. 274; Layout 6DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-274,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,500000,159.81,498.06,Property No. 275; Layout 8DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-275,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1800000,137.06,900.46,Property No. 276; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-276,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,7800000,155.13,231.85,Property No. 278; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-278,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,167.61,470.33,Property No. 279; Layout 6LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-279,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,500000,193.17,814.16,Property No. 281; Layout 6LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-281,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,125.84,194.27,Property No. 283; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-283,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,700000,,157.61,Property No. 284,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-284,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,500000,69.56,397,Property No. 285; Layout 3LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-285,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2300000,108.08,665.00,Property No. 286; Layout 4LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-286,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2900000,162.35,306.01,Property No. 287; Layout 7DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-287,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,5000000,239.66,1450.31,Property No. 288; Layout 9LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-288,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,980000,174.37,329.03,Property No. 289; Layout 7LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-289,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2500000,,331.08,Property No. 290,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-290,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,900000,,125.61,Property No. 291,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-291,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1950000,,320.12,Property No. 292,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-292,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2100000,106.73,120.74,Property No. 293; Layout 5DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-293,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,6800000,116.75,288.79,Property No. 294; Layout 4LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-294,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,,445.30,Property No. 295,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-295,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,4200000,102.92,319.43,Property No. 296; Layout 5LDK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-296,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,12000000,235.43,215.02,Property No. 298; Layout 8DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-298,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,251.04,732.28,Property No. 299; Layout 9DK,https://kazuno-gurashi.jp/akiya_bank/%e7%89%a9%e4%bb%b6no-299,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,1000000,84.46,216.64,Property No. 47; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/047,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,8000000,300.71,1111,Property No. 63; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/063,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,10000000,167.90,663.00,Property No. 81; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/081,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,3000000,133.88,782.88,Property No. 99; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/099,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,2000000,142.14,685.83,Property No. 7,https://kazuno-gurashi.jp/akiya_bank/117,,
+,kazuno_bank,Akita,Kazuno,Residential / sale,5000000,132.48,434.37,Property No. 106; Layout ダウンロード,https://kazuno-gurashi.jp/akiya_bank/671,,
+121,tendo_bank,Yamagata,Tendo,Residential / for sale,9800000,,227.03,Property No. 121; 北久野本三丁目,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-09T02:27:38.132645+00:00
+120,tendo_bank,Yamagata,Tendo,Residential / for sale,8000000,,546.19,Property No. 120; 大字蔵増,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-09T02:27:38.132645+00:00
+119,tendo_bank,Yamagata,Tendo,Residential / for sale,8000000,,689.09,Property No. 119; 大字寺津,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-09T02:27:38.132645+00:00
+118,tendo_bank,Yamagata,Tendo,Residential / for sale,1500000,,480.36,Property No. 118; 大字川原子,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-09T02:27:38.132645+00:00
+117,tendo_bank,Yamagata,Tendo,Residential / for sale,2900000,,1220.00,Property No. 117; 大字道満,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-09T02:27:38.132645+00:00
+116,tendo_bank,Yamagata,Tendo,Residential / for sale,9000000,,1733.99,Property No. 116; 大字高擶,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-09T02:27:38.132645+00:00
+115,tendo_bank,Yamagata,Tendo,Residential / for sale,8900000,,179.07,Property No. 115; 東久野本三丁目,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-09T02:27:38.132645+00:00
+114,tendo_bank,Yamagata,Tendo,Residential / for sale,33000000,,373.15,Property No. 114; 駅西一丁目,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-09T02:27:38.132645+00:00
+112,tendo_bank,Yamagata,Tendo,Residential / for sale,8000000,,224.65,Property No. 112; 大字荒谷,https://www.city.tendo.yamagata.jp/lifeinfo/sumai/akiyabanku_tourokuakiya.html,,2026-10-09T02:27:38.132645+00:00
 ,date_fukushima_bank,Fukushima,Date,Residential / sale,6000000,,,Repair indicated; Property No. 066,https://www.city.fukushima-date.lg.jp/soshiki/11/11412.html,,
 ,date_fukushima_bank,Fukushima,Date,Residential / sale,3000000,,,Repair indicated; Property No. 064,https://www.city.fukushima-date.lg.jp/soshiki/11/11412.html,,
 ,date_fukushima_bank,Fukushima,Date,Residential / sale,2000000,,,Repair indicated; Property No. 060,https://www.city.fukushima-date.lg.jp/soshiki/11/11412.html,,
