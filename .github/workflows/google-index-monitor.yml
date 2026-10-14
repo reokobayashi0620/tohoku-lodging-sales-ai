@@ -1,0 +1,28 @@
+name: NexT DooR Google Index Monitor
+on:
+  schedule:
+    - cron: '35 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install google-auth requests
+      - name: Inspect Google index
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: python seo-monitor/gsc_check.py
+      - name: Save results
+        run: |
+          if [ -f seo-monitor/gsc-state.json ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add seo-monitor/gsc-state.json seo-monitor/gsc-report.md
+            git diff --cached --quiet || (git commit -m "Update GSC index audit" && git push)
+          fi
