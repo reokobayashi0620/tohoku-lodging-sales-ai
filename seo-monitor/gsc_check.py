@@ -10,7 +10,7 @@ REPORT=pathlib.Path("seo-monitor/gsc-report.md")
 def api(url,token,payload=None):
     body=json.dumps(payload).encode() if payload is not None else None
     req=urllib.request.Request(url,data=body,headers={"Authorization":"Bearer "+token,"Content-Type":"application/json"})
-    with urllib.request.urlopen(req,timeout=30) as res:return json.load(res)
+    with urllib.request.urlopen(req,timeout=10) as res:return json.load(res)
 def main():
     raw=os.getenv("GSC_SERVICE_ACCOUNT_JSON","")
     if not raw:
@@ -25,10 +25,18 @@ def main():
     with urllib.request.urlopen(BASE+"sitemap.xml",timeout=30) as res:
         root=ET.fromstring(res.read())
     urls=[e.text.strip() for e in root.iter() if e.tag.endswith("loc") and e.text and e.text.strip().startswith(BASE)]
-    targets=sorted(set([BASE,KAZUNO]+[u for u in urls if "/properties/" in u]))
+    all_targets=sorted(set([BASE,KAZUNO]+[u for u in urls if "/properties/" in u]))
+    # Keep each run bounded; prioritize Kazuno and a sample from every prefecture.
+    priority=[BASE,KAZUNO]
+    for code in PREFS:
+        match=next((u for u in all_targets if re.search(r"/properties/"+code+r"-",u)),None)
+        if match:priority.append(match)
+    targets=list(dict.fromkeys(priority+[u for u in all_targets if u not in priority]))[:60]
+    print(f"Inspecting {len(targets)} of {len(all_targets)} URLs",flush=True)
     if len(targets)>1900:raise RuntimeError("More than 1900 URLs; refusing to exceed daily quota")
     data={}
-    for url in targets:
+    for i,url in enumerate(targets,1):
+        print(f"Inspecting {i}/{len(targets)}: {url}",flush=True)
         try:
             r=api("https://searchconsole.googleapis.com/v1/urlInspection/index:inspect",token,{"inspectionUrl":url,"siteUrl":BASE,"languageCode":"ja-JP"})
             ix=r.get("inspectionResult",{}).get("indexStatusResult",{})
