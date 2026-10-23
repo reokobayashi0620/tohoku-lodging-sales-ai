@@ -44,9 +44,13 @@ def main():
         except Exception as e:
             data[url]={"error":str(e)}
     prev=json.loads(STATE.read_text()) if STATE.exists() else {}
-    changes=[{"url":u,"before":prev.get(u),"after":v} for u,v in data.items() if prev.get(u)!=v]
-    # Ignore last crawl timestamp changes when comparing; keep meaningful status changes.
-    meaningful=[c for c in changes if not c["before"] or {k:v for k,v in c["before"].items() if k!="lastCrawlTime"}!={k:v for k,v in c["after"].items() if k!="lastCrawlTime"}]
+    # Newly inspected URLs are not status changes.
+    new_urls=[u for u in data if u not in prev]
+    # Ignore last crawl timestamp changes when comparing existing URLs.
+    meaningful=[{"url":u,"before":prev[u],"after":v} for u,v in data.items()
+                if u in prev and
+                {k:value for k,value in prev[u].items() if k!="lastCrawlTime"} !=
+                {k:value for k,value in v.items() if k!="lastCrawlTime"}]
     STATE.parent.mkdir(parents=True,exist_ok=True)
     STATE.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n")
     lines=["# Google Search Console インデックス監視",f"実行日時（UTC）: {datetime.datetime.now(datetime.timezone.utc).isoformat()}",""]
@@ -55,8 +59,10 @@ def main():
         indexed=sum(v.get("verdict")=="PASS" for v in entries)
         lines.append(f"- {name}: 登録判定PASS {indexed}/{len(entries)} 件、APIエラー {sum('error' in v for v in entries)} 件")
     lines.append("\n鹿角市: "+json.dumps(data.get(KAZUNO),ensure_ascii=False))
-    lines.append(f"\n前回からの状態変化: {len(meaningful)} 件")
+    lines.append(f"\n前回からの状態変化（既存URL）: {len(meaningful)} 件")
     for c in meaningful:lines.append("- "+c["url"]+" : "+str(c["before"])+" → "+str(c["after"]))
+    lines.append(f"\n新規検査URL: {len(new_urls)} 件")
+    for u in new_urls:lines.append("- "+u)
     lines.append("\n※ URL Inspection APIのGoogle保存済み情報であり、ライブ検査ではありません。")
     REPORT.write_text("\n".join(lines)+"\n")
     print("\n".join(lines))
