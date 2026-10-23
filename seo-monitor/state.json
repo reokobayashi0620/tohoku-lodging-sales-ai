@@ -1,8 +1,9 @@
 {
   "sitemap_status": 200,
-  "url_count": 305,
+  "url_count": 310,
   "properties": {
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-081f5ded6e67bd7e.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-09855c169c89c124.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-14845302115ed31e.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-179f6cf0c488dd26.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-1a6bc3a55b0f6f92.html": 200,
@@ -31,6 +32,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-4b40ce938d1512b5.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-4bf9052c0dc9597f.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-4c1eb9aedc3b51ed.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-4d4dd1e27f605e3a.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-51b1df3d05f1bc28.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-52686bdc5c5022e9.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-56b6c5a54abb8cba.html": 200,
@@ -41,6 +43,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-5c29788726a56436.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-5dbf7fcc06a4ee46.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-687284bca2363f51.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-6bf253fa63e620e4.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-6d0fee9a8f7427a6.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-6d9d98088e15448e.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-6e402d40bfb57a2b.html": 200,
@@ -76,6 +79,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-cc5dd33d10957675.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-cdfaa3677af4344c.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-cffb9a8b317c17af.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-d2540b9cbf6562f8.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-d2a1ad84d9e6ab80.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-d85f0566cb27997a.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-dd11dc227f039442.html": 200,
@@ -87,6 +91,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-f496f726b37f57ee.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-f689a80a94247da6.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-fb8d2e8d24a3fd39.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-fbc935fde5eecbc7.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-fc3004b98019d839.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-ff8b0b130f763def.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-fujisaki-133eaab54e9b63ce.html": 200,
@@ -317,8 +322,8 @@
       "errors": []
     },
     "秋田": {
-      "total": 87,
-      "ok": 87,
+      "total": 92,
+      "ok": 92,
       "errors": []
     },
     "山形": {
