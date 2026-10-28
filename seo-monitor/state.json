@@ -1,6 +1,6 @@
 {
   "sitemap_status": 200,
-  "url_count": 311,
+  "url_count": 312,
   "properties": {
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-081f5ded6e67bd7e.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-09855c169c89c124.html": 200,
@@ -296,6 +296,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/miyagi-kurihara-230.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/miyagi-kurihara-231.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/miyagi-kurihara-240.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/miyagi-kurihara-241.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-112.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-114.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-115.html": 200,
@@ -318,8 +319,8 @@
       "errors": []
     },
     "宮城": {
-      "total": 17,
-      "ok": 17,
+      "total": 18,
+      "ok": 18,
       "errors": []
     },
     "秋田": {
