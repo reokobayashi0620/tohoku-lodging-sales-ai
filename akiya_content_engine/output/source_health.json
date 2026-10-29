@@ -3,42 +3,42 @@
     "label": "Iwate / Iwate Town",
     "status": "ok",
     "listings": 5,
-    "checked_at": "2026-10-28T01:33:04.815330+00:00",
+    "checked_at": "2026-10-29T01:54:25.963203+00:00",
     "detail": "ok"
   },
   "aomori": {
     "label": "Aomori / Hirosaki Area",
     "status": "ok",
-    "listings": 238,
-    "checked_at": "2026-10-28T01:33:11.864306+00:00",
+    "listings": 239,
+    "checked_at": "2026-10-29T01:54:33.216125+00:00",
     "detail": "ok"
   },
   "miyagi": {
     "label": "Miyagi / Kurihara",
     "status": "ok",
     "listings": 16,
-    "checked_at": "2026-10-28T01:33:12.884688+00:00",
+    "checked_at": "2026-10-29T01:54:34.564204+00:00",
     "detail": "ok"
   },
   "akita": {
     "label": "Akita / Kazuno",
     "status": "ok",
     "listings": 92,
-    "checked_at": "2026-10-28T01:34:49.897696+00:00",
+    "checked_at": "2026-10-29T01:56:20.728407+00:00",
     "detail": "ok"
   },
   "yamagata": {
     "label": "Yamagata / Tendo",
     "status": "ok",
     "listings": 8,
-    "checked_at": "2026-10-28T01:34:51.111379+00:00",
+    "checked_at": "2026-10-29T01:56:22.042027+00:00",
     "detail": "ok"
   },
   "fukushima": {
     "label": "Fukushima / Date City",
     "status": "ok",
     "listings": 9,
-    "checked_at": "2026-10-28T01:34:52.294865+00:00",
+    "checked_at": "2026-10-29T01:56:22.703835+00:00",
     "detail": "ok"
   }
 }
