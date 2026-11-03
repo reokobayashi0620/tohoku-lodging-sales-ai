@@ -1,6 +1,6 @@
 {
   "sitemap_status": 200,
-  "url_count": 312,
+  "url_count": 313,
   "properties": {
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-081f5ded6e67bd7e.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-09855c169c89c124.html": 200,
@@ -278,6 +278,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-46bc4f75aef3303d.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-8393207b1bdbe63a.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-97849a4640ca4471.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-d1ccef6b4d751dd1.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-dbec15df8579e6fd.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/miyagi-kurihara-152.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/miyagi-kurihara-155.html": 200,
@@ -314,8 +315,8 @@
       "errors": []
     },
     "岩手": {
-      "total": 4,
-      "ok": 4,
+      "total": 5,
+      "ok": 5,
       "errors": []
     },
     "宮城": {
