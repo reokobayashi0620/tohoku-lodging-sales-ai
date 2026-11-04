@@ -1,5 +1,5 @@
 # NexT DooR 公開ページ監視
-実行日: 2026-11-03T06:50:50.596968+00:00
+実行日: 2026-11-04T06:26:28.821464+00:00
 サイトマップHTTP: 200
 サイトマップURL数: 313
 鹿角市HTTP: 200
@@ -13,6 +13,5 @@
 - 福島: HTTP 200 = 8/8件、異常 0件
 
 ## 前回との差分
-- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-d1ccef6b4d751dd1.html: 新規 → 200
 
 ※ HTTP検査であり、Googleのインデックス登録・登録除外・クロール統計を示すものではありません。
