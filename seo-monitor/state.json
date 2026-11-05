@@ -1,7 +1,8 @@
 {
   "sitemap_status": 200,
-  "url_count": 313,
+  "url_count": 317,
   "properties": {
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-06aff3753da65a51.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-081f5ded6e67bd7e.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-09855c169c89c124.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-14845302115ed31e.html": 200,
@@ -50,6 +51,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-7001a9e3b338136c.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-73db60b72c068707.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-78c8e1a75921d82c.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-791b3cefc68069f9.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-7a525fe1949e1513.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-7d50ce65c4c808ce.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-7efcd8fd22b92317.html": 200,
@@ -101,6 +103,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-fujisaki-5a87028fb541de7c.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-fujisaki-73f287f34aa39be6.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-fujisaki-8d88a4d6c75aeae4.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-fujisaki-b2a7e565d44151fd.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-fujisaki-b45685d3dcee1e59.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-fujisaki-bd31539b4b2d2871.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-fujisaki-dbe364157267ae47.html": 200,
@@ -306,12 +309,13 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-118.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-119.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-120.html": 200,
-    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-121.html": 200
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-121.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-123.html": 200
   },
   "prefectures": {
     "青森": {
-      "total": 173,
-      "ok": 173,
+      "total": 174,
+      "ok": 174,
       "errors": []
     },
     "岩手": {
@@ -325,13 +329,13 @@
       "errors": []
     },
     "秋田": {
-      "total": 92,
-      "ok": 92,
+      "total": 94,
+      "ok": 94,
       "errors": []
     },
     "山形": {
-      "total": 9,
-      "ok": 9,
+      "total": 10,
+      "ok": 10,
       "errors": []
     },
     "福島": {
