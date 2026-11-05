@@ -44,6 +44,15 @@
     "lastCrawlTime": null,
     "googleCanonical": null
   },
+  "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-06aff3753da65a51.html": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL が Google に認識されていません",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+    "lastCrawlTime": null,
+    "googleCanonical": null
+  },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-112.html": {
     "verdict": "NEUTRAL",
     "coverageState": "URL が Google に認識されていません",
@@ -485,6 +494,15 @@
     "lastCrawlTime": null,
     "googleCanonical": null
   },
+  "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-791b3cefc68069f9.html": {
+    "verdict": "NEUTRAL",
+    "coverageState": "URL が Google に認識されていません",
+    "indexingState": "INDEXING_STATE_UNSPECIFIED",
+    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+    "lastCrawlTime": null,
+    "googleCanonical": null
+  },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-7a525fe1949e1513.html": {
     "verdict": "NEUTRAL",
     "coverageState": "URL が Google に認識されていません",
@@ -513,24 +531,6 @@
     "googleCanonical": null
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-83672c063a8f9899.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
-  },
-  "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-8a661a311f2d1f6a.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
-  },
-  "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-8cc7dc36d98dd66b.html": {
     "verdict": "NEUTRAL",
     "coverageState": "URL が Google に認識されていません",
     "indexingState": "INDEXING_STATE_UNSPECIFIED",

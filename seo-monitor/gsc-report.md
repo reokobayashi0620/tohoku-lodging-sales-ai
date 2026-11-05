@@ -1,5 +1,5 @@
 # Google Search Console インデックス監視
-実行日時（UTC）: 2026-11-04T07:00:46.336127+00:00
+実行日時（UTC）: 2026-11-05T07:21:06.744976+00:00
 
 - 青森: 登録判定PASS 0/1 件、APIエラー 0 件
 - 岩手: 登録判定PASS 0/1 件、APIエラー 0 件
@@ -12,6 +12,8 @@
 
 前回からの状態変化（既存URL）: 0 件
 
-新規検査URL: 0 件
+新規検査URL: 2 件
+- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-06aff3753da65a51.html
+- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-791b3cefc68069f9.html
 
 ※ URL Inspection APIのGoogle保存済み情報であり、ライブ検査ではありません。
