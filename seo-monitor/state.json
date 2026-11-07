@@ -1,6 +1,6 @@
 {
   "sitemap_status": 200,
-  "url_count": 317,
+  "url_count": 318,
   "properties": {
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-06aff3753da65a51.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-081f5ded6e67bd7e.html": 200,
@@ -238,6 +238,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-kuroishi-a67a0e3f5bf2447a.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-kuroishi-d70b633642e1ea88.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-kuroishi-dc2a344679d05ebd.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-kuroishi-dd8bfb4be4ae20d2.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-kuroishi-de5888f7f96dc84f.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-kuroishi-e068130b4d32a2ef.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-kuroishi-e42e163b64a015ed.html": 200,
@@ -314,8 +315,8 @@
   },
   "prefectures": {
     "青森": {
-      "total": 174,
-      "ok": 174,
+      "total": 175,
+      "ok": 175,
       "errors": []
     },
     "岩手": {
