@@ -275,7 +275,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-2fc26fb31f44e62b.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-31e90db277bf1ca2.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-432b648dd40dbc8b.html": 200,
-    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-8bca934502029749.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-8bca934502029749.html": 503,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-947abeb83ac6f5a3.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-c1e4dd91d9d499ae.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-d31e33f1046bff47.html": 200,
@@ -341,8 +341,13 @@
     },
     "福島": {
       "total": 8,
-      "ok": 8,
-      "errors": []
+      "ok": 7,
+      "errors": [
+        {
+          "url": "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-8bca934502029749.html",
+          "status": 503
+        }
+      ]
     }
   },
   "kazuno_status": 200
