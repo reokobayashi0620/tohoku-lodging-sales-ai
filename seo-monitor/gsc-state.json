@@ -1,12 +1,6 @@
 {
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/": {
-    "verdict": "PASS",
-    "coverageState": "送信して登録されました",
-    "indexingState": "INDEXING_ALLOWED",
-    "robotsTxtState": "ALLOWED",
-    "pageFetchState": "SUCCESSFUL",
-    "lastCrawlTime": "2026-10-06T23:38:14Z",
-    "googleCanonical": "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/"
+    "error": "The read operation timed out"
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-081f5ded6e67bd7e.html": {
     "verdict": "PASS",
@@ -27,13 +21,7 @@
     "googleCanonical": null
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-46bc4f75aef3303d.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
+    "error": "The read operation timed out"
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/miyagi-kurihara-152.html": {
     "verdict": "NEUTRAL",
@@ -45,40 +33,16 @@
     "googleCanonical": null
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-06aff3753da65a51.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
+    "error": "The read operation timed out"
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-112.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
+    "error": "The read operation timed out"
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-04aa3fa4baee8d3f.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
+    "error": "The read operation timed out"
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-09855c169c89c124.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
+    "error": "The read operation timed out"
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-14845302115ed31e.html": {
     "verdict": "NEUTRAL",
@@ -108,13 +72,7 @@
     "googleCanonical": null
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-1c8faba38c255561.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
+    "error": "The read operation timed out"
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-1d8ebb9dc21ba5a8.html": {
     "verdict": "NEUTRAL",
@@ -135,13 +93,7 @@
     "googleCanonical": null
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-22ad7341a7078c56.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
+    "error": "The read operation timed out"
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-22f7c27d79b8afff.html": {
     "verdict": "NEUTRAL",
@@ -162,13 +114,7 @@
     "googleCanonical": null
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-2603e4c3480599d5.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
+    "error": "The read operation timed out"
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-2f06ec05fa18e7d8.html": {
     "verdict": "NEUTRAL",
@@ -180,13 +126,7 @@
     "googleCanonical": null
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-30a9e78ea53c2d50.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
+    "error": "The read operation timed out"
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-33cba9993c627cfb.html": {
     "verdict": "NEUTRAL",
@@ -198,13 +138,7 @@
     "googleCanonical": null
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-363e902ec98406f5.html": {
-    "verdict": "NEUTRAL",
-    "coverageState": "URL が Google に認識されていません",
-    "indexingState": "INDEXING_STATE_UNSPECIFIED",
-    "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-    "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-    "lastCrawlTime": null,
-    "googleCanonical": null
+    "error": "The read operation timed out"
   },
   "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-38fa38f09c134000.html": {
     "verdict": "NEUTRAL",
