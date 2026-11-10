@@ -1,19 +1,21 @@
 # NexT DooR 公開ページ監視
-実行日: 2026-11-09T06:35:43.051350+00:00
+実行日: 2026-11-10T07:21:52.706617+00:00
 サイトマップHTTP: 200
-サイトマップURL数: 319
+サイトマップURL数: 323
 鹿角市HTTP: 200
 
 ## 県別
 - 青森: HTTP 200 = 176/176件、異常 0件
 - 岩手: HTTP 200 = 5/5件、異常 0件
 - 宮城: HTTP 200 = 18/18件、異常 0件
-- 秋田: HTTP 200 = 94/94件、異常 0件
+- 秋田: HTTP 200 = 98/98件、異常 0件
 - 山形: HTTP 200 = 10/10件、異常 0件
 - 福島: HTTP 200 = 8/8件、異常 0件
 
 ## 前回との差分
-- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-hirosaki-b2c23d5863e43a99.html: 新規 → 200
-- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-8bca934502029749.html: 503 → 200
+- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-b733e7ab22547ad5.html: 新規 → 200
+- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-bc425a4d417fa099.html: 新規 → 200
+- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-bebe962c86228c10.html: 新規 → 200
+- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-cb7dde072db36d6a.html: 新規 → 200
 
 ※ HTTP検査であり、Googleのインデックス登録・登録除外・クロール統計を示すものではありません。

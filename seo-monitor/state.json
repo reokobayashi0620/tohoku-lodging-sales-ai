@@ -1,6 +1,6 @@
 {
   "sitemap_status": 200,
-  "url_count": 319,
+  "url_count": 323,
   "properties": {
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-06aff3753da65a51.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-081f5ded6e67bd7e.html": 200,
@@ -70,13 +70,17 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-a9228fce9bcbda92.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-b0b1b9efd76d27c6.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-b2323727405292b7.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-b733e7ab22547ad5.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-b8e0c344ef2db468.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-b9b816467448a819.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-b9d511d2d24f3158.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-ba405558ae8929de.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-bc425a4d417fa099.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-bebe962c86228c10.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-c1d390f4b43751f6.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-c54064bf2df95a41.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-c9ca72ada5159558.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-cb7dde072db36d6a.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-cbc2cf4d5f42556d.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-cc5dd33d10957675.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-cdfaa3677af4344c.html": 200,
@@ -331,8 +335,8 @@
       "errors": []
     },
     "秋田": {
-      "total": 94,
-      "ok": 94,
+      "total": 98,
+      "ok": 98,
       "errors": []
     },
     "山形": {
