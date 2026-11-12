@@ -1,4 +1,5 @@
 source_id,source_url,prefecture,municipality,address,asking_price_jpy,property_type,building_sqm,land_sqm,features,retrieved_at
+hirosaki_area_bank,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,Aomori,Hirosaki,清原1-6-16,11800000,Residential / sale,113.85,203.32,,
 hirosaki_area_bank,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,Aomori,Hirosaki,取上5-10-19、10-19先,1000000,Residential / sale,148.96,134.01,,
 hirosaki_area_bank,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,Aomori,Hirosaki,青樹町20-28,1800000,Residential / sale,74.95,179.63,,
 hirosaki_area_bank,https://www.city.hirosaki.aomori.jp/akiyabank-8/hirosaki/akiya.html,Aomori,Hirosaki,元寺町小路17-5,19800000,Residential / sale,161.47,321.02,,
