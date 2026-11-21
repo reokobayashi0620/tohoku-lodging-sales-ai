@@ -258,7 +258,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-owanii-0f34aaf72c8c6967.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-owanii-185ad19da09f2fc3.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-owanii-18758a7213a3208b.html": 200,
-    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-owanii-1984060276b231ef.html": 503,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-owanii-1984060276b231ef.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-owanii-23235847c6507b66.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-owanii-2869ee391997d021.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-owanii-34693b812ac5f083.html": 200,
@@ -319,7 +319,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-116.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-117.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-118.html": 200,
-    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-119.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-119.html": 503,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-120.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-121.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-123.html": 200
@@ -327,13 +327,8 @@
   "prefectures": {
     "青森": {
       "total": 177,
-      "ok": 176,
-      "errors": [
-        {
-          "url": "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-owanii-1984060276b231ef.html",
-          "status": 503
-        }
-      ]
+      "ok": 177,
+      "errors": []
     },
     "岩手": {
       "total": 5,
@@ -352,8 +347,13 @@
     },
     "山形": {
       "total": 10,
-      "ok": 10,
-      "errors": []
+      "ok": 9,
+      "errors": [
+        {
+          "url": "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-119.html",
+          "status": 503
+        }
+      ]
     },
     "福島": {
       "total": 9,
