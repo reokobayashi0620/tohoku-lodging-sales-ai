@@ -1,5 +1,5 @@
 # Google Search Console インデックス監視
-実行日時（UTC）: 2026-11-21T07:43:37.972250+00:00
+実行日時（UTC）: 2026-11-22T07:26:15.026040+00:00
 
 - 青森: 登録判定PASS 0/1 件、APIエラー 0 件
 - 岩手: 登録判定PASS 0/1 件、APIエラー 0 件
@@ -10,15 +10,7 @@
 
 鹿角市: {"verdict": "PASS", "coverageState": "送信して登録されました", "indexingState": "INDEXING_ALLOWED", "robotsTxtState": "ALLOWED", "pageFetchState": "SUCCESSFUL", "lastCrawlTime": "2026-10-07T01:11:48Z", "googleCanonical": "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-081f5ded6e67bd7e.html"}
 
-前回からの状態変化（既存URL）: 8 件
-- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-2603e4c3480599d5.html : {'error': 'The read operation timed out'} → {'verdict': 'NEUTRAL', 'coverageState': 'URL が Google に認識されていません', 'indexingState': 'INDEXING_STATE_UNSPECIFIED', 'robotsTxtState': 'ROBOTS_TXT_STATE_UNSPECIFIED', 'pageFetchState': 'PAGE_FETCH_STATE_UNSPECIFIED', 'lastCrawlTime': None, 'googleCanonical': None}
-- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-3c6c32a42d053574.html : {'error': 'The read operation timed out'} → {'verdict': 'NEUTRAL', 'coverageState': 'URL が Google に認識されていません', 'indexingState': 'INDEXING_STATE_UNSPECIFIED', 'robotsTxtState': 'ROBOTS_TXT_STATE_UNSPECIFIED', 'pageFetchState': 'PAGE_FETCH_STATE_UNSPECIFIED', 'lastCrawlTime': None, 'googleCanonical': None}
-- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-411418aad35d6553.html : {'error': 'The read operation timed out'} → {'verdict': 'NEUTRAL', 'coverageState': 'URL が Google に認識されていません', 'indexingState': 'INDEXING_STATE_UNSPECIFIED', 'robotsTxtState': 'ROBOTS_TXT_STATE_UNSPECIFIED', 'pageFetchState': 'PAGE_FETCH_STATE_UNSPECIFIED', 'lastCrawlTime': None, 'googleCanonical': None}
-- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-419075529dfa7d20.html : {'error': 'The read operation timed out'} → {'verdict': 'NEUTRAL', 'coverageState': 'URL が Google に認識されていません', 'indexingState': 'INDEXING_STATE_UNSPECIFIED', 'robotsTxtState': 'ROBOTS_TXT_STATE_UNSPECIFIED', 'pageFetchState': 'PAGE_FETCH_STATE_UNSPECIFIED', 'lastCrawlTime': None, 'googleCanonical': None}
-- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-4ac803eeee82bccf.html : {'error': 'The read operation timed out'} → {'verdict': 'NEUTRAL', 'coverageState': 'URL が Google に認識されていません', 'indexingState': 'INDEXING_STATE_UNSPECIFIED', 'robotsTxtState': 'ROBOTS_TXT_STATE_UNSPECIFIED', 'pageFetchState': 'PAGE_FETCH_STATE_UNSPECIFIED', 'lastCrawlTime': None, 'googleCanonical': None}
-- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-4b17098fad90ef4d.html : {'error': 'The read operation timed out'} → {'verdict': 'NEUTRAL', 'coverageState': 'URL が Google に認識されていません', 'indexingState': 'INDEXING_STATE_UNSPECIFIED', 'robotsTxtState': 'ROBOTS_TXT_STATE_UNSPECIFIED', 'pageFetchState': 'PAGE_FETCH_STATE_UNSPECIFIED', 'lastCrawlTime': None, 'googleCanonical': None}
-- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-4c1eb9aedc3b51ed.html : {'error': 'The read operation timed out'} → {'verdict': 'NEUTRAL', 'coverageState': 'URL が Google に認識されていません', 'indexingState': 'INDEXING_STATE_UNSPECIFIED', 'robotsTxtState': 'ROBOTS_TXT_STATE_UNSPECIFIED', 'pageFetchState': 'PAGE_FETCH_STATE_UNSPECIFIED', 'lastCrawlTime': None, 'googleCanonical': None}
-- https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-51b1df3d05f1bc28.html : {'error': 'The read operation timed out'} → {'verdict': 'NEUTRAL', 'coverageState': 'URL が Google に認識されていません', 'indexingState': 'INDEXING_STATE_UNSPECIFIED', 'robotsTxtState': 'ROBOTS_TXT_STATE_UNSPECIFIED', 'pageFetchState': 'PAGE_FETCH_STATE_UNSPECIFIED', 'lastCrawlTime': None, 'googleCanonical': None}
+前回からの状態変化（既存URL）: 0 件
 
 新規検査URL: 0 件
 
