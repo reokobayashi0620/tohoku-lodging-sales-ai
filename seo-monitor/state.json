@@ -319,7 +319,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-116.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-117.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-118.html": 200,
-    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-119.html": 503,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-119.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-120.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-121.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-123.html": 200
@@ -347,13 +347,8 @@
     },
     "山形": {
       "total": 10,
-      "ok": 9,
-      "errors": [
-        {
-          "url": "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/yamagata-tendo-119.html",
-          "status": 503
-        }
-      ]
+      "ok": 10,
+      "errors": []
     },
     "福島": {
       "total": 9,
