@@ -182,7 +182,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-hirosaki-b171a1d33bfeb4ef.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-hirosaki-b25f84affe00a8a9.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-hirosaki-b2c23d5863e43a99.html": 200,
-    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-hirosaki-b4d14db6ead28086.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-hirosaki-b4d14db6ead28086.html": 503,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-hirosaki-b6835cfe9e7ea463.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-hirosaki-bf867346b198be56.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-hirosaki-bfe02afc9bb9f3b0.html": 200,
@@ -327,8 +327,13 @@
   "prefectures": {
     "青森": {
       "total": 177,
-      "ok": 177,
-      "errors": []
+      "ok": 176,
+      "errors": [
+        {
+          "url": "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/aomori-hirosaki-b4d14db6ead28086.html",
+          "status": 503
+        }
+      ]
     },
     "岩手": {
       "total": 5,
