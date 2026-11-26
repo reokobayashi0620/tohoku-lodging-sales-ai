@@ -1,6 +1,6 @@
 {
   "sitemap_status": 200,
-  "url_count": 329,
+  "url_count": 330,
   "properties": {
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-06aff3753da65a51.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/akita-kazuno-081f5ded6e67bd7e.html": 200,
@@ -288,6 +288,7 @@
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-c1e4dd91d9d499ae.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/fukushima-date-d31e33f1046bff47.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-46bc4f75aef3303d.html": 200,
+    "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-5dffb5ff7600e97b.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-8393207b1bdbe63a.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-97849a4640ca4471.html": 200,
     "https://reokobayashi0620.github.io/tohoku-lodging-sales-ai/properties/iwate-iwate-town-d1ccef6b4d751dd1.html": 200,
@@ -331,8 +332,8 @@
       "errors": []
     },
     "岩手": {
-      "total": 5,
-      "ok": 5,
+      "total": 6,
+      "ok": 6,
       "errors": []
     },
     "宮城": {
