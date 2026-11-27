@@ -4,9 +4,9 @@ Generated automatically. A failed source is visible here and is not silently tre
 
 | Source | Status | Listings | Checked (UTC) | Detail |
 |---|---|---:|---|---|
-| Iwate / Iwate Town | ok | 5 | 2026-11-26T04:16:19.439871+00:00 | ok |
-| Aomori / Hirosaki Area | ok | 240 | 2026-11-26T04:16:26.515975+00:00 | ok |
-| Miyagi / Kurihara | ok | 15 | 2026-11-26T04:16:27.760946+00:00 | ok |
-| Akita / Kazuno | ok | 91 | 2026-11-26T04:18:16.335138+00:00 | ok |
-| Yamagata / Tendo | ok | 9 | 2026-11-26T04:18:17.026562+00:00 | ok |
-| Fukushima / Date City | ok | 9 | 2026-11-26T04:18:17.585309+00:00 | ok |
+| Iwate / Iwate Town | ok | 5 | 2026-11-27T04:26:00.462387+00:00 | ok |
+| Aomori / Hirosaki Area | ok | 241 | 2026-11-27T04:26:07.354983+00:00 | ok |
+| Miyagi / Kurihara | ok | 15 | 2026-11-27T04:26:08.471431+00:00 | ok |
+| Akita / Kazuno | ok | 91 | 2026-11-27T04:27:49.954347+00:00 | ok |
+| Yamagata / Tendo | ok | 9 | 2026-11-27T04:27:50.707323+00:00 | ok |
+| Fukushima / Date City | ok | 9 | 2026-11-27T04:27:51.721782+00:00 | ok |
